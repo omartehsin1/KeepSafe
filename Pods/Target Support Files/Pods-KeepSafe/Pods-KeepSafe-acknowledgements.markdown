@@ -1072,6 +1072,14 @@ Copyright 2019 Google
 
 Copyright 2019 Google
 
+## GoogleMaps
+
+Copyright 2018 Google
+
+## GooglePlaces
+
+Copyright 2018 Google
+
 ## GoogleUtilities
 
 

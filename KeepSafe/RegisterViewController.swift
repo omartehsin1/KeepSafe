@@ -19,7 +19,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var emailTextField: MinoruTextField!
     @IBOutlet weak var usernameTextField: MinoruTextField!
     @IBOutlet weak var passwordTextField: MinoruTextField!
-    
+    //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
+    //sdfsd
     
     
     

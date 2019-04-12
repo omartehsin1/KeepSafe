@@ -13,6 +13,8 @@ pod 'SVProgressHUD'
 pod 'ChameleonFramework'
 pod 'TextFieldEffects'
 pod 'PMSuperButton'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 
   target 'KeepSafeTests' do
     inherit! :search_paths
