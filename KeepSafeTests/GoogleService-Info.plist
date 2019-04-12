@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1007685028289-c811i8gck1qdfb51durdg1ldbnfe98vf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1007685028289-c811i8gck1qdfb51durdg1ldbnfe98vf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDGhPKg7nRyTU6UcQGwsGrR9MXyTYZrKUc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1007685028289</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.omartehsin.KeepSafe</string>
+	<key>PROJECT_ID</key>
+	<string>keep-safe-1e8eb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>keep-safe-1e8eb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1007685028289:ios:0feb4b0cf3e43e79</string>
+	<key>DATABASE_URL</key>
+	<string>https://keep-safe-1e8eb.firebaseio.com</string>
+</dict>
+</plist>
