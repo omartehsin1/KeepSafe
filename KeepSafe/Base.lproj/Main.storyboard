@@ -13,7 +13,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeViewController" id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="2872.8000000000002" y="-918.89055472263874"/>
         </scene>
-        <!--View Controller-->
+        <!--Home Page View Controller-->
         <scene sceneID="hNZ-Ob-Feb">
             <objects>
-                <viewController id="fwh-Hx-Brh" sceneMemberID="viewController">
+                <viewController id="fwh-Hx-Brh" customClass="HomePageViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FnB-sP-Sz4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -127,10 +127,15 @@
                         <color key="backgroundColor" red="0.1647058824" green="0.76862745099999996" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="Bri-N1-6gJ"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Fnx-2k-Ndt">
+                        <barButtonItem key="leftBarButtonItem" image="lines" id="sDm-0m-Rz8">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozk-50-hmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1502" y="923"/>
+            <point key="canvasLocation" x="2440.8000000000002" y="922.48875562218893"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="E2U-jR-oPy">
@@ -248,7 +253,7 @@
                         <outlet property="passwordTextField" destination="C6T-us-Gkc" id="wvc-XQ-8v3"/>
                         <outlet property="profilePicBTN" destination="KCM-ah-OnR" id="rdK-Oy-SVf"/>
                         <outlet property="usernameTextField" destination="osD-7c-Bj9" id="H4a-NO-Tc6"/>
-                        <segue destination="fwh-Hx-Brh" kind="show" identifier="goToMain" id="Omf-57-U5L"/>
+                        <segue destination="Pj6-F7-PYe" kind="show" identifier="goToMain" id="Omf-57-U5L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N8k-S7-GID" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -342,7 +347,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="Ksf-WX-Ctk" id="F7S-V5-MRT"/>
                         <outlet property="passwordTextField" destination="YiQ-FU-4wy" id="Bzj-1t-aee"/>
-                        <segue destination="fwh-Hx-Brh" kind="show" identifier="goToMainFromLogIn" id="3Fa-D7-SNS"/>
+                        <segue destination="Pj6-F7-PYe" kind="show" identifier="goToMainFromLogIn" id="3Fa-D7-SNS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0qA-U2-8fX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -367,12 +372,31 @@
             </objects>
             <point key="canvasLocation" x="1933.5999999999999" y="-918.89055472263874"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RYT-Pe-Etz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pj6-F7-PYe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XeM-pm-l0Z">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fwh-Hx-Brh" kind="relationship" relationship="rootViewController" id="kSP-qG-Anf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fCS-Xh-r3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1501.5999999999999" y="922.48875562218893"/>
+        </scene>
     </scenes>
     <resources>
         <image name="defaultUser" width="300" height="300"/>
+        <image name="lines" width="30" height="30"/>
         <image name="radarImage" width="1025" height="1025"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3Fa-D7-SNS"/>
+        <segue reference="Omf-57-U5L"/>
     </inferredMetricsTieBreakers>
 </document>

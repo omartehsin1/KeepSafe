@@ -14,13 +14,8 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerButton.touchUpInside() {
-            print("Register button was touched")
-            
-        }
-        //logInButton.showLoader(userInteraction: true)
+        
 
-        // Do any additional setup after loading the view.
     }
     
     

@@ -7,24 +7,36 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class HomePageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        barButtonItem()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func barButtonItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogOut))
     }
-    */
+    
+    @objc func handleLogOut() {
+        do {
+            try Auth.auth().signOut()
+            var welcomeViewController = WelcomeViewController()
+            welcomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+            self.present(welcomeViewController, animated: true, completion: nil)
+        } catch let error {
+            print("There was an error: \(error)")
+        }
+        
+    }
+    
+    func presentMenuView() {
+        
+    }
 
 }
