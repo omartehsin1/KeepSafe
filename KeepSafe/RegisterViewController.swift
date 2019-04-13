@@ -20,21 +20,53 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var usernameTextField: MinoruTextField!
     @IBOutlet weak var passwordTextField: MinoruTextField!
     //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
-    //sdfsd
-    
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        defaultImage.isUserInteractionEnabled = true
 
-        // Do any additional setup after loading the view.
     }
+    
+    @IBAction func imageTapped(_ sender: Any) {
+        changeImage()
+    }
+    
+    
+    func changeImage() {
+        let alertController = UIAlertController(title: "Change Photo", message: "To change your photo, you can:", preferredStyle: .actionSheet)
+        
+        let takePhotoAction = UIAlertAction(title: "Take Photo", style: .default) { (alertAction) in
+            if UIImagePickerController.isCameraDeviceAvailable(.front) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+        
+        let pickPhotoAction = UIAlertAction(title: "Pick Photo", style: .default) { (alertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .photoLibrary
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+        
+        alertController.addAction(takePhotoAction)
+        alertController.addAction(pickPhotoAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 
     @IBAction func changeProfilePicBTN(_ sender: UIButton) {
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true, completion: nil)
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .photoLibrary
+//        self.present(imagePicker, animated: true, completion: nil)
         
     }
     
@@ -64,17 +96,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         dismiss(animated: true, completion: nil)
     }
     
-    
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+

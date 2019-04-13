@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */; };
 		07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B62260F7A90072D1BC /* HomePageViewController.swift */; };
+		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
+		07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04BA226172A30072D1BC /* MenuItems.swift */; };
 		07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B212225BE7500904A45 /* AppDelegate.swift */; };
 		07E30B242225BE7500904A45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B232225BE7500904A45 /* ViewController.swift */; };
 		07E30B272225BE7500904A45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B252225BE7500904A45 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		07CC04B62260F7A90072D1BC /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		07CC04B8226153230072D1BC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		07CC04BA226172A30072D1BC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		07E30B1E2225BE7500904A45 /* KeepSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E30B212225BE7500904A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E30B232225BE7500904A45 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				07E30B232225BE7500904A45 /* ViewController.swift */,
 				07E30B4C2225D8BE00904A45 /* LogInViewController.swift */,
 				07E30B252225BE7500904A45 /* Main.storyboard */,
+				07CC04B8226153230072D1BC /* MenuTableViewCell.swift */,
+				07CC04BA226172A30072D1BC /* MenuItems.swift */,
 				07CC04B62260F7A90072D1BC /* HomePageViewController.swift */,
 				07E30B2B2225BE7700904A45 /* Assets.xcassets */,
 				07E30B2D2225BE7700904A45 /* LaunchScreen.storyboard */,
@@ -371,7 +377,9 @@
 				07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
+				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
 				07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */,
+				07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */,
 				07E30B5122263BE600904A45 /* Users.swift in Sources */,
 				07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */,
 			);
