@@ -12,6 +12,7 @@ import UIKit
 class MenuItems {
     var image: UIImage
     var title: String
+
     
     init(image: UIImage, title: String) {
         self.image = image
