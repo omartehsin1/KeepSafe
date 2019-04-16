@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ChameleonFramework
 
 class MessageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
@@ -49,15 +50,15 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //Set background as blue if message is from logged in User
         if cell.senderUsername.text == Auth.auth().currentUser?.email as! String {
-            cell.avatarImageView.backgroundColor = UIColor.green //change to flat.mint
-            cell.messageBackground.backgroundColor = UIColor.blue // flatSkyBlue
+            cell.avatarImageView.backgroundColor = UIColor.flatMint() //change to flat.mint
+            cell.messageBackground.backgroundColor = UIColor.flatSkyBlue() // flatSkyBlue
             
         }
         //Set background as grey if message is from another user
         
         else  {
-            cell.avatarImageView.backgroundColor = UIColor.red //flatWatermelon
-            cell.messageBackground.backgroundColor = UIColor.red // flatgrey
+            cell.avatarImageView.backgroundColor = UIColor.flatWatermelon() //flatWatermelon
+            cell.messageBackground.backgroundColor = UIColor.flatGray() // flatgrey
         }
         return cell
 

@@ -212,11 +212,13 @@
                         <outlet property="tableView" destination="27h-M4-FfK" id="KmL-3A-6XV"/>
                         <outlet property="trailingC" destination="S2e-cM-E3K" id="ZoL-Do-KPp"/>
                         <segue destination="QCn-t2-b68" kind="show" identifier="showMessageVc" id="cKr-8t-35O"/>
+                        <segue destination="2fH-xG-heA" kind="show" identifier="showLocationServiceVC" id="tmN-1h-5XT"/>
+                        <segue destination="3X4-RH-Kuu" kind="show" identifier="showYourCircleVC" id="Cxq-xw-VG6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozk-50-hmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2440.8000000000002" y="922.48875562218893"/>
+            <point key="canvasLocation" x="2361" y="922"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="C9B-rV-NQM">
@@ -240,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMD-xH-zAF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2041" y="1803"/>
+            <point key="canvasLocation" x="2983" y="1801"/>
         </scene>
         <!--Message-->
         <scene sceneID="miz-F1-bHk">
@@ -300,12 +302,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9l8-Lo-jcF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2717.5999999999999" y="1781.5592203898052"/>
+            <point key="canvasLocation" x="1401" y="1802"/>
         </scene>
-        <!--View Controller-->
+        <!--Location Services View Controller-->
         <scene sceneID="b0k-5W-wnu">
             <objects>
-                <viewController id="2fH-xG-heA" sceneMemberID="viewController">
+                <viewController id="2fH-xG-heA" customClass="LocationServicesViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MH8-Xn-9Y9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -324,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QVL-yc-jmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3450" y="1863"/>
+            <point key="canvasLocation" x="2201" y="1801"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="E2U-jR-oPy">

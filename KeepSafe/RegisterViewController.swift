@@ -84,7 +84,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     self.performSegue(withIdentifier: "goToMain", sender: self)
                 }
                 else {
-                    print(error)
+                    print(error!)
                 }
             }
         }

@@ -42,11 +42,13 @@ class HomePageViewController: UIViewController {
         let menuItem2 = MenuItems(image: UIImage(named: "location")!, title: "Location Services")
         let menuItem3 = MenuItems(image: UIImage(named: "circle")!, title: "Your Circle")
         let menuItem4 = MenuItems(image: UIImage(named: "crime")!, title: "Report Crime")
+        let menuItem5 = MenuItems(image: UIImage(named: "places")!, title: "Places")
         
         tempMenuItems.append(menuItem1)
         tempMenuItems.append(menuItem2)
         tempMenuItems.append(menuItem3)
         tempMenuItems.append(menuItem4)
+        tempMenuItems.append(menuItem5)
         
         combinedArray.append(tempMenuItems)
         return tempMenuItems
@@ -135,6 +137,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
 //
 //
 //        return UITableViewCell()
+
         let menuItem = menuItems[indexPath.row]
 
 
@@ -161,6 +164,14 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         
         if (indexPath.row == 0) {
             performSegue(withIdentifier: "showMessageVc", sender: self)
+        }
+        
+        else if (indexPath.row == 1) {
+            performSegue(withIdentifier: "showLocationServiceVC", sender: self)
+        }
+        
+        else if (indexPath.row == 2) {
+            performSegue(withIdentifier: "showYourCircleVC", sender: self)
         }
     }
     
