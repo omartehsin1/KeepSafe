@@ -28,6 +28,9 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
 
     }
     
+    
+    // MARK: Image Picker
+    
     @IBAction func imageTapped(_ sender: Any) {
         changeImage()
     }
@@ -62,13 +65,16 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         self.present(alertController, animated: true, completion: nil)
     }
     
-
-    @IBAction func changeProfilePicBTN(_ sender: UIButton) {
-//        imagePicker.delegate = self
-//        imagePicker.sourceType = .photoLibrary
-//        self.present(imagePicker, animated: true, completion: nil)
-        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage
+        {
+            defaultImage.image = image
+        }
+        dismiss(animated: true, completion: nil)
     }
+    
+    
+    // MARK: Registration
     
     @IBAction func restrationBTNPressed(_ sender: PMSuperButton) {
         
@@ -84,19 +90,6 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         }
 
     }
-    
-    
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage
-        {
-            defaultImage.image = image
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-
 
 }
 

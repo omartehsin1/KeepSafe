@@ -116,19 +116,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-Wg-7W1" userLabel="mainView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.1647058824" green="0.76862745099999996" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="27h-M4-FfK">
                                 <rect key="frame" x="0.0" y="64" width="250" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="firstCell" rowHeight="108" id="1qO-HW-2hg">
-                                        <rect key="frame" x="0.0" y="28" width="250" height="108"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="115" id="1qO-HW-2hg" userLabel="profileCell" customClass="ProfileTableViewCell" customModule="KeepSafe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="250" height="115"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1qO-HW-2hg" id="asf-SG-E3U">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="107.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="114.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9lq-k8-mRO">
@@ -151,9 +147,14 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="locationTitle" destination="ohd-Gd-T23" id="9Az-zP-9QC"/>
+                                            <outlet property="nameTitle" destination="9lq-k8-mRO" id="D8z-gg-jtS"/>
+                                            <outlet property="profileImage" destination="Vcq-dD-CYX" id="0qO-ZK-BEh"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuItemCell" id="IRV-k3-KTw" customClass="MenuTableViewCell" customModule="KeepSafe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="136" width="250" height="90"/>
+                                        <rect key="frame" x="0.0" y="143" width="250" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IRV-k3-KTw" id="TeR-5K-dKN">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="89.5"/>
@@ -164,7 +165,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zN-Pg-gG8">
-                                                    <rect key="frame" x="104" y="34" width="131" height="21"/>
+                                                    <rect key="frame" x="82" y="34" width="153" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -179,6 +180,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-Wg-7W1" userLabel="mainView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.1647058824" green="0.76862745099999996" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -206,6 +211,7 @@
                         <outlet property="mainView" destination="i6Q-Wg-7W1" id="uv1-4h-LTH"/>
                         <outlet property="tableView" destination="27h-M4-FfK" id="KmL-3A-6XV"/>
                         <outlet property="trailingC" destination="S2e-cM-E3K" id="ZoL-Do-KPp"/>
+                        <segue destination="QCn-t2-b68" kind="show" identifier="showMessageVc" id="cKr-8t-35O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozk-50-hmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -236,29 +242,65 @@
             </objects>
             <point key="canvasLocation" x="2041" y="1803"/>
         </scene>
-        <!--View Controller-->
+        <!--Message-->
         <scene sceneID="miz-F1-bHk">
             <objects>
-                <viewController id="QCn-t2-b68" sceneMemberID="viewController">
+                <viewController id="QCn-t2-b68" customClass="MessageViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ICm-UG-kEJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1a-WK-mBr">
-                                <rect key="frame" x="102" y="284" width="78" height="21"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hiu-bS-GN8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" id="azg-jV-p5J">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="azg-jV-p5J" id="abf-V7-sor">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fiE-7x-oIw">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Message" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QPF-xQ-gYd">
+                                        <rect key="frame" x="8" y="10" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7f-iH-vdb">
+                                        <rect key="frame" x="326" y="12" width="36" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendPressed:" destination="QCn-t2-b68" eventType="touchUpInside" id="OO6-kr-czI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gL8-lN-A1B"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Message" id="531-aR-G80"/>
+                    <connections>
+                        <outlet property="messageTableView" destination="hiu-bS-GN8" id="mYk-Aj-i7x"/>
+                        <outlet property="messageTextField" destination="QPF-xQ-gYd" id="OJM-Zj-iVU"/>
+                        <outlet property="sendButton" destination="I7f-iH-vdb" id="ZFD-6H-tbU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9l8-Lo-jcF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2718" y="1782"/>
+            <point key="canvasLocation" x="2717.5999999999999" y="1781.5592203898052"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="b0k-5W-wnu">
@@ -349,14 +391,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCM-ah-OnR">
-                                <rect key="frame" x="123" y="298" width="126" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Change Profile Pic"/>
-                                <connections>
-                                    <action selector="changeProfilePicBTN:" destination="vEc-vX-sWz" eventType="touchUpInside" id="oEs-c1-U6b"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultUser" translatesAutoresizingMaskIntoConstraints="NO" id="H0U-XO-DYU" userLabel="defaultUserImage">
                                 <rect key="frame" x="86" y="76" width="200" height="192"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -401,7 +435,6 @@
                         <outlet property="defaultImage" destination="H0U-XO-DYU" id="G4W-nr-LB5"/>
                         <outlet property="emailTextField" destination="1yc-vO-on7" id="FVN-ho-e2h"/>
                         <outlet property="passwordTextField" destination="C6T-us-Gkc" id="wvc-XQ-8v3"/>
-                        <outlet property="profilePicBTN" destination="KCM-ah-OnR" id="rdK-Oy-SVf"/>
                         <outlet property="usernameTextField" destination="osD-7c-Bj9" id="H4a-NO-Tc6"/>
                         <segue destination="Pj6-F7-PYe" kind="show" identifier="goToMain" id="Omf-57-U5L"/>
                     </connections>

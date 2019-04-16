@@ -13,12 +13,12 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var nameTitle: UILabel!
     @IBOutlet weak var locationTitle: UILabel!
     
-//    
-//    func setProfileItem(profileItems: ProfileItems) {
-//        
-//        profileImage.image = profileItems.profileImage
-//        nameTitle.text = profileItems.nameTitle
-//        locationTitle.text = profileItems.location
-//    }
+    
+    func setProfileItem(profileItems: ProfileItems) {
+        
+        profileImage.image = profileItems.profileImage
+        nameTitle.text = profileItems.nameTitle
+        locationTitle.text = profileItems.location
+    }
  
 }

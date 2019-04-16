@@ -18,14 +18,19 @@ class HomePageViewController: UIViewController {
     
     var hamburgerMenuIsVisible = false
     var menuItems: [MenuItems] = []
+    var profileItems: [ProfileItems] = []
+    var combinedArray: [Any] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         barButtonItem()
         menuItems = createArray()
+        profileItems = createProfileArray()
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        combinedArray = [menuItems.count + profileItems.count]
 
         // Do any additional setup after loading the view.
     }
@@ -42,7 +47,21 @@ class HomePageViewController: UIViewController {
         tempMenuItems.append(menuItem2)
         tempMenuItems.append(menuItem3)
         tempMenuItems.append(menuItem4)
+        
+        combinedArray.append(tempMenuItems)
         return tempMenuItems
+    }
+    
+    func createProfileArray() -> [ProfileItems] {
+        var tempProfileItems: [ProfileItems] = []
+
+        let profileItem = ProfileItems(profileImage: UIImage(named: "defaultUser")!, nameTitle: "Omar Tehsin", location: "Toronto")
+
+        tempProfileItems.append(profileItem)
+        
+        combinedArray.append(tempProfileItems)
+
+        return tempProfileItems
     }
     
     func barButtonItem() {
@@ -63,7 +82,7 @@ class HomePageViewController: UIViewController {
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         }) { (animationComplete) in
-            print("Animaltion is complete")
+            print("Animation is complete")
         }
     }
     
@@ -78,27 +97,71 @@ class HomePageViewController: UIViewController {
         }
         
     }
-    
-    func presentMenuView() {
-        
-    }
+
 
 }
 
 extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        print("The cell count is: \(combinedArray.count)")
         return menuItems.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        if (indexPath.row == 0) {
+//            let profileItem = profileItems[indexPath.row]
+//
+//            let profileCell = tableView.dequeueReusableCell(withIdentifier: "profileCell") as! ProfileTableViewCell
+//
+//            profileCell.setProfileItem(profileItems: profileItem)
+//
+//            return profileCell
+//        } else if (indexPath.row >= 1){
+//            let menuItem = menuItems[indexPath.row]
+//
+//
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "menuItemCell") as! MenuTableViewCell
+//
+//
+//            cell.setMenuItem(menuItems: menuItem)
+//
+//            return cell
+//        }
+//
+//
+//
+//        return UITableViewCell()
         let menuItem = menuItems[indexPath.row]
-        
+
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuItemCell") as! MenuTableViewCell
-        
+
+
         cell.setMenuItem(menuItems: menuItem)
-        
+
         return cell
+
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        
+//        if (indexPath.row == 0) {
+//            return 115
+//        }
+//        
+//        return 90
+//    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if (indexPath.row == 0) {
+            performSegue(withIdentifier: "showMessageVc", sender: self)
+        }
     }
     
 }
