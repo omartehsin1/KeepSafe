@@ -29,6 +29,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         defaultImage.isUserInteractionEnabled = true
         
         
+        
 
     }
     
@@ -42,38 +43,28 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     func changeImage() {
-        let alertController = UIAlertController(title: "Change Photo", message: "To change your photo, you can:", preferredStyle: .actionSheet)
         
-        let takePhotoAction = UIAlertAction(title: "Take Photo", style: .default) { (alertAction) in
-            if UIImagePickerController.isCameraDeviceAvailable(.front) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = .camera
-                
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-        }
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
         
-        let pickPhotoAction = UIAlertAction(title: "Pick Photo", style: .default) { (alertAction) in
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = .photoLibrary
-                
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-        }
-        
-        alertController.addAction(takePhotoAction)
-        alertController.addAction(pickPhotoAction)
-        
-        self.present(alertController, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage
+        
+        var selectedImageFromPicker : UIImage?
+        if let editedImage = info[.editedImage] as? UIImage
         {
-            defaultImage.image = image
+            //defaultImage.image = editedImage
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            //defaultImage.image = originalImage
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            defaultImage.image = selectedImage
         }
         dismiss(animated: true, completion: nil)
     }
@@ -94,6 +85,9 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 return
             }
             guard let uid = user?.user.uid else { return }
+            
+            let storeageRef = 
+            
             spinnerView.removeSpinner()
             self.performSegue(withIdentifier: "goToMain", sender: self)
             
