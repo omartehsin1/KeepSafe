@@ -31,8 +31,11 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageClass")
         messageTextField.delegate = self
 
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
-        //messageTableView.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
+        messageTableView.addGestureRecognizer(tapGesture)
+        
+        configureTableView()
+        retrieveMessage()
 
         messageTableView.separatorStyle = .none
 

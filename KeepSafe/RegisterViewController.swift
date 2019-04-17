@@ -12,6 +12,8 @@ import FirebaseAuth
 import TextFieldEffects
 import PMSuperButton
 
+
+
 class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     @IBOutlet weak var defaultImage: UIImageView!
     @IBOutlet weak var profilePicBTN: UIButton!
@@ -25,6 +27,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         defaultImage.isUserInteractionEnabled = true
+        
+        
 
     }
     
@@ -33,6 +37,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @IBAction func imageTapped(_ sender: Any) {
         changeImage()
+        
     }
     
     
@@ -77,16 +82,33 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     // MARK: Registration
     
     @IBAction func restrationBTNPressed(_ sender: PMSuperButton) {
+        spinnerView.showSpinner(onView: self.view)
+        guard let email = emailTextField.text, let password = passwordTextField.text, let usernameText = usernameTextField.text else {
+            print("Form is not valied")
+            return
+        }
         
-        if let email = emailTextField.text, let pass = passwordTextField.text {
-            Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
-                if let u = user {
-                    self.performSegue(withIdentifier: "goToMain", sender: self)
-                }
-                else {
-                    print(error!)
-                }
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                print(error)
+                return
             }
+            guard let uid = user?.user.uid else { return }
+            spinnerView.removeSpinner()
+            self.performSegue(withIdentifier: "goToMain", sender: self)
+            
+            
+            let ref = Database.database().reference(fromURL: "https://keep-safe-1e8eb.firebaseio.com/")
+            let usersReference = ref.child("users").child(uid)
+            let values = ["nameOfUser": usernameText, "email": email]
+            usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if err != nil {
+                    print(err)
+                    return
+                }
+                
+                print("Saved user successfully into firebase db")
+            })
         }
 
     }

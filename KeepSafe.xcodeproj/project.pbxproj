@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0750E268226670340038201E /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E267226670340038201E /* SpinnerViewController.swift */; };
+		0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26A226672C50038201E /* AddFriendViewController.swift */; };
+		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
+		0750E26F226775340038201E /* YourCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26E226775340038201E /* YourCircleViewController.swift */; };
 		07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876576226260AB001DE728 /* ProfileTableViewCell.swift */; };
 		07876579226260B9001DE728 /* ProfileItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876578226260B9001DE728 /* ProfileItems.swift */; };
 		0787657B2262827F001DE728 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787657A2262827F001DE728 /* MessageViewController.swift */; };
@@ -30,7 +33,6 @@
 		07E30B472225C4B800904A45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B462225C4B800904A45 /* GoogleService-Info.plist */; };
 		07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4C2225D8BE00904A45 /* LogInViewController.swift */; };
 		07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */; };
-		07E30B5122263BE600904A45 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B5022263BE600904A45 /* Users.swift */; };
 		215F29B78E1EFE3505004216 /* Pods_KeepSafeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA749F84653B2EFB25F62DC3 /* Pods_KeepSafeTests.framework */; };
 		A2AD0A43B7B9D5F6F4478DD7 /* Pods_KeepSafe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2FD260DFCB403E7E3BACB8F /* Pods_KeepSafe.framework */; };
 /* End PBXBuildFile section */
@@ -47,6 +49,9 @@
 
 /* Begin PBXFileReference section */
 		0750E267226670340038201E /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
+		0750E26A226672C50038201E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		0750E26E226775340038201E /* YourCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourCircleViewController.swift; sourceTree = "<group>"; };
 		07876576226260AB001DE728 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		07876578226260B9001DE728 /* ProfileItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItems.swift; sourceTree = "<group>"; };
 		0787657A2262827F001DE728 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +78,6 @@
 		07E30B462225C4B800904A45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07E30B4C2225D8BE00904A45 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		07E30B5022263BE600904A45 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		3EC05CC27689D43FEB4E5457 /* Pods-KeepSafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepSafe.release.xcconfig"; path = "Target Support Files/Pods-KeepSafe/Pods-KeepSafe.release.xcconfig"; sourceTree = "<group>"; };
 		6098995795134EAAF354BEF3 /* Pods-KeepSafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepSafe.debug.xcconfig"; path = "Target Support Files/Pods-KeepSafe/Pods-KeepSafe.debug.xcconfig"; sourceTree = "<group>"; };
 		A2FD260DFCB403E7E3BACB8F /* Pods_KeepSafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KeepSafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +106,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0750E269226672B10038201E /* YourCircle */ = {
+			isa = PBXGroup;
+			children = (
+				0750E26A226672C50038201E /* AddFriendViewController.swift */,
+				0750E26C2266AA660038201E /* Users.swift */,
+				0750E26E226775340038201E /* YourCircleViewController.swift */,
+			);
+			path = YourCircle;
+			sourceTree = "<group>";
+		};
 		0787657C22628289001DE728 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,13 +169,13 @@
 		07E30B202225BE7500904A45 /* KeepSafe */ = {
 			isa = PBXGroup;
 			children = (
+				0750E269226672B10038201E /* YourCircle */,
 				0787658622665D59001DE728 /* LocationServices */,
 				0787657D226282B0001DE728 /* MessageVC */,
 				0787657C22628289001DE728 /* TableView */,
 				07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */,
 				07E30B212225BE7500904A45 /* AppDelegate.swift */,
 				07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */,
-				07E30B5022263BE600904A45 /* Users.swift */,
 				07E30B232225BE7500904A45 /* ViewController.swift */,
 				07E30B4C2225D8BE00904A45 /* LogInViewController.swift */,
 				07E30B252225BE7500904A45 /* Main.storyboard */,
@@ -426,16 +440,18 @@
 				0787658422664D99001DE728 /* CustomMessageCell.swift in Sources */,
 				07E30B242225BE7500904A45 /* ViewController.swift in Sources */,
 				07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */,
+				0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */,
 				07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */,
 				0750E268226670340038201E /* SpinnerViewController.swift in Sources */,
 				07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,
+				0750E26F226775340038201E /* YourCircleViewController.swift in Sources */,
+				0750E26D2266AA660038201E /* Users.swift in Sources */,
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
 				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
 				07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */,
 				0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */,
 				07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */,
-				07E30B5122263BE600904A45 /* Users.swift in Sources */,
 				07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */,
 				0787657F2262A628001DE728 /* Message.swift in Sources */,
 			);

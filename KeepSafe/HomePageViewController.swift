@@ -25,33 +25,38 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         barButtonItem()
         menuItems = createArray()
+
         profileItems = createProfileArray()
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        combinedArray = [menuItems.count + profileItems.count]
+        //combinedArray = [menuItems.count + profileItems.count]
 
         // Do any additional setup after loading the view.
     }
     
     func createArray() -> [MenuItems] {
         var tempMenuItems: [MenuItems] = []
+
+        let menuItems1 = MenuItems(image: UIImage(named: "message")!, title: "message")
+        let menuItem2 = MenuItems(image: UIImage(named: "message")!, title: "Message")
+        let menuItem3 = MenuItems(image: UIImage(named: "location")!, title: "Location Services")
+        let menuItem4 = MenuItems(image: UIImage(named: "circle")!, title: "Your Circle")
+        let menuItem5 = MenuItems(image: UIImage(named: "crime")!, title: "Report Crime")
+        let menuItem6 = MenuItems(image: UIImage(named: "places")!, title: "Places")
         
-        let menuItem1 = MenuItems(image: UIImage(named: "message")!, title: "Message")
-        let menuItem2 = MenuItems(image: UIImage(named: "location")!, title: "Location Services")
-        let menuItem3 = MenuItems(image: UIImage(named: "circle")!, title: "Your Circle")
-        let menuItem4 = MenuItems(image: UIImage(named: "crime")!, title: "Report Crime")
-        let menuItem5 = MenuItems(image: UIImage(named: "places")!, title: "Places")
-        
-        tempMenuItems.append(menuItem1)
+        tempMenuItems.append(menuItems1)
         tempMenuItems.append(menuItem2)
         tempMenuItems.append(menuItem3)
         tempMenuItems.append(menuItem4)
         tempMenuItems.append(menuItem5)
+        tempMenuItems.append(menuItem6)
         
-        combinedArray.append(tempMenuItems)
+        //combinedArray.append(contentsOf: tempMenuItems)
+
         return tempMenuItems
+
     }
     
     func createProfileArray() -> [ProfileItems] {
@@ -60,8 +65,8 @@ class HomePageViewController: UIViewController {
         let profileItem = ProfileItems(profileImage: UIImage(named: "defaultUser")!, nameTitle: "Omar Tehsin", location: "Toronto")
 
         tempProfileItems.append(profileItem)
-        
-        combinedArray.append(tempProfileItems)
+
+        //combinedArray.append(contentsOf: tempProfileItems)
 
         return tempProfileItems
     }
@@ -107,70 +112,66 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        print("The cell count is: \(combinedArray.count)")
         return menuItems.count
+//        return 6
+
         
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return profileItems.count
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        if (indexPath.row == 0) {
-//            let profileItem = profileItems[indexPath.row]
-//
-//            let profileCell = tableView.dequeueReusableCell(withIdentifier: "profileCell") as! ProfileTableViewCell
-//
-//            profileCell.setProfileItem(profileItems: profileItem)
-//
-//            return profileCell
-//        } else if (indexPath.row >= 1){
-//            let menuItem = menuItems[indexPath.row]
-//
-//
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "menuItemCell") as! MenuTableViewCell
-//
-//
-//            cell.setMenuItem(menuItems: menuItem)
-//
-//            return cell
-//        }
-//
-//
-//
-//        return UITableViewCell()
 
-        let menuItem = menuItems[indexPath.row]
+        if (indexPath.row == 0) {
+            let profileItem = profileItems[indexPath.row]
+
+            let profileCell = tableView.dequeueReusableCell(withIdentifier: "profileCell") as! ProfileTableViewCell
+
+            profileCell.setProfileItem(profileItems: profileItem)
+
+            return profileCell
+        } else if (indexPath.row >= 1){
+            let menuItem = menuItems[indexPath.row]
 
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "menuItemCell") as! MenuTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "menuItemCell") as! MenuTableViewCell
 
 
-        cell.setMenuItem(menuItems: menuItem)
+            cell.setMenuItem(menuItems: menuItem)
 
-        return cell
+            return cell
+        }
+
+
+
+        return UITableViewCell()
+
 
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        
-//        if (indexPath.row == 0) {
-//            return 115
-//        }
-//        
-//        return 90
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if (indexPath.row == 0) {
+            return 115
+        }
+        
+        return 90
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if (indexPath.row == 0) {
+        if (indexPath.row == 1) {
             performSegue(withIdentifier: "showMessageVc", sender: self)
         }
         
-        else if (indexPath.row == 1) {
+        else if (indexPath.row == 2) {
             performSegue(withIdentifier: "showLocationServiceVC", sender: self)
         }
         
-        else if (indexPath.row == 2) {
+        else if (indexPath.row == 3) {
             performSegue(withIdentifier: "showYourCircleVC", sender: self)
         }
     }
