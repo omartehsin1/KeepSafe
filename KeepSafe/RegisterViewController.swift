@@ -81,30 +81,60 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error)
+                print(error!)
                 return
             }
             guard let uid = user?.user.uid else { return }
             
-            let storeageRef = 
-            
+            let imageName = NSUUID().uuidString
+            let storageRef = Storage.storage().reference().child("\(imageName).png")
+
+            if let uploadData = self.defaultImage.image?.pngData() {
+                storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                    if error != nil {
+                        print(error!)
+                        return
+                        
+                    }
+                    
+                    storageRef.downloadURL(completion: { (url, erro) in
+                        if (erro == nil) {
+                            if let downloadURL = url {
+                                let downloadString = downloadURL.absoluteString
+                                
+                                let values = ["nameOfUser": usernameText, "email": email, "profileImageURL": downloadString]
+                                self.registerUserIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
+                                
+                            }
+                        }
+                        else {
+                            print(erro!)
+                        }
+                    })
+
+                    
+
+                })
+                
+            }
+ 
             spinnerView.removeSpinner()
             self.performSegue(withIdentifier: "goToMain", sender: self)
             
-            
-            let ref = Database.database().reference(fromURL: "https://keep-safe-1e8eb.firebaseio.com/")
-            let usersReference = ref.child("users").child(uid)
-            let values = ["nameOfUser": usernameText, "email": email]
-            usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                if err != nil {
-                    print(err)
-                    return
-                }
-                
-                print("Saved user successfully into firebase db")
-            })
         }
 
+    }
+    private func registerUserIntoDatabaseWithUID(uid: String, values : [String: AnyObject]) {
+        let ref = Database.database().reference(fromURL: "https://keep-safe-1e8eb.firebaseio.com/")
+        let usersReference = ref.child("users").child(uid)
+        usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            if err != nil {
+                print(err)
+                return
+            }
+            
+            print("Saved user successfully into firebase db")
+        })
     }
 
 }
