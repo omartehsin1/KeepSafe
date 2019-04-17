@@ -9,6 +9,7 @@ target 'KeepSafe' do
 pod 'Firebase', '~>5.16.0'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
+pod 'Firebase/Storage'
 pod 'SVProgressHUD'
 pod 'ChameleonFramework'
 pod 'TextFieldEffects'
