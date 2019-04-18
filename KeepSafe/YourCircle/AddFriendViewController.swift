@@ -11,15 +11,13 @@ import Firebase
 
 class AddFriendViewController: UIViewController {
 
-    //uisearchresultsupdating
-
-    
-
-    
     var users = [Users]()
-    //var filteredUsers = [Users]()
+    
+    var searchController = UISearchController()
+    var resultsController = UITableViewController()
+
     var databaseRef = Database.database().reference()
-    var friendCell = UITableViewCell()
+    //var friendCell = UITableViewCell()
     
  
     @IBOutlet weak var friendsTableView: UITableView!
@@ -28,15 +26,12 @@ class AddFriendViewController: UIViewController {
 
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
-        
         navigationItem.title = "Add Friends"
-        friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
-        friendCell.imageView?.clipsToBounds = true
         
         fetchUser()
-        
         friendsTableView.register(UserCell.self, forCellReuseIdentifier: "friendCell")
 
+ 
     }
     
     @IBAction func dismissAddFriend(_ sender: Any) {
@@ -66,7 +61,6 @@ class AddFriendViewController: UIViewController {
         
     }
 
-
 }
 
 extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
@@ -82,11 +76,13 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        friendCell = friendsTableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath)
+        let friendCell = friendsTableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath)
         let user = users[indexPath.row]
         friendCell.textLabel?.text = user.nameOfUser
         friendCell.detailTextLabel?.text = user.email
         friendCell.imageView?.image = UIImage(named: "defaultUser")
+        friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
+        friendCell.imageView?.clipsToBounds = true
         
         friendCell.imageView?.contentMode = .scaleAspectFill
         
@@ -98,11 +94,9 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
                     return
                 }
                 DispatchQueue.main.async {
-                    
-                    
-                    self.friendCell.imageView?.image = UIImage(data: data!)
-                    
-                    
+
+                friendCell.imageView?.image = UIImage(data: data!)
+ 
                 }
                 
                 }.resume()
