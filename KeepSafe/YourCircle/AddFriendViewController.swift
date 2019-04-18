@@ -9,10 +9,15 @@
 import UIKit
 import Firebase
 
-class AddFriendViewController: UIViewController, UISearchResultsUpdating {
-    let searchController = UISearchController(searchResultsController: nil)
-    var users = [NSDictionary?]()
-    var filteredUsers = [NSDictionary?]()
+class AddFriendViewController: UIViewController {
+
+    //uisearchresultsupdating
+
+    
+
+    
+    var users = [Users]()
+    //var filteredUsers = [Users]()
     var databaseRef = Database.database().reference()
     var friendCell = UITableViewCell()
     
@@ -20,24 +25,18 @@ class AddFriendViewController: UIViewController, UISearchResultsUpdating {
     @IBOutlet weak var friendsTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        friendsTableView.tableHeaderView = searchController.searchBar
+
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         
         navigationItem.title = "Add Friends"
+        friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
+        friendCell.imageView?.clipsToBounds = true
         
-        databaseRef.child("users").queryOrdered(byChild: "nameOfUser").observe(.childAdded) { (snapshot) in
-            self.users.append(snapshot.value as? NSDictionary)
-            
-            self.friendsTableView.insertRows(at: [IndexPath(row: self.users.count - 1, section: 0)], with: UITableView.RowAnimation.automatic)
-            
-        }
+        fetchUser()
         
-        // Do any additional setup after loading the view.
+        friendsTableView.register(UserCell.self, forCellReuseIdentifier: "friendCell")
+
     }
     
     @IBAction func dismissAddFriend(_ sender: Any) {
@@ -49,44 +48,30 @@ class AddFriendViewController: UIViewController, UISearchResultsUpdating {
 
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
-        filterContent(searchText: self.searchController.searchBar.text!)
-    }
-    
-    func filterContent(searchText: String) {
-        self.filteredUsers = self.users.filter({ (users) -> Bool in
-            let username = users!["nameOfUser"] as? String
-            
-            return(username?.lowercased().contains(searchText.lowercased()))!
-        })
-        friendsTableView.reloadData()
-        
-    }
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-
-    func downloadImage(from url: URL) {
-        print("Download Started")
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            print(response?.suggestedFilename ?? url.lastPathComponent)
-            print("Download Finished")
-            DispatchQueue.main.async() {
-
-                self.friendCell.imageView?.image = UIImage(data: data)
+    func fetchUser() {
+        databaseRef.child("users").observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let user = Users()
+                user.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                user.email = dictionary["email"] as? String ?? ""
+                user.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
+                
+                self.users.append(user)
+                
+                DispatchQueue.main.async {
+                    self.friendsTableView.reloadData()
+                }
             }
         }
+        
     }
+
+
 }
-
-
 
 extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive && searchController.searchBar.text != "" {
-            return filteredUsers.count
-        }
+
         return self.users.count
     }
     
@@ -98,33 +83,31 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         friendCell = friendsTableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath)
+        let user = users[indexPath.row]
+        friendCell.textLabel?.text = user.nameOfUser
+        friendCell.detailTextLabel?.text = user.email
+        friendCell.imageView?.image = UIImage(named: "defaultUser")
         
-        let user : NSDictionary?
+        friendCell.imageView?.contentMode = .scaleAspectFill
         
-        if searchController.isActive && searchController.searchBar.text != "" {
-            user = filteredUsers[indexPath.row]
+        if let profileImageURL = user.profileImageURL {
+            let url = URL(string: profileImageURL)
+            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                if error != nil {
+                    print(error)
+                    return
+                }
+                DispatchQueue.main.async {
+                    
+                    
+                    self.friendCell.imageView?.image = UIImage(data: data!)
+                    
+                    
+                }
+                
+                }.resume()
+            
         }
-        else {
-            user = self.users[indexPath.row]
-        }
-        
-        friendCell.textLabel?.text = user?["nameOfUser"] as? String
-        friendCell.detailTextLabel?.text = user?["email"] as? String
-        //friendCell.imageView?.image = UIImage(data: user?["profileImageURL"] as? Data)
-        let profilePicURL = user?["profileImageURL"] as? String
-        let theUsername = user?["nameOfUser"] as? String
-        
-        let storage = Storage.storage()
-        var storeageRef = storage.reference()
-        storeageRef = storage.reference(forURL: "https://keep-safe-1e8eb.firebaseio.com/")
-        
-        
-        if profilePicURL == nil {
-            friendCell.imageView?.image = UIImage(named: "defaultUser")
-        } else {
-                downloadImage(from: profilePicURL!)
-            }
-
 
         return friendCell
 
@@ -132,9 +115,12 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 }
+class UserCell : UITableViewCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Error")
+    }
+}
 
-//class FriendCell : UITableViewCell {
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        <#code#>
-//    }
-//}
