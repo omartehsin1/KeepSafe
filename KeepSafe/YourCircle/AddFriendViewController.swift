@@ -96,6 +96,9 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
                 DispatchQueue.main.async {
 
                 friendCell.imageView?.image = UIImage(data: data!)
+                friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
+                friendCell.imageView?.clipsToBounds = true
+                    
  
                 }
                 
