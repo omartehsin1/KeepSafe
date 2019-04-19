@@ -246,6 +246,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="friendsTableView" destination="fBe-0p-JRc" id="nnt-ni-MW5"/>
+                        <segue destination="3Rn-Ou-DXU" kind="show" identifier="showFriendProfile" id="gyJ-12-VwQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMD-xH-zAF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -255,20 +256,20 @@
         <!--Detail View Controller-->
         <scene sceneID="2uY-7a-ZNJ">
             <objects>
-                <viewController id="3Rn-Ou-DXU" customClass="DetailViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="3Rn-Ou-DXU" customClass="DetailViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ksv-aC-98c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Adz-O3-6iZ" userLabel="nameOfUser">
-                                <rect key="frame" x="166" y="263" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Adz-O3-6iZ" userLabel="nameOfUser">
+                                <rect key="frame" x="16" y="263" width="351" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VjH-qz-ZSI" userLabel="email">
-                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VjH-qz-ZSI" userLabel="email">
+                                <rect key="frame" x="16" y="323" width="351" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -307,6 +308,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="naM-FA-2Fu"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Y9F-cH-q3U"/>
                     <connections>
                         <outlet property="emailLabel" destination="VjH-qz-ZSI" id="aZ7-IV-GMj"/>
                         <outlet property="nameOfUserLabel" destination="Adz-O3-6iZ" id="SIn-Cv-CgX"/>
@@ -315,7 +317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1c-R3-Uzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6144.8000000000002" y="1778.8605697151427"/>
+            <point key="canvasLocation" x="6524" y="1799.5502248875564"/>
         </scene>
         <!--Message-->
         <scene sceneID="miz-F1-bHk">

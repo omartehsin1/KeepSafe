@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import Firebase
+
 
 class Users: NSDictionary {
+    var ref: DatabaseReference?
     var nameOfUser: String?
     var email: String?
     var profileImageURL: String?
+    
     
 //    init(username: String, email: String) {
 //        self.username = username

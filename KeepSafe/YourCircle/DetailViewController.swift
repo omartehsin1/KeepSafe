@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
 class DetailViewController: UIViewController {
     
     var nameOfUser = String()
     var email = String()
     var profileImageURL = UIImage()
+    
+    var ref: DatabaseReference?
+    
     
     @IBOutlet weak var profileImageView: UIImageView!
     
@@ -21,14 +25,22 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        profileImageView.image = profileImageURL
-        nameOfUserLabel.text = nameOfUser
-        emailLabel.text = email
+        loadProfileData()
+    
 
         // Do any additional setup after loading the view.
     }
     
+    func loadProfileData() {
+        if let ref = ref {
+            ref.observe(.value) { (user) in
+                let user = Users()
+                self.nameOfUserLabel.text = user.nameOfUser
+                self.emailLabel.text = user.email
+                //self.profileImageView.image = UIImage(URLwi)
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation

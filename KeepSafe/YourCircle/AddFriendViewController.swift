@@ -18,8 +18,7 @@ class AddFriendViewController: UIViewController {
     var resultsController = UITableViewController()
 
     var databaseRef = Database.database().reference()
-    //var friendCell = UITableViewCell()
-    
+
  
     @IBOutlet weak var friendsTableView: UITableView!
     override func viewDidLoad() {
@@ -30,14 +29,7 @@ class AddFriendViewController: UIViewController {
         navigationItem.title = "Add Friends"
         
         fetchUser()
-        //friendsTableView.register(UserCell.self, forCellReuseIdentifier: "friendCell")
-        
-//        searchController = UISearchController(searchResultsController: resultsController)
-//        friendsTableView.tableHeaderView = searchController.searchBar
-//        searchController.searchResultsUpdater = self
-        
-//        resultsController.tableView.delegate = self
-//        resultsController.tableView.dataSource = self
+
 
  
     }
@@ -69,21 +61,7 @@ class AddFriendViewController: UIViewController {
         }
         
     }
-    
-//    func updateSearchResults(for searchController: UISearchController) {
-//        filterContent(searchText: self.searchController.searchBar.text!)
-//    }
-//
-//    func filterContent(searchText: String) {
-//        self.filteredUsers = self.users.filter({ (users) -> Bool in
-//            let username = users["nameOfUser"] as? String
-//
-//
-//            return(username?.lowercased().contains(searchText.lowercased()))!
-//        })
-//        friendsTableView.reloadData()
-//
-//    }
+
 
 }
 
@@ -105,7 +83,7 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
         let user = users[indexPath.row]
         friendCell.textLabel?.text = user.nameOfUser
         friendCell.detailTextLabel?.text = user.email
-
+        
         friendCell.imageView?.image = UIImage(named: "defaultUser")
         friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
         friendCell.imageView?.clipsToBounds = true
@@ -137,11 +115,19 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let dvc = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        
-        
-        self.navigationController?.pushViewController(dvc, animated: true)
+
+        performSegue(withIdentifier: "showFriendProfile", sender: self)
+        self.friendsTableView.deselectRow(at: indexPath as IndexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFriendProfile" {
+            if let indexPath = friendsTableView.indexPathForSelectedRow {
+                var dvc = segue.destination as! DetailViewController
+                //dvc = users[indexPath.row].ref
+                dvc.ref = self.users[indexPath.row].ref
+            }
+        }
     }
 
 
