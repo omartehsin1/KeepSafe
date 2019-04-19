@@ -10,28 +10,28 @@ import UIKit
 import Firebase
 
 class AddFriendViewController: UIViewController {
-
+    
     var users = [Users]()
-    var filteredUsers = [Users]()
+    //var filteredUsers = [Users]()
     
     var searchController = UISearchController()
     var resultsController = UITableViewController()
-
+    
     var databaseRef = Database.database().reference()
-
- 
+    
+    
     @IBOutlet weak var friendsTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         navigationItem.title = "Add Friends"
         
         fetchUser()
-
-
- 
+        
+        
+        
     }
     
     @IBAction func dismissAddFriend(_ sender: Any) {
@@ -40,7 +40,7 @@ class AddFriendViewController: UIViewController {
     
     
     @IBAction func addNewMemberPressed(_ sender: Any) {
-
+        
     }
     
     
@@ -61,24 +61,24 @@ class AddFriendViewController: UIViewController {
         }
         
     }
-
-
+    
+    
 }
 
 extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-
+        
+        
         return self.users.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let friendCell = UITableViewCell(style: .subtitle, reuseIdentifier: "friendCell")
-
+        
         
         let user = users[indexPath.row]
         friendCell.textLabel?.text = user.nameOfUser
@@ -98,24 +98,24 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
                     return
                 }
                 DispatchQueue.main.async {
-
-                friendCell.imageView?.image = UIImage(data: data!)
-                friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
-                friendCell.imageView?.clipsToBounds = true
                     
- 
+                    friendCell.imageView?.image = UIImage(data: data!)
+                    friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
+                    friendCell.imageView?.clipsToBounds = true
+                    
+                    
                 }
                 
                 }.resume()
             
         }
-
+        
         return friendCell
-
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        //self.users[indexPath.row]
         performSegue(withIdentifier: "showFriendProfile", sender: self)
         self.friendsTableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
@@ -123,15 +123,27 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFriendProfile" {
             if let indexPath = friendsTableView.indexPathForSelectedRow {
-                var dvc = segue.destination as! DetailViewController
+                let dvc = segue.destination as! DetailViewController
+                let user = users[indexPath.row]
                 //dvc = users[indexPath.row].ref
-                dvc.ref = self.users[indexPath.row].ref
+                //dvc.ref = self.users[indexPath.row].ref
+                
+                dvc.nameOfUser = user.nameOfUser ?? "no name"
+                dvc.email = user.email ?? "no email"
+                let url = URL(string: user.profileImageURL!)
+                let data = try? Data(contentsOf: url!)
+                //dvc.profileImageView.image = UIImage(data: data!)
+                dvc.profileImage = UIImage(data: data!) ?? UIImage(named: "defaultUser")!
+                
             }
+            
         }
     }
-
-
-
+    
+    
+    
+    
+    
 }
 class UserCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

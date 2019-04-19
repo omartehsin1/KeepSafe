@@ -11,9 +11,9 @@ import Firebase
 
 class DetailViewController: UIViewController {
     
-    var nameOfUser = String()
-    var email = String()
-    var profileImageURL = UIImage()
+    var nameOfUser : String = "No Name"
+    var email : String = "No Email"
+    var profileImage = UIImage()
     
     var ref: DatabaseReference?
     
@@ -25,31 +25,10 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadProfileData()
-    
+        nameOfUserLabel.text = nameOfUser
+        emailLabel.text = email
+        profileImageView.image = profileImage
 
-        // Do any additional setup after loading the view.
     }
-    
-    func loadProfileData() {
-        if let ref = ref {
-            ref.observe(.value) { (user) in
-                let user = Users()
-                self.nameOfUserLabel.text = user.nameOfUser
-                self.emailLabel.text = user.email
-                //self.profileImageView.image = UIImage(URLwi)
-            }
-        }
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
