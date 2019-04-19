@@ -29,7 +29,7 @@ class AddFriendViewController: UIViewController {
         navigationItem.title = "Add Friends"
         
         fetchUser()
-        friendsTableView.register(UserCell.self, forCellReuseIdentifier: "friendCell")
+        //friendsTableView.register(UserCell.self, forCellReuseIdentifier: "friendCell")
 
  
     }
