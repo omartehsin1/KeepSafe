@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Users: NSObject {
+class Users: NSDictionary {
     var nameOfUser: String?
     var email: String?
     var profileImageURL: String?

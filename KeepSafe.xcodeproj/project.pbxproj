@@ -11,6 +11,7 @@
 		0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26A226672C50038201E /* AddFriendViewController.swift */; };
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
 		0750E26F226775340038201E /* YourCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26E226775340038201E /* YourCircleViewController.swift */; };
+		0750E27722695B090038201E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E27622695B090038201E /* DetailViewController.swift */; };
 		07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876576226260AB001DE728 /* ProfileTableViewCell.swift */; };
 		07876579226260B9001DE728 /* ProfileItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876578226260B9001DE728 /* ProfileItems.swift */; };
 		0787657B2262827F001DE728 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787657A2262827F001DE728 /* MessageViewController.swift */; };
@@ -52,6 +53,7 @@
 		0750E26A226672C50038201E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		0750E26E226775340038201E /* YourCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourCircleViewController.swift; sourceTree = "<group>"; };
+		0750E27622695B090038201E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		07876576226260AB001DE728 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		07876578226260B9001DE728 /* ProfileItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItems.swift; sourceTree = "<group>"; };
 		0787657A2262827F001DE728 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				0750E26A226672C50038201E /* AddFriendViewController.swift */,
 				0750E26C2266AA660038201E /* Users.swift */,
 				0750E26E226775340038201E /* YourCircleViewController.swift */,
+				0750E27622695B090038201E /* DetailViewController.swift */,
 			);
 			path = YourCircle;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */,
 				0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */,
 				07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */,
+				0750E27722695B090038201E /* DetailViewController.swift in Sources */,
 				0750E268226670340038201E /* SpinnerViewController.swift in Sources */,
 				07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,

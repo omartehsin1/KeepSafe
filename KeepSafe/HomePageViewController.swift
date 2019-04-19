@@ -35,7 +35,12 @@ class HomePageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        leadingC.constant = 0
+        trailingC.constant = 0
+        
+        hamburgerMenuIsVisible = false
+    }
     func createArray() -> [MenuItems] {
         var tempMenuItems: [MenuItems] = []
 

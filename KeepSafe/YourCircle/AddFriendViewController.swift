@@ -12,6 +12,7 @@ import Firebase
 class AddFriendViewController: UIViewController {
 
     var users = [Users]()
+    var filteredUsers = [Users]()
     
     var searchController = UISearchController()
     var resultsController = UITableViewController()
@@ -30,6 +31,13 @@ class AddFriendViewController: UIViewController {
         
         fetchUser()
         //friendsTableView.register(UserCell.self, forCellReuseIdentifier: "friendCell")
+        
+//        searchController = UISearchController(searchResultsController: resultsController)
+//        friendsTableView.tableHeaderView = searchController.searchBar
+//        searchController.searchResultsUpdater = self
+        
+//        resultsController.tableView.delegate = self
+//        resultsController.tableView.dataSource = self
 
  
     }
@@ -42,6 +50,7 @@ class AddFriendViewController: UIViewController {
     @IBAction func addNewMemberPressed(_ sender: Any) {
 
     }
+    
     
     func fetchUser() {
         databaseRef.child("users").observe(.childAdded) { (snapshot) in
@@ -60,11 +69,27 @@ class AddFriendViewController: UIViewController {
         }
         
     }
+    
+//    func updateSearchResults(for searchController: UISearchController) {
+//        filterContent(searchText: self.searchController.searchBar.text!)
+//    }
+//
+//    func filterContent(searchText: String) {
+//        self.filteredUsers = self.users.filter({ (users) -> Bool in
+//            let username = users["nameOfUser"] as? String
+//
+//
+//            return(username?.lowercased().contains(searchText.lowercased()))!
+//        })
+//        friendsTableView.reloadData()
+//
+//    }
 
 }
 
 extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
 
         return self.users.count
     }
@@ -74,12 +99,13 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let friendCell = UITableViewCell(style: .subtitle, reuseIdentifier: "friendCell")
+
         
-        
-        let friendCell = friendsTableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath)
         let user = users[indexPath.row]
         friendCell.textLabel?.text = user.nameOfUser
         friendCell.detailTextLabel?.text = user.email
+
         friendCell.imageView?.image = UIImage(named: "defaultUser")
         friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
         friendCell.imageView?.clipsToBounds = true
@@ -109,6 +135,15 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
         return friendCell
 
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dvc = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        
+        
+        self.navigationController?.pushViewController(dvc, animated: true)
+    }
+
 
 
 }
