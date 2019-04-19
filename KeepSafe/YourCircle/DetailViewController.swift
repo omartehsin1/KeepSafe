@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import PMSuperButton
 
 class DetailViewController: UIViewController {
     
@@ -30,5 +31,14 @@ class DetailViewController: UIViewController {
         profileImageView.image = profileImage
 
     }
+    
+    @IBAction func addFriendBTNPressed(_ sender: Any) {
+        
+        
+    }
+    func btnPressed(image: UIImage) {
+        
+    }
+    
 
 }

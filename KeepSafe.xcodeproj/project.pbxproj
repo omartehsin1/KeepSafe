@@ -12,6 +12,7 @@
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
 		0750E26F226775340038201E /* YourCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26E226775340038201E /* YourCircleViewController.swift */; };
 		0750E27722695B090038201E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E27622695B090038201E /* DetailViewController.swift */; };
+		077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */; };
 		07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876576226260AB001DE728 /* ProfileTableViewCell.swift */; };
 		07876579226260B9001DE728 /* ProfileItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876578226260B9001DE728 /* ProfileItems.swift */; };
 		0787657B2262827F001DE728 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787657A2262827F001DE728 /* MessageViewController.swift */; };
@@ -54,6 +55,7 @@
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		0750E26E226775340038201E /* YourCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourCircleViewController.swift; sourceTree = "<group>"; };
 		0750E27622695B090038201E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		07876576226260AB001DE728 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		07876578226260B9001DE728 /* ProfileItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItems.swift; sourceTree = "<group>"; };
 		0787657A2262827F001DE728 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				0750E26C2266AA660038201E /* Users.swift */,
 				0750E26E226775340038201E /* YourCircleViewController.swift */,
 				0750E27622695B090038201E /* DetailViewController.swift */,
+				077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */,
 			);
 			path = YourCircle;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-KeepSafe/Pods-KeepSafe-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/EmptyDataSet-Swift/EmptyDataSet_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PMSuperButton/PMSuperButton.framework",
@@ -350,6 +354,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyDataSet_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMSuperButton.framework",
@@ -443,6 +448,7 @@
 				0787658422664D99001DE728 /* CustomMessageCell.swift in Sources */,
 				07E30B242225BE7500904A45 /* ViewController.swift in Sources */,
 				07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */,
+				077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */,
 				0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */,
 				07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */,
 				0750E27722695B090038201E /* DetailViewController.swift in Sources */,

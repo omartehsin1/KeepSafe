@@ -16,7 +16,7 @@ import PMSuperButton
 
 class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     @IBOutlet weak var defaultImage: UIImageView!
-    @IBOutlet weak var profilePicBTN: UIButton!
+
     let imagePicker = UIImagePickerController()
     @IBOutlet weak var emailTextField: MinoruTextField!
     @IBOutlet weak var usernameTextField: MinoruTextField!
