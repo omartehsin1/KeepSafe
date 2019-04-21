@@ -58,7 +58,7 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CircleCollectionViewCell
-        collectionViewCell.circleLabel.text = theArray[indexPath.item]
+//        collectionViewCell.circleLabel.text = theArray[indexPath.item]
         return collectionViewCell
     }
     
