@@ -42,7 +42,7 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
         let font = UIFont.boldSystemFont(ofSize: 18)
         let shadow = NSShadow()
         shadow.shadowColor = UIColor.black
-        shadow.shadowBlurRadius = 2
+        shadow.shadowBlurRadius = 1
         let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: UIColor.darkGray, .shadow: shadow]
         let attributedQuote = NSAttributedString(string: title, attributes: attributes)
         

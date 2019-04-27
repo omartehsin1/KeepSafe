@@ -31,9 +31,12 @@ class HomePageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        //combinedArray = [menuItems.count + profileItems.count]
+//        if Auth.auth().currentUser == nil {
+//            handleLogOut()
+//        }
+        
 
-        // Do any additional setup after loading the view.
+
     }
     override func viewDidDisappear(_ animated: Bool) {
         leadingC.constant = 0

@@ -175,12 +175,12 @@
 		07E30B202225BE7500904A45 /* KeepSafe */ = {
 			isa = PBXGroup;
 			children = (
+				07E30B212225BE7500904A45 /* AppDelegate.swift */,
 				0750E269226672B10038201E /* YourCircle */,
 				0787658622665D59001DE728 /* LocationServices */,
 				0787657D226282B0001DE728 /* MessageVC */,
 				0787657C22628289001DE728 /* TableView */,
 				07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */,
-				07E30B212225BE7500904A45 /* AppDelegate.swift */,
 				07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */,
 				07E30B232225BE7500904A45 /* ViewController.swift */,
 				07E30B4C2225D8BE00904A45 /* LogInViewController.swift */,
