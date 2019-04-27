@@ -22,7 +22,7 @@ class LogInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpRootViewController()
+        
 
 
     }
@@ -50,27 +50,6 @@ class LogInViewController: UIViewController {
         }
         
     }
-    
-    func setUpRootViewController() {
-
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if user != nil {
-                let homepageVC = HomePageViewController()
-                let homepageNC = UINavigationController(rootViewController: homepageVC)
-                self.present(homepageNC, animated: false, completion: nil)
-                
-                //self.handleLogIn()
-                print("Already Logged In")
-                
-            } else {
-                let welcomeVC = WelcomeViewController()
-                let welcomeNC = UINavigationController(rootViewController: welcomeVC)
-                self.present(welcomeNC, animated: false, completion: nil)
-            }
-        }
-        
-    }
-
 
 }
 

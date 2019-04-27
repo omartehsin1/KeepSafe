@@ -15,6 +15,7 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var trailingC: NSLayoutConstraint!
     @IBOutlet weak var leadingC: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nameOfUserLabel: UILabel!
     
     var hamburgerMenuIsVisible = false
     var menuItems: [MenuItems] = []
@@ -31,9 +32,9 @@ class HomePageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-//        if Auth.auth().currentUser == nil {
-//            handleLogOut()
-//        }
+        //authenticateUser()
+        print("The Current User is: \(Auth.auth().currentUser)")
+
         
 
 
@@ -112,6 +113,20 @@ class HomePageViewController: UIViewController {
         }
         
     }
+    
+//    func authenticateUser() {
+//        
+//        if Auth.auth().currentUser == nil {
+//            DispatchQueue.main.async {
+//                let navController = UINavigationController(rootViewController: LogInViewController())
+//                self.present(navController, animated: false, completion: nil)
+//            }
+//        } else {
+//            self.present(self, animated: false, completion: nil)
+//        }
+//    }
+    
+    
 
 
 }
@@ -121,9 +136,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return menuItems.count
-//        return 6
 
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
