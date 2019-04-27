@@ -16,6 +16,7 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var leadingC: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameOfUserLabel: UILabel!
+    var username : String = "No Name"
     
     var hamburgerMenuIsVisible = false
     var menuItems: [MenuItems] = []
@@ -33,10 +34,9 @@ class HomePageViewController: UIViewController {
         tableView.dataSource = self
         
         //authenticateUser()
-        print("The Current User is: \(Auth.auth().currentUser)")
-
+        getUserName()
+        //nameOfUserLabel.text = username
         
-
 
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -114,20 +114,19 @@ class HomePageViewController: UIViewController {
         
     }
     
-//    func authenticateUser() {
-//        
-//        if Auth.auth().currentUser == nil {
-//            DispatchQueue.main.async {
-//                let navController = UINavigationController(rootViewController: LogInViewController())
-//                self.present(navController, animated: false, completion: nil)
-//            }
-//        } else {
-//            self.present(self, animated: false, completion: nil)
-//        }
-//    }
-    
-    
+    func getUserName() {
+        let databaseRef = Database.database().reference()
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        databaseRef.child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
+            //print(snapshot.value)
+            
+            let theUserName = (snapshot.value as! NSDictionary)["nameOfUser"] as! String
+            self.username = theUserName
+            self.nameOfUserLabel.text = "Welcome \(self.username)"
 
+            
+        }
+    }
 
 }
 

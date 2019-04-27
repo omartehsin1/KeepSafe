@@ -30,6 +30,7 @@ class LogInViewController: UIViewController {
     @IBAction func signInButtonPressed(_ sender: Any) {
         handleLogIn()
         spinnerView.showSpinner(onView: self.view)
+        
     }
     
     
