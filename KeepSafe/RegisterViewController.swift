@@ -84,7 +84,21 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error!)
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+                    case .emailAlreadyInUse:
+                        Alert.showEmailAlreadyInUseAlert(on: self)
+                    case .weakPassword:
+                        Alert.showWeakPasswordAlert(on: self)
+                    case .invalidEmail:
+                        Alert.showInvalidEmailAlert(on: self)
+                    case .missingEmail:
+                        Alert.showIncompleteFormAlert(on: self)
+                    default:
+                        Alert.showUnableToRetrieveDataAlert(on: self)
+                    }
+                }
+                spinnerView.removeSpinner()
                 return
             }
             guard let uid = user?.user.uid else { return }

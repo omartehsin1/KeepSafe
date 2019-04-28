@@ -48,13 +48,12 @@ class LogInViewController: UIViewController {
 //                print(error)
                 if let errCode = AuthErrorCode(rawValue: error!._code) {
                     switch errCode {
-                    case .invalidEmail:
-                        //todo: this is not working for some reason
-                        Alert.showInvalidEmailAlert(on: self)
-                        print("Email not valid")
-                    
+                    case .userNotFound:
+                        Alert.showIncorrectEmailAlert(on: self)
                     case .wrongPassword:
                         Alert.showInvalidPasswordAlert(on: self)
+                    case .missingEmail:
+                        Alert.showIncompleteFormAlert(on: self)
                     default:
                         Alert.showUnableToRetrieveDataAlert(on: self)
                         

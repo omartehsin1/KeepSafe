@@ -30,7 +30,17 @@ struct Alert {
         showBasicAction(on: vc, with: "Invalid Password", message: "Password is invalid")
     }
     
+    static func showEmailAlreadyInUseAlert(on vc: UIViewController) {
+        showBasicAction(on: vc, with: "Email Already In Use", message: "This Email Address has already been registeres")
+    }
+    static func showWeakPasswordAlert(on vc: UIViewController) {
+        showBasicAction(on: vc, with: "Password too weak", message: "Please try again with a stronger password")
+    }
+    
     static func showUnableToRetrieveDataAlert(on vc: UIViewController) {
         showBasicAction(on: vc, with: "Unable to Retrieve Data", message: "Network Error")
+    }
+    static func showIncorrectEmailAlert(on vc: UIViewController) {
+        showBasicAction(on: vc, with: "Email is incorrect", message: "Please try again with the right email address")
     }
 }
