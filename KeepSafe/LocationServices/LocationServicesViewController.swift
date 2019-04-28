@@ -30,7 +30,7 @@ class LocationServicesViewController: UIViewController {
         GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
         GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
         
-        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 30)
+        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
 
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         //self.locationManager.delegate = self

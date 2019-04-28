@@ -12,13 +12,19 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameTitle: UILabel!
     @IBOutlet weak var locationTitle: UILabel!
-    
+    let homePageVC = HomePageViewController()
     
     func setProfileItem(profileItems: ProfileItems) {
         
         profileImage.image = profileItems.profileImage
-        nameTitle.text = profileItems.nameTitle
+        
         locationTitle.text = profileItems.location
+        homePageVC.loadUserName(completion: { username in
+            profileItems.nameTitle = username
+            self.nameTitle.text = profileItems.nameTitle
+        })
     }
+    
+    
  
 }

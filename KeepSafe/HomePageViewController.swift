@@ -23,6 +23,7 @@ class HomePageViewController: UIViewController {
     var profileItems: [ProfileItems] = []
     var combinedArray: [Any] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         barButtonItem()
@@ -33,7 +34,10 @@ class HomePageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        getUserName()
+        loadUserName(completion: { username in
+            self.nameOfUserLabel.text = "Welcome \(username)"
+            
+        })
         //nameOfUserLabel.text = username
         
 
@@ -64,17 +68,19 @@ class HomePageViewController: UIViewController {
         //combinedArray.append(contentsOf: tempMenuItems)
 
         return tempMenuItems
+        
 
     }
     
     func createProfileArray() -> [ProfileItems] {
         var tempProfileItems: [ProfileItems] = []
+        
+    
 
-        let profileItem = ProfileItems(profileImage: UIImage(named: "defaultUser")!, nameTitle: "Omar Tehsin", location: "Toronto")
+        let profileItem = ProfileItems(profileImage: UIImage(named: "defaultUser")!, nameTitle: username, location: "Toronto")
 
         tempProfileItems.append(profileItem)
 
-        //combinedArray.append(contentsOf: tempProfileItems)
 
         return tempProfileItems
     }
@@ -113,19 +119,36 @@ class HomePageViewController: UIViewController {
         
     }
     
-    func getUserName() {
-        let databaseRef = Database.database().reference()
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        databaseRef.child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
-            //print(snapshot.value)
-            
-            let theUserName = (snapshot.value as! NSDictionary)["nameOfUser"] as! String
-            self.username = theUserName
-            self.nameOfUserLabel.text = "Welcome \(self.username)"
-
-            
+//    func loadUserName() {
+//        let databaseRef = Database.database().reference()
+//        guard let userID = Auth.auth().currentUser?.uid else { return }
+//        //let userID = Auth.auth().currentUser?.uid
+//        databaseRef.child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
+//            //print(snapshot.value)
+//            let theUserName = (snapshot.value as! NSDictionary)["nameOfUser"] as! String
+//            self.username = theUserName
+//            self.nameOfUserLabel.text! = "Welcome \(self.username)"
+//        }
+//        print("The name of the user is: \(self.username)")
+//
+//
+//    }
+    
+    func loadUserName(completion: @escaping(_ username: String) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    if let nameOfUser = dictionary["nameOfUser"] as? String {
+                        self.username = nameOfUser
+                        //print("The name of the user is \(self.username)")
+                        completion(self.username)
+                    }
+                }
+            }
         }
     }
+    
+    
 
 }
 
