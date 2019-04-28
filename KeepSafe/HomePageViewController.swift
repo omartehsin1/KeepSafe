@@ -17,6 +17,7 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameOfUserLabel: UILabel!
     var username : String = "No Name"
+    var userImage: UIImage = UIImage(named: "defaultUser")!
     
     var hamburgerMenuIsVisible = false
     var menuItems: [MenuItems] = []
@@ -77,7 +78,7 @@ class HomePageViewController: UIViewController {
         
     
 
-        let profileItem = ProfileItems(profileImage: UIImage(named: "defaultUser")!, nameTitle: username, location: "Toronto")
+        let profileItem = ProfileItems(profileImage: userImage, nameTitle: username, location: "Toronto")
 
         tempProfileItems.append(profileItem)
 
@@ -118,21 +119,7 @@ class HomePageViewController: UIViewController {
         }
         
     }
-    
-//    func loadUserName() {
-//        let databaseRef = Database.database().reference()
-//        guard let userID = Auth.auth().currentUser?.uid else { return }
-//        //let userID = Auth.auth().currentUser?.uid
-//        databaseRef.child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
-//            //print(snapshot.value)
-//            let theUserName = (snapshot.value as! NSDictionary)["nameOfUser"] as! String
-//            self.username = theUserName
-//            self.nameOfUserLabel.text! = "Welcome \(self.username)"
-//        }
-//        print("The name of the user is: \(self.username)")
-//
-//
-//    }
+
     
     func loadUserName(completion: @escaping(_ username: String) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -148,6 +135,31 @@ class HomePageViewController: UIViewController {
         }
     }
     
+    
+    func loadProfileimage(completion: @escaping(_ userImage: UIImage) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    if let profileImageURL = dictionary["profileImageURL"] as? String {
+                        let url = URL(string: profileImageURL)
+                        print("The URL is \(url!)")
+                        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                            if error != nil {
+                                print(error)
+                                return
+                            }
+                            DispatchQueue.main.async {
+                                self.userImage = UIImage(data: data!)!
+                               
+                            }
+                        }.resume()
+                        completion(self.userImage)
+                    }
+                }
+            }
+            
+        }
+    }
     
 
 }

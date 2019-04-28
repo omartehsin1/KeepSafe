@@ -15,10 +15,19 @@ class ProfileTableViewCell: UITableViewCell {
     let homePageVC = HomePageViewController()
     
     func setProfileItem(profileItems: ProfileItems) {
+        profileImage.layer.cornerRadius = (profileImage.bounds.height) / 2
+        profileImage.clipsToBounds = true
         
-        profileImage.image = profileItems.profileImage
+        homePageVC.loadProfileimage(completion: { userImage in
+            profileItems.profileImage = userImage
+            self.profileImage.image = profileItems.profileImage
+        })
+        
+        
         
         locationTitle.text = profileItems.location
+        
+        
         homePageVC.loadUserName(completion: { username in
             profileItems.nameTitle = username
             self.nameTitle.text = profileItems.nameTitle
