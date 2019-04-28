@@ -22,10 +22,14 @@ class LogInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
 
     }
+    enum LogInError: Error {
+        case incompleteForm
+        case invalidEmail
+        case incorrectPassword
+    }
+    
     
     @IBAction func signInButtonPressed(_ sender: Any) {
         handleLogIn()
@@ -41,7 +45,23 @@ class LogInViewController: UIViewController {
         }
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error)
+//                print(error)
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+                    case .invalidEmail:
+                        //todo: this is not working for some reason
+                        Alert.showInvalidEmailAlert(on: self)
+                        print("Email not valid")
+                    
+                    case .wrongPassword:
+                        Alert.showInvalidPasswordAlert(on: self)
+                    default:
+                        Alert.showUnableToRetrieveDataAlert(on: self)
+                        
+                    }
+                    
+                }
+                spinnerView.removeSpinner()
                 return
             } else {
                 self.performSegue(withIdentifier: "goToMainFromLogIn", sender: self)

@@ -16,7 +16,7 @@ class DetailViewController: UIViewController {
     var email : String = "No Email"
     var profileImage = UIImage()
     
-    var ref: DatabaseReference?
+    var databaseRef = Database.database().reference()
     
     
     @IBOutlet weak var profileImageView: UIImageView!
@@ -33,12 +33,25 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func addFriendBTNPressed(_ sender: Any) {
-        
-        
+        addFriends()
+        dismiss(animated: true, completion: nil)
     }
     func btnPressed(image: UIImage) {
         
     }
     
-
+    func addFriends() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        databaseRef.child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot.value)
+            
+            let profileImageURL = (snapshot.value as! NSDictionary)["profileImageURL"] as! String
+            let url = URL(string: profileImageURL)
+            let data = try? Data(contentsOf: url!)
+        }
+        
+        
+    }
+    
+    
 }

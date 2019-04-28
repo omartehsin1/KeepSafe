@@ -14,7 +14,7 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
 
     @IBOutlet weak var yourCircleCollectionView: UICollectionView!
     
-    let theArray = [String]()
+    let myCircle = [Users]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,12 +53,13 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
 
 extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return theArray.count
+        return myCircle.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CircleCollectionViewCell
 //        collectionViewCell.circleLabel.text = theArray[indexPath.item]
+        
         return collectionViewCell
     }
     

@@ -12,6 +12,8 @@
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
 		0750E26F226775340038201E /* YourCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26E226775340038201E /* YourCircleViewController.swift */; };
 		0750E27722695B090038201E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E27622695B090038201E /* DetailViewController.swift */; };
+		0755E914227613D5002752E1 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E913227613D5002752E1 /* Alert.swift */; };
+		0755E9172276160F002752E1 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E9162276160F002752E1 /* String+Extension.swift */; };
 		077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */; };
 		07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876576226260AB001DE728 /* ProfileTableViewCell.swift */; };
 		07876579226260B9001DE728 /* ProfileItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876578226260B9001DE728 /* ProfileItems.swift */; };
@@ -55,6 +57,8 @@
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		0750E26E226775340038201E /* YourCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourCircleViewController.swift; sourceTree = "<group>"; };
 		0750E27622695B090038201E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0755E913227613D5002752E1 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		0755E9162276160F002752E1 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		07876576226260AB001DE728 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		07876578226260B9001DE728 /* ProfileItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItems.swift; sourceTree = "<group>"; };
@@ -122,6 +126,16 @@
 			path = YourCircle;
 			sourceTree = "<group>";
 		};
+		0755E915227613E8002752E1 /* HelperFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				0755E913227613D5002752E1 /* Alert.swift */,
+				0755E9162276160F002752E1 /* String+Extension.swift */,
+			);
+			name = HelperFunctions;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		0787657C22628289001DE728 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				07E30B212225BE7500904A45 /* AppDelegate.swift */,
+				0755E915227613E8002752E1 /* HelperFunctions */,
 				0750E269226672B10038201E /* YourCircle */,
 				0787658622665D59001DE728 /* LocationServices */,
 				0787657D226282B0001DE728 /* MessageVC */,
@@ -451,9 +466,11 @@
 				077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */,
 				0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */,
 				07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */,
+				0755E914227613D5002752E1 /* Alert.swift in Sources */,
 				0750E27722695B090038201E /* DetailViewController.swift in Sources */,
 				0750E268226670340038201E /* SpinnerViewController.swift in Sources */,
 				07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */,
+				0755E9172276160F002752E1 /* String+Extension.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,
 				0750E26F226775340038201E /* YourCircleViewController.swift in Sources */,
 				0750E26D2266AA660038201E /* Users.swift in Sources */,

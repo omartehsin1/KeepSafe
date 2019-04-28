@@ -33,7 +33,6 @@ class HomePageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        //authenticateUser()
         getUserName()
         //nameOfUserLabel.text = username
         

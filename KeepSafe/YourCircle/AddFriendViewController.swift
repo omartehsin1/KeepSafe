@@ -125,14 +125,11 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
             if let indexPath = friendsTableView.indexPathForSelectedRow {
                 let dvc = segue.destination as! DetailViewController
                 let user = users[indexPath.row]
-                //dvc = users[indexPath.row].ref
-                //dvc.ref = self.users[indexPath.row].ref
-                
                 dvc.nameOfUser = user.nameOfUser ?? "no name"
                 dvc.email = user.email ?? "no email"
                 let url = URL(string: user.profileImageURL!)
                 let data = try? Data(contentsOf: url!)
-                //dvc.profileImageView.image = UIImage(data: data!)
+                
                 dvc.profileImage = UIImage(data: data!) ?? UIImage(named: "defaultUser")!
                 
             }

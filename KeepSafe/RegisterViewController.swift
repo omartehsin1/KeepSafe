@@ -22,6 +22,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var usernameTextField: MinoruTextField!
     @IBOutlet weak var passwordTextField: MinoruTextField!
     //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
+    var friends = [Users]()
+    var ref: DatabaseReference!
 
     
     override func viewDidLoad() {
@@ -74,6 +76,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @IBAction func restrationBTNPressed(_ sender: PMSuperButton) {
         spinnerView.showSpinner(onView: self.view)
+        
         guard let email = emailTextField.text, let password = passwordTextField.text, let usernameText = usernameTextField.text else {
             print("Form is not valied")
             return
@@ -85,6 +88,9 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 return
             }
             guard let uid = user?.user.uid else { return }
+            self.ref = Database.database().reference()
+            self.ref.child("users").child(uid).setValue(["friends": self.friends])
+            
             
             let imageName = NSUUID().uuidString
             let storageRef = Storage.storage().reference().child("\(imageName).png")
