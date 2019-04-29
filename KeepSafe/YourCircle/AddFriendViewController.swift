@@ -91,23 +91,30 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
         friendCell.imageView?.contentMode = .scaleAspectFill
         
         if let profileImageURL = user.profileImageURL {
-            let url = URL(string: profileImageURL)
-            URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                if error != nil {
-                    print(error)
-                    return
-                }
-                DispatchQueue.main.async {
-                    
-                    friendCell.imageView?.image = UIImage(data: data!)
-                    friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
-                    friendCell.imageView?.clipsToBounds = true
-                    
-                    
-                }
-                
-                }.resume()
+            friendCell.imageView?.loadImageUsingCache(urlString: profileImageURL)
+//            friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
+//            friendCell.imageView?.clipsToBounds = true
             
+            /*TO DO: CACHE IMAGE!*/
+
+
+//            let url = URL(string: profileImageURL)
+//            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+//                if error != nil {
+//                    print(error)
+//                    return
+//                }
+//                DispatchQueue.main.async {
+//
+//                    friendCell.imageView?.image = UIImage(data: data!)
+//                    //friendCell.imageView?.loadImageUsingCache(urlString: profileImageURL)
+//                    friendCell.imageView?.layer.cornerRadius = (friendCell.imageView?.bounds.height)! / 2
+//                    friendCell.imageView?.clipsToBounds = true
+//
+//
+//                }
+//
+//                }.resume()
         }
         
         return friendCell
@@ -149,5 +156,13 @@ class UserCell : UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("Error")
     }
+    
+//    let profileImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.layer.cornerRadius = 20
+//        imageView.layer.masksToBounds = true
+//        return imageView
+//    }()
 }
 

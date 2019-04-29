@@ -11,11 +11,13 @@ import GoogleMaps
 import GooglePlaces
 
 
-class LocationServicesViewController: UIViewController {
+class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
+    var userCurrentLocation : GMSMarker?
+    var userImage: UIImage?
     
 
 
@@ -25,7 +27,7 @@ class LocationServicesViewController: UIViewController {
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
-        
+        //mapView.delegate = self
 
         GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
         GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
@@ -35,13 +37,32 @@ class LocationServicesViewController: UIViewController {
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         //self.locationManager.delegate = self
         view = mapView
+ 
         
         let currentLocation = CLLocationCoordinate2DMake(43.6789923, -79.3120105)
         let marker = GMSMarker(position: currentLocation)
         marker.title = "Home"
         
-        marker.map = mapView
+        userImage = UIImage(named: "defaultUser")
         
+        
+        marker.icon = resizeImage(image: userImage!, newWidth: 50)
+        marker.map = mapView
+
+ 
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+        
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
     
 
