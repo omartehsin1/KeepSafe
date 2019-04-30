@@ -239,13 +239,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-0p-JRc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-0p-JRc">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fBe-0p-JRc" firstAttribute="bottom" secondItem="4CW-Bg-Kat" secondAttribute="bottom" id="5fv-Bo-J5k"/>
+                            <constraint firstItem="fBe-0p-JRc" firstAttribute="top" secondItem="4CW-Bg-Kat" secondAttribute="top" id="afe-mc-ibz"/>
+                            <constraint firstItem="fBe-0p-JRc" firstAttribute="trailing" secondItem="4CW-Bg-Kat" secondAttribute="trailing" id="qpt-ye-6lz"/>
+                            <constraint firstItem="fBe-0p-JRc" firstAttribute="leading" secondItem="4CW-Bg-Kat" secondAttribute="leading" id="ys0-P6-Tsk"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4CW-Bg-Kat"/>
                     </view>
                     <navigationItem key="navigationItem" id="Vfm-V9-yWk">

@@ -21,14 +21,11 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var topButton = UIButton()
 
-
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         messageTableView.delegate = self
         messageTableView.dataSource = self
-        messageTableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: "customMessageClass")
+        messageTableView.register(UINib(nibName: "CustomMessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
         messageTextField.delegate = self
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))

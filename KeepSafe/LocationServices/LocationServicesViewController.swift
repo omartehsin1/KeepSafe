@@ -41,7 +41,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         
         let currentLocation = CLLocationCoordinate2DMake(43.6789923, -79.3120105)
         let marker = GMSMarker(position: currentLocation)
-        marker.title = "Home"
+        marker.title = "Current Location"
         
         userImage = UIImage(named: "defaultUser")
         
