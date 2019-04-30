@@ -11,12 +11,12 @@ import Firebase
 import ChameleonFramework
 
 class MessageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-
+    /*TODO: ALL USERS ARE ABLE TO SEE MESSAGES. FIX THIS*/
     var messageArray : [Message] = [Message]()
 
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var messageTextField: UITextField!
-
+    @IBOutlet var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTableView: UITableView!
 
     var topButton = UIButton()
@@ -46,6 +46,8 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.messageBody.text = messageArray[indexPath.row].messageBody
         cell.senderUsername.text = messageArray[indexPath.row].sender
+        
+        //TODO: CHANGE TO USER IMAGE
         cell.avatarImageView.image = UIImage(named: "defaultUser")
         
         //Set background as blue if message is from logged in User
@@ -80,20 +82,22 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    
+    //MARK: Textfield Methods:
     func textFieldDidBeginEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.5) {
-            //self.heighContraint.constant = 308
+           self.heightConstraint.constant = 308
             self.view.layoutIfNeeded()
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.5) {
-            //self.heighContraint.constant = 50
+           self.heightConstraint.constant = 50
             self.view.layoutIfNeeded()
         }
     }
-    
+    //MARK: Send Button Action:
     @IBAction func sendPressed(_ sender: Any) {
         messageTextField.endEditing(true)
         messageTextField.isEnabled = false
@@ -121,6 +125,8 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    
+    //MARK: Retrieve messages
     func retrieveMessage() {
         let messageDB = Database.database().reference().child("Messages")
         

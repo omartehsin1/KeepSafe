@@ -326,9 +326,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hiu-bS-GN8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hiu-bS-GN8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" id="azg-jV-p5J">
@@ -341,20 +340,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fiE-7x-oIw">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiE-7x-oIw">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Message" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QPF-xQ-gYd">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Message" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QPF-xQ-gYd">
                                         <rect key="frame" x="8" y="10" width="304" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="304" id="1Uf-sp-Mse"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7f-iH-vdb">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7f-iH-vdb">
                                         <rect key="frame" x="326" y="12" width="36" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Send"/>
                                         <connections>
                                             <action selector="sendPressed:" destination="QCn-t2-b68" eventType="touchUpInside" id="OO6-kr-czI"/>
@@ -362,13 +361,30 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="I7f-iH-vdb" secondAttribute="trailing" constant="13" id="EeY-gr-TcS"/>
+                                    <constraint firstItem="QPF-xQ-gYd" firstAttribute="top" secondItem="fiE-7x-oIw" secondAttribute="top" constant="10" id="NxG-rt-8Cu"/>
+                                    <constraint firstItem="I7f-iH-vdb" firstAttribute="leading" secondItem="QPF-xQ-gYd" secondAttribute="trailing" constant="14" id="feA-2Q-D6F"/>
+                                    <constraint firstItem="QPF-xQ-gYd" firstAttribute="leading" secondItem="fiE-7x-oIw" secondAttribute="leading" constant="8" id="otP-NJ-AYT"/>
+                                    <constraint firstItem="I7f-iH-vdb" firstAttribute="top" secondItem="fiE-7x-oIw" secondAttribute="top" constant="12" id="u7J-Hh-92j"/>
+                                    <constraint firstAttribute="height" constant="50" id="xGY-WQ-Nim"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fiE-7x-oIw" firstAttribute="bottom" secondItem="hiu-bS-GN8" secondAttribute="bottom" id="Ig3-EO-hMX"/>
+                            <constraint firstItem="fiE-7x-oIw" firstAttribute="bottom" secondItem="gL8-lN-A1B" secondAttribute="bottom" id="N1v-Zh-fNg"/>
+                            <constraint firstItem="fiE-7x-oIw" firstAttribute="leading" secondItem="ICm-UG-kEJ" secondAttribute="leading" id="ZWM-Iv-Vl3"/>
+                            <constraint firstItem="fiE-7x-oIw" firstAttribute="leading" secondItem="hiu-bS-GN8" secondAttribute="leading" id="dt3-ZU-1dy"/>
+                            <constraint firstItem="fiE-7x-oIw" firstAttribute="trailing" secondItem="hiu-bS-GN8" secondAttribute="trailing" id="ea2-v2-EB1"/>
+                            <constraint firstItem="hiu-bS-GN8" firstAttribute="top" secondItem="gL8-lN-A1B" secondAttribute="top" id="sqt-xu-ZAV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gL8-lN-A1B"/>
                     </view>
                     <navigationItem key="navigationItem" title="Message" id="531-aR-G80"/>
                     <connections>
+                        <outlet property="heightConstraint" destination="xGY-WQ-Nim" id="NPf-25-Lod"/>
                         <outlet property="messageTableView" destination="hiu-bS-GN8" id="mYk-Aj-i7x"/>
                         <outlet property="messageTextField" destination="QPF-xQ-gYd" id="OJM-Zj-iVU"/>
                         <outlet property="sendButton" destination="I7f-iH-vdb" id="ZFD-6H-tbU"/>
