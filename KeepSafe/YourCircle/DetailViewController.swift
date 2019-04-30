@@ -15,9 +15,18 @@ class DetailViewController: UIViewController {
     var nameOfUser : String = "No Name"
     var email : String = "No Email"
     var profileImage = UIImage()
+    var friendsUID : String = ""
     
-    var databaseRef = Database.database().reference()
+    var databaseRef : DatabaseReference!
     
+    
+    //NEW VARS:
+    var users = Users()
+    var otherUser: NSDictionary?
+    var loggedInUserData: NSDictionary?
+    var newDatabaseRef: DatabaseReference?
+    //END NEW VARS
+    @IBOutlet weak var addfriendBTN: UIButton!
     
     @IBOutlet weak var profileImageView: UIImageView!
     
@@ -26,14 +35,23 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.databaseRef = Database.database().reference()
         nameOfUserLabel.text = nameOfUser
         emailLabel.text = email
         profileImageView.image = profileImage
 
+      
     }
     
     @IBAction func addFriendBTNPressed(_ sender: Any) {
-        addFriends()
+        let myUID = Auth.auth().currentUser?.uid
+        let otherUID = friendsUID
+        let thisUsersFollowerUID = self.databaseRef.child("users").child(myUID!).child("Friends").childByAutoId()
+        thisUsersFollowerUID.setValue([otherUID, nameOfUser, email])
+        //addFriends()
+        let yourCircle = YourCircleViewController()
+        yourCircle.yourCircleCell.friendUserName.text = nameOfUser
+        
         dismiss(animated: true, completion: nil)
     }
     func btnPressed(image: UIImage) {
@@ -41,17 +59,37 @@ class DetailViewController: UIViewController {
     }
     
     func addFriends() {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        databaseRef.child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot.value)
+        let uid = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        let key = ref.child("users").childByAutoId().key
+        
+        var isFollower = false
+        
+            databaseRef.child("users").child(uid!).child("following").queryOrderedByKey().observeSingleEvent(of: .value) { (snapshot) in
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (ke, value) in following {
+                    if value as? String == self.users.userID {
+                        isFollower = true
+                        
+                        ref.child("users").child(uid!).child("following/\(ke)").removeValue()
+                        ref.child("users").child(self.users.userID).child("followers/\(ke)").removeValue()
+                        print("You are now following this user")
+                    }
+                }
+            }
             
-            let profileImageURL = (snapshot.value as! NSDictionary)["profileImageURL"] as! String
-            let url = URL(string: profileImageURL)
-            let data = try? Data(contentsOf: url!)
+            if !isFollower {
+                let following = ["following/\(key)": self.users.userID]
+                let followers = ["followers/\(key)": uid]
+                
+                ref.child("users").child(uid!).updateChildValues(following)
+                //ref.child("users").child(self.users.userID).updateChildValues(followers)
+                print("You are now following this user")
+                
+            }
         }
-        
-        
+        ref.removeAllObservers()
+
     }
-    
-    
+
 }

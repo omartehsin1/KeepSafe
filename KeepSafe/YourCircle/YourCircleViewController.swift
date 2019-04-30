@@ -11,6 +11,7 @@ import EmptyDataSet_Swift
 
 class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     var addFriend = AddFriendViewController()
+    var yourCircleCell = CircleCollectionViewCell()
 
     @IBOutlet weak var yourCircleCollectionView: UICollectionView!
     
@@ -57,10 +58,10 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let collectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CircleCollectionViewCell
+        yourCircleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CircleCollectionViewCell
 //        collectionViewCell.circleLabel.text = theArray[indexPath.item]
         
-        return collectionViewCell
+        return yourCircleCell
     }
     
     

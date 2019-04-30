@@ -222,7 +222,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if (indexPath.row == 1) {
-            performSegue(withIdentifier: "showMessageVc", sender: self)
+            performSegue(withIdentifier: "showChatLogController", sender: self)
         }
         
         else if (indexPath.row == 2) {

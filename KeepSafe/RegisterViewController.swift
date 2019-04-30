@@ -122,7 +122,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                             if let downloadURL = url {
                                 let downloadString = downloadURL.absoluteString
                                 
-                                let values = ["nameOfUser": usernameText, "email": email, "profileImageURL": downloadString]
+                                let values = ["nameOfUser": usernameText, "email": email, "profileImageURL": downloadString, "uid": uid]
                                 self.registerUserIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
                                 
                             }

@@ -13,6 +13,7 @@ import ChameleonFramework
 class MessageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     /*TODO: ALL USERS ARE ABLE TO SEE MESSAGES. FIX THIS*/
     var messageArray : [Message] = [Message]()
+    var users = [Users]()
 
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var messageTextField: UITextField!

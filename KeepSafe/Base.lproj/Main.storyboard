@@ -222,9 +222,9 @@
                         <outlet property="nameOfUserLabel" destination="jfm-VR-XuK" id="xey-bI-wX8"/>
                         <outlet property="tableView" destination="27h-M4-FfK" id="KmL-3A-6XV"/>
                         <outlet property="trailingC" destination="S2e-cM-E3K" id="ZoL-Do-KPp"/>
-                        <segue destination="QCn-t2-b68" kind="show" identifier="showMessageVc" id="cKr-8t-35O"/>
                         <segue destination="2fH-xG-heA" kind="show" identifier="showLocationServiceVC" id="tmN-1h-5XT"/>
                         <segue destination="7xK-RI-8cn" kind="show" identifier="showYourCircleVC" id="JrQ-ag-C6d"/>
+                        <segue destination="vqB-Rl-f2D" kind="show" identifier="showChatLogController" id="0a5-KT-aF2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozk-50-hmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -309,6 +309,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Y9F-cH-q3U"/>
                     <connections>
+                        <outlet property="addfriendBTN" destination="sgd-RK-tSp" id="QTT-rx-X6r"/>
                         <outlet property="emailLabel" destination="VjH-qz-ZSI" id="aZ7-IV-GMj"/>
                         <outlet property="nameOfUserLabel" destination="Adz-O3-6iZ" id="SIn-Cv-CgX"/>
                         <outlet property="profileImageView" destination="W0R-hK-PA9" id="RkZ-gh-Zxz"/>
@@ -317,6 +318,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1c-R3-Uzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6524" y="1799.5502248875564"/>
+        </scene>
+        <!--Chat Log Controller-->
+        <scene sceneID="zb1-oQ-umK">
+            <objects>
+                <viewController id="vqB-Rl-f2D" customClass="ChatLogController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n7V-ld-kwD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MuH-OZ-0t5">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatCell" id="cHa-5d-t2Z" customClass="ChatLogTableViewCell" customModule="KeepSafe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cHa-5d-t2Z" id="Xmy-GL-aRx">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MuH-OZ-0t5" firstAttribute="bottom" secondItem="X7c-eZ-eVq" secondAttribute="bottom" id="8Tg-VP-nzc"/>
+                            <constraint firstItem="MuH-OZ-0t5" firstAttribute="leading" secondItem="X7c-eZ-eVq" secondAttribute="leading" id="bVe-YG-kJI"/>
+                            <constraint firstItem="MuH-OZ-0t5" firstAttribute="trailing" secondItem="X7c-eZ-eVq" secondAttribute="trailing" id="j3U-hA-Hpv"/>
+                            <constraint firstItem="MuH-OZ-0t5" firstAttribute="top" secondItem="X7c-eZ-eVq" secondAttribute="top" id="xBV-z2-iYL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="X7c-eZ-eVq"/>
+                    </view>
+                    <connections>
+                        <outlet property="chatLogtableView" destination="MuH-OZ-0t5" id="OVk-Xr-tYh"/>
+                        <segue destination="QCn-t2-b68" kind="show" identifier="showMessageVC" id="T1o-Cs-I01"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D4F-Gd-4UR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="549.60000000000002" y="1803.1484257871066"/>
         </scene>
         <!--Message-->
         <scene sceneID="miz-F1-bHk">
@@ -431,27 +473,35 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ikv-fH-qi4">
-                                    <size key="itemSize" width="131" height="121"/>
+                                    <size key="itemSize" width="130" height="146"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="LF9-7E-o1O" customClass="CircleCollectionViewCell" customModule="KeepSafe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="131" height="121"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="146"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="131" height="121"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="146"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z0e-wd-Qb6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="131" height="121"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="132" height="107"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7p8-u6-Hzk">
+                                                    <rect key="frame" x="20" y="115" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <connections>
                                             <outlet property="friendImageCell" destination="Z0e-wd-Qb6" id="6Ix-dZ-E7P"/>
+                                            <outlet property="friendUserName" destination="7p8-u6-Hzk" id="B7u-Ns-G8W"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
