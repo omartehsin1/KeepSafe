@@ -12,24 +12,38 @@ import EmptyDataSet_Swift
 class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     var addFriend = AddFriendViewController()
     var yourCircleCell = CircleCollectionViewCell()
-
+    let dvc = DetailViewController()
     @IBOutlet weak var yourCircleCollectionView: UICollectionView!
+    var nameOfFriend = String()
+    var imageOfFriend = UIImage()
+    var emailOfFriend = String()
+//    var friendUID = String()
     
-    let myCircle = [Users]()
+    
+    var myCircle = [Users]()
+    var newFriends = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         yourCircleCollectionView.emptyDataSetSource = self
         yourCircleCollectionView.emptyDataSetDelegate = self
+        yourCircleCollectionView.delegate = self
+        yourCircleCollectionView.dataSource = self
         
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Friend", style: .plain, target: self, action: #selector(addFriendTapped))
-
+        
+        
     }
-    
+
+    override func viewDidDisappear(_ animated: Bool) {
+        print("view disappeared")
+    }
     @objc func addFriendTapped() {
         performSegue(withIdentifier: "showAddFriend", sender: self)
+        dvc.friendDelegate = self
+        
 
     }
     
@@ -49,19 +63,54 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
         
         return attributedQuote
     }
+    
+    func transferUsername(username: String) {
+//        nameOfFriend = username
+//        newFriends.append(nameOfFriend)
+        if username == nil {
+            print("Username is nil")
+        } else {
+            nameOfFriend = username
+            newFriends.append(nameOfFriend)
+        }
+    }
+
 
 }
 
+    
+    
+
+
 extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myCircle.count
+        return newFriends.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         yourCircleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CircleCollectionViewCell
-//        collectionViewCell.circleLabel.text = theArray[indexPath.item]
+        let myFriendCircle = newFriends[indexPath.row]
+        yourCircleCell.friendUserName.text = myFriendCircle
+        
+
         
         return yourCircleCell
+    }
+    
+    
+}
+
+extension YourCircleViewController: FriendAddedDelegate {
+    func didAddFriend(name: String) {
+        //let myFriendCircle = Users()
+        //myFriendCircle.nameOfUser = name
+//        nameOfFriend = name
+//        self.newFriends.append(nameOfFriend)
+        //self.myCircle.append(myFriendCircle)
+        
+        //print("On Your Circle View Controller: \(nameOfFriend)")
+        //yourCircleCell.friendUserName.text = nameOfFriend
     }
     
     

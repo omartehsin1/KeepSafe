@@ -7,7 +7,9 @@
 //
 
 import XCTest
+import Firebase
 @testable import KeepSafe
+
 
 class KeepSafeTests: XCTestCase {
 
