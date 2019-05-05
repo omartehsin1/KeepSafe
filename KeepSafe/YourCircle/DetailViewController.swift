@@ -10,9 +10,7 @@ import UIKit
 import Firebase
 import PMSuperButton
 
-protocol FriendAddedDelegate {
-    func didAddFriend(name: String)
-}
+
 
 
 class DetailViewController: UIViewController {
@@ -24,7 +22,7 @@ class DetailViewController: UIViewController {
     
     var databaseRef : DatabaseReference!
     
-    var friendDelegate : FriendAddedDelegate!
+
     
     //NEW VARS:
     var users = Users()
@@ -49,28 +47,29 @@ class DetailViewController: UIViewController {
       
     }
     
+
+    
     @IBAction func addFriendBTNPressed(_ sender: Any) {
         let myUID = Auth.auth().currentUser?.uid
         let otherUID = friendsUID
         let thisUsersFollowerUID = self.databaseRef.child("users").child(myUID!).child("Friends").childByAutoId()
-        thisUsersFollowerUID.setValue([otherUID, nameOfUser, email])
-        //addFriends()
-        print("Name of user is: \(nameOfUser)")
+        thisUsersFollowerUID.setValue(["otherUID": otherUID, "nameOfUser" : nameOfUser, "email" : email])
         
         performSegue(withIdentifier: "friendAdded", sender: self)
-        //let yourCircleVC = storyboard?.instantiateViewController(withIdentifier: "YourCircleViewController") as! YourCircleViewController
-        //friendDelegate.didAddFriend(name: nameOfUser)
-        //present(yourCircleVC, animated: true, completion: nil)
-        //dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+
     }
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let yourCirclevc = segue.destination as? YourCircleViewController, segue.identifier == "friendAdded" {
-            yourCirclevc.loadViewIfNeeded()
+            //yourCirclevc.loadViewIfNeeded()
             yourCirclevc.transferUsername(username: nameOfUser)
         }
     }
+    
+    
+    
     func btnPressed(image: UIImage) {
         
     }

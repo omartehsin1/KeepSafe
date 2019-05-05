@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.8.2)
   - ChameleonFramework (2.1.0):
     - ChameleonFramework/Default (= 2.1.0)
   - ChameleonFramework/Default (2.1.0)
@@ -89,9 +90,11 @@ PODS:
   - PMSuperButton (2.2.0)
   - SVProgressHUD (2.2.5)
   - SwiftLocation (4.0.1)
+  - SwiftyJSON (4.3.0)
   - TextFieldEffects (1.5.1)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.5)
   - ChameleonFramework
   - EmptyDataSet-Swift (~> 4.2.0)
   - Firebase (~> 5.16.0)
@@ -103,10 +106,12 @@ DEPENDENCIES:
   - PMSuperButton
   - SVProgressHUD
   - SwiftLocation (~> 4.0)
+  - SwiftyJSON (~> 4.0)
   - TextFieldEffects
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - ChameleonFramework
     - EmptyDataSet-Swift
     - Firebase
@@ -127,9 +132,11 @@ SPEC REPOS:
     - PMSuperButton
     - SVProgressHUD
     - SwiftLocation
+    - SwiftyJSON
     - TextFieldEffects
 
 SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   EmptyDataSet-Swift: 1fa0b35f530a35f852ecb2b53564728b0c300aaf
   Firebase: 749a8ff4962f9d8c79dda1966de20f6f77583d67
@@ -150,8 +157,9 @@ SPEC CHECKSUMS:
   PMSuperButton: 5e7b2eb79468dba1ced3fd00e47a7ce88a1fa664
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftLocation: f6e3abae66b071c4b84a5f323dda7687d4f0b333
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TextFieldEffects: 7d372f58aeaf9acd9626bbf962680aef926b085d
 
-PODFILE CHECKSUM: 87335e525701cf00e6503210b1385092d4b9ee2f
+PODFILE CHECKSUM: 27fcb0677e4e1ff0b7874718e228036b92fa72a0
 
 COCOAPODS: 1.6.0

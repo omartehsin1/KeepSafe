@@ -22,7 +22,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var usernameTextField: MinoruTextField!
     @IBOutlet weak var passwordTextField: MinoruTextField!
     //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
-    var friends = [Users]()
+    var registeredUser = [Users]()
     var ref: DatabaseReference!
 
     
@@ -103,7 +103,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             }
             guard let uid = user?.user.uid else { return }
             self.ref = Database.database().reference()
-            self.ref.child("users").child(uid).setValue(["friends": self.friends])
+            self.ref.child("users").child(uid).setValue(["friends": self.registeredUser])
             
             
             let imageName = NSUUID().uuidString

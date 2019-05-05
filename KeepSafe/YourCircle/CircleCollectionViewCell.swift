@@ -9,9 +9,10 @@
 import UIKit
 
 class CircleCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var friendImageCell: UIImageView!
+
     @IBOutlet weak var friendUserName: UILabel!
-    @IBOutlet weak var friendEmail: UILabel!
- 
     
+    
+
+
 }

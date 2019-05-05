@@ -68,30 +68,6 @@ class AddFriendViewController: UIViewController {
     }
     
     
-    //NEW FUNC:
-//    func fetchUser() {
-//        databaseRef.child("users").queryOrderedByKey().observeSingleEvent(of: .value) { (snapshot) in
-//            let users = snapshot.value as! [String: AnyObject]
-//            self.users.removeAll()
-//            for(_, value) in users {
-//                if let uid = value["uid"] as? String {
-//                    if uid != Auth.auth().currentUser?.uid {
-//                        let userToShow = Users()
-//                        if let nameOfUser = value["nameOfUser"] as? String, let email = value["email"] as? String, let profileImageURL = value["profileImageURL"] as? String {
-//                            userToShow.nameOfUser = nameOfUser
-//                            userToShow.email = email
-//                            userToShow.profileImageURL = profileImageURL
-//                            userToShow.userID = uid
-//                            self.users.append(userToShow)
-//                        }
-//                    }
-//                }
-//            }
-//            self.friendsTableView.reloadData()
-//        }
-//        databaseRef.removeAllObservers()
-//    }
-    
 }
 
 extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {

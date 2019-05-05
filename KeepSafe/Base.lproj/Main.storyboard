@@ -313,12 +313,12 @@
                         <outlet property="emailLabel" destination="VjH-qz-ZSI" id="aZ7-IV-GMj"/>
                         <outlet property="nameOfUserLabel" destination="Adz-O3-6iZ" id="SIn-Cv-CgX"/>
                         <outlet property="profileImageView" destination="W0R-hK-PA9" id="RkZ-gh-Zxz"/>
-                        <segue destination="7xK-RI-8cn" kind="show" identifier="friendAdded" id="jbb-hW-nvl"/>
+                        <segue destination="7xK-RI-8cn" kind="show" identifier="friendAdded" id="Eak-vh-Y5x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1c-R3-Uzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4881" y="2796"/>
+            <point key="canvasLocation" x="4492" y="2796"/>
         </scene>
         <!--Chat Log Controller-->
         <scene sceneID="zb1-oQ-umK">
@@ -494,22 +494,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srS-iT-qCp">
-                                                    <rect key="frame" x="0.0" y="116" width="130" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hJK-Uf-n5v">
-                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="84"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                             </subviews>
                                         </view>
                                         <connections>
-                                            <outlet property="friendEmail" destination="srS-iT-qCp" id="gXi-2G-D7a"/>
-                                            <outlet property="friendImageCell" destination="hJK-Uf-n5v" id="hCj-Zy-4F1"/>
                                             <outlet property="friendUserName" destination="7p8-u6-Hzk" id="B7u-Ns-G8W"/>
                                         </connections>
                                     </collectionViewCell>
@@ -809,8 +796,8 @@
         <image name="radarImage" width="1025" height="1025"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b4d-yi-1R7"/>
+        <segue reference="gyJ-12-VwQ"/>
         <segue reference="HA9-E6-L7k"/>
-        <segue reference="jbb-hW-nvl"/>
+        <segue reference="Eak-vh-Y5x"/>
     </inferredMetricsTieBreakers>
 </document>
