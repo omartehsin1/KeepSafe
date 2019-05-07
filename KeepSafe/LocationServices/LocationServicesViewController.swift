@@ -58,7 +58,9 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         _ = markerCreater(location: currentLocation, title: "Current Location", image: userImage!)
         
         getCrimeData()
-        createSearchBar()
+        createButton()
+        
+
 
     }
     
@@ -115,6 +117,19 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         
     }
     
+    
+    
+    func createButton() {
+        let button = UIButton(frame: CGRect(x: 313, y: 584, width: 100, height: 50))
+        button.backgroundColor = .blue
+        button.setTitle("Query Data", for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+    }
+    @objc func buttonAction() {
+        performSegue(withIdentifier: "showCrimeFilter", sender: self)
+    }
 }
 
 

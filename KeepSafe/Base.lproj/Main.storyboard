@@ -437,6 +437,30 @@
             </objects>
             <point key="canvasLocation" x="1401" y="1802"/>
         </scene>
+        <!--Crime Filter View Controller-->
+        <scene sceneID="Rek-ZA-TOj">
+            <objects>
+                <viewController id="pst-2S-cOQ" customClass="CrimeFilterViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yen-RG-eLc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1R-OL-mSo">
+                                <rect key="frame" x="0.0" y="122" width="375" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="goV-Ep-96K"/>
+                    </view>
+                    <connections>
+                        <outlet property="neighborhoodPickerView" destination="K1R-OL-mSo" id="K09-sg-tK0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XlB-Qq-L6D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2201" y="2504"/>
+        </scene>
         <!--Location Services View Controller-->
         <scene sceneID="b0k-5W-wnu">
             <objects>
@@ -447,6 +471,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="uMd-uE-xx7"/>
                     </view>
+                    <connections>
+                        <segue destination="pst-2S-cOQ" kind="show" identifier="showCrimeFilter" id="sYR-y5-O8P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QVL-yc-jmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

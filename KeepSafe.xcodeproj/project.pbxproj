@@ -24,6 +24,7 @@
 		0787658422664D99001DE728 /* CustomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787658222664D99001DE728 /* CustomMessageCell.swift */; };
 		0787658522664D99001DE728 /* CustomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0787658322664D99001DE728 /* CustomMessageCell.xib */; };
 		0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787658722665D78001DE728 /* LocationServicesViewController.swift */; };
+		07B543502281F62100ED8989 /* CrimeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */; };
 		07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */; };
 		07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B62260F7A90072D1BC /* HomePageViewController.swift */; };
 		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
@@ -71,6 +72,7 @@
 		0787658222664D99001DE728 /* CustomMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMessageCell.swift; sourceTree = "<group>"; };
 		0787658322664D99001DE728 /* CustomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMessageCell.xib; sourceTree = "<group>"; };
 		0787658722665D78001DE728 /* LocationServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesViewController.swift; sourceTree = "<group>"; };
+		07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrimeFilterViewController.swift; sourceTree = "<group>"; };
 		07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		07CC04B62260F7A90072D1BC /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		07CC04B8226153230072D1BC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				0787658722665D78001DE728 /* LocationServicesViewController.swift */,
+				07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */,
 			);
 			path = LocationServices;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
 				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
 				07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */,
+				07B543502281F62100ED8989 /* CrimeFilterViewController.swift in Sources */,
 				0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */,
 				07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */,
 				07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */,
