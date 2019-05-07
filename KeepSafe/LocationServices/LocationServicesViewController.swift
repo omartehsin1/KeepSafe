@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+
 import Alamofire
 import SwiftyJSON
 
@@ -22,6 +23,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var userImage: UIImage?
     var latitude : CLLocationDegrees?
     var longitude : CLLocationDegrees?
+    var crimeLocation = [CLLocationCoordinate2D]()
     
     
 
@@ -31,6 +33,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
+        
 
         //mapView.delegate = self
 
@@ -45,14 +48,27 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
  
         
         let currentLocation = CLLocationCoordinate2DMake(43.6789923, -79.3120105)
+        //let crimeLocation = CLLocationCoordinate2DMake(latitude, longitude)
+        
         //let marker = GMSMarker(position: currentLocation)
         //marker.title = "Current Location"
         userImage = UIImage(named: "defaultUser")
         //marker.icon = resizeImage(image: userImage!, newWidth: 50)
         //marker.map = mapView
-        let userMarker = markerCreater(location: currentLocation, title: "Current Location", image: userImage!)
+        _ = markerCreater(location: currentLocation, title: "Current Location", image: userImage!)
+        
         getCrimeData()
+        createSearchBar()
 
+    }
+    
+    func createSearchBar() {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.frame = CGRect(x: 0, y: 64, width: (navigationController?.view.bounds.size.width)!, height: 44)
+        searchBar.barStyle = .default
+        searchBar.isTranslucent = false
+        view.addSubview(searchBar)
     }
     
     func markerCreater(location: CLLocationCoordinate2D, title: String, image: UIImage) -> GMSMarker {
@@ -82,30 +98,25 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         Alamofire.request(url, method: .get, parameters: ["features" : "attributes"], encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
             if let jsonValue = response.result.value {
                     let json = JSON(jsonValue)
-                    //print("JSON VALUE IS:  \(json)")
-                    if let lat = json["features"][0]["attributes"]["Lat"].float, let long = json["features"][0]["attributes"]["Long"].float {
-                        //latitude = lat
-                        
-                        print("Lat type is : \(lat) long is: \(long)" )
+
+                for(key, subJSON) in json["features"] {
+                    if let lat = subJSON["attributes"]["Lat"].double, let long = subJSON["attributes"]["Long"].double {
+                        let latAndLong = CLLocationCoordinate2DMake(lat, long)
+                        self.crimeLocation.append(latAndLong)
                     }
-//                for(key, subJSON) in json["features"] {
-//                    if let offence = subJSON["attributes"]["offence"].string {
-//                        print("Offence type is : \(offence)" )
-//                        }
-//                    }
-//                for(key, subJSON) in json["features"] {
-//                    if let lat = subJSON["attributes"]["Lat"].float, let long = subJSON["attributes"]["Long"].float {
-//                        print("Lat is : \(lat) Long is: \(long)")
-//                        }
-//                    }
-                
+
                 }
-            })
 
-        }
-
+//                for crimeLocations in self.crimeLocation {
+//                    _ = self.markerCreater(location: crimeLocations, title: "Crime Here", image: self.userImage!)
+//                }
+            }
+        })
+        
+    }
+    
 }
 
-// https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/MCI_2014_to_2018/FeatureServer/0/query?where=occurrenceyear%20%3E%3D%202017%20AND%20occurrenceyear%20%3C%3D%202019&outFields=premisetype,offence,reportedyear,reportedmonth,reportedday,reporteddayofweek,reportedhour,occurrenceyear,occurrencemonth,occurrencedayofyear,occurrencedayofweek,occurrencehour,MCI,Division,Neighbourhood,Lat,Long&outSR=4326&f=json
+
 
 

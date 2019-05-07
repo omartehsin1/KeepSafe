@@ -444,15 +444,6 @@
                     <view key="view" contentMode="scaleToFill" id="MH8-Xn-9Y9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTo-nF-ENS">
-                                <rect key="frame" x="133" y="294" width="136" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="uMd-uE-xx7"/>
                     </view>
@@ -796,8 +787,7 @@
         <image name="radarImage" width="1025" height="1025"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gyJ-12-VwQ"/>
-        <segue reference="HA9-E6-L7k"/>
-        <segue reference="Eak-vh-Y5x"/>
+        <segue reference="3Fa-D7-SNS"/>
+        <segue reference="JrQ-ag-C6d"/>
     </inferredMetricsTieBreakers>
 </document>
