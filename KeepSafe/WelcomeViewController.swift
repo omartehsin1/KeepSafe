@@ -16,6 +16,8 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         if Auth.auth().currentUser != nil {
             self.performSegue(withIdentifier: "goToHome", sender: self)
             print("Logged In")
