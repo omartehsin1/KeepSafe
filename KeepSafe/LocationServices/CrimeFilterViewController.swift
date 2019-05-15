@@ -9,14 +9,22 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import GoogleMaps
+import GooglePlaces
+
+protocol PassCoordinatesBack {
+    func didTapSearch(coordinates: [CLLocationCoordinate2D])
+}
 
 class CrimeFilterViewController: UIViewController {
-    
-    var currentTextfield = UITextField()
+
     @IBOutlet weak var boroughTextField: UITextField!
     @IBOutlet weak var neighborhoodTextField: UITextField!
     @IBOutlet weak var boroughPickerView: UIPickerView!
     
+    @IBOutlet weak var crimeTypeTextField: UITextField!
+    
+    @IBOutlet weak var crimePickerView: UIPickerView!
     
     var pickerData : [String] = [String]()
     var oldTorontoData : [String] = [String]()
@@ -25,16 +33,27 @@ class CrimeFilterViewController: UIViewController {
     var northYorkData : [String] = [String]()
     var scarboroughData : [String] = [String]()
     var yorkData : [String] = [String]()
+    var crimeData : [String] = [String]()
     var selectedBorough : String!
     var selectedNeighborHood : String!
+    var crimeType : String!
+    var latitude : CLLocationDegrees?
+    var longitude : CLLocationDegrees?
+    var crimeLocation = [CLLocationCoordinate2D]()
+    var passCoordinateBackDelegate: PassCoordinatesBack!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //createBoroughPicker()
+        //createCrimeTypePicker()
         createToolbar()
         createNeighborhoodpicker()
         pickerData = ["Old Toronto", "York", "East York", "Etobicoke", "North York", "Scarborough"]
         boroughPickerView.delegate = self
         boroughPickerView.dataSource = self
+        crimePickerView.delegate = self
+        crimePickerView.dataSource = self
+        crimeTypeTextField.delegate = self
         
         
         eastYorkData = ["O'Connor-Parkview", "Thorncliffe Park", "Leaside-Bennington", "Broadview North", "Old East York", "Danforth Village - East York", "Woodbine-Lumsden", "Crescent Town"]
@@ -46,6 +65,10 @@ class CrimeFilterViewController: UIViewController {
                            "L'Amoreaux", "Tam O'Shanter-Sullivan", "Wexford/Maryvale", "Clairlea-Birchmount", "Oakridge", "Birchcliffe-Cliffside", "Cliffcrest", "Kennedy Park", "Ionview", "Dorset Park", "Bendale", "Agincourt South-Malvern West", "Agincourt North", "Milliken", "Rouge", "Malvern", "Centennial Scarborough", "Highland Creek", "Morningside", "West Hill", "Woburn", "Eglinton East", "Scarborough Village", "Guildwood"]
         
         yorkData = ["Humewood-Cedarvale", "Oakwood Village", "Briar Hill-Belgravia", "Caledonia-Fairbank", "Keelesdale-Eglinton West", "Rockcliffe-Smythe", "Beechborough-Greenbrook", "Weston", "Lambton Baby Point", "Mount Dennis"]
+        crimeData = ["Assault", "Robbery", "Break and Enter", "Theft"]
+        
+        crimePickerView.isHidden = true
+        
     }
     
     func createBoroughPicker() {
@@ -60,6 +83,11 @@ class CrimeFilterViewController: UIViewController {
         neighborhoodPicker.delegate = self
         neighborhoodTextField.inputView = neighborhoodPicker
     }
+    func createCrimeTypePicker() {
+        var crimeTypePicker = UIPickerView()
+        crimeTypePicker.delegate = self
+        crimeTypeTextField.inputView = crimeTypePicker
+    }
     
     func createToolbar() {
         let toolBar = UIToolbar()
@@ -73,16 +101,19 @@ class CrimeFilterViewController: UIViewController {
         boroughTextField.inputAccessoryView = toolBar
         
         neighborhoodTextField.inputAccessoryView = toolBar
+        
+        crimeTypeTextField.inputAccessoryView = toolBar
     }
     
     @objc func dimissKeyboard() {
         view.endEditing(true)
     }
     
-    func crimeDataSearch(neighborhood: String) {
+    func crimeDataSearch(neighborhood: String, theCrimeType: String) {
         let formattedNeighborood = neighborhood.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        
-        let url = URL(string: "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/MCI_2014_to_2018/FeatureServer/0/query?where=reportedyear%20%3E%3D%202018%20AND%20reportedyear%20%3C%3D%202019%20AND%20UPPER(Neighbourhood)%20like%20%27%25\(formattedNeighborood)%25%27&outFields=*&outSR=4326&f=json")!
+        let crimeType = theCrimeType
+
+        let url = URL(string: "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/MCI_2014_to_2018/FeatureServer/0/query?where=reportedyear%20%3E%3D%202017%20AND%20reportedyear%20%3C%3D%202018%20AND%20UPPER(Neighbourhood)%20like%20%27%25\(formattedNeighborood)%25%27%20AND%20MCI%20%3D%20%27\(crimeType)%27&outFields=*&outSR=4326&f=json")!
         print("URL IS: \(url)")
         
         Alamofire.request(url, method: .get, parameters: ["features" : "attributes"], encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
@@ -90,19 +121,30 @@ class CrimeFilterViewController: UIViewController {
                 let json = JSON(jsonValue)
                 
                 for(_, subJSON) in json["features"] {
-                    if let theNeighborhood = subJSON["attributes"]["Neighbourhood"]
-                        .string {
-                        print("neighborhood is :\(theNeighborhood)")
+                    if let lat = subJSON["attributes"]["Lat"].double, let long = subJSON["attributes"]["Long"].double {
+                        let latAndLong = CLLocationCoordinate2DMake(lat, long)
+                        self.crimeLocation.append(latAndLong)
+                        //print(self.crimeLocation)
                     }
                 }
                 
-                //                for crimeLocations in self.crimeLocation {
-                //                    _ = self.markerCreater(location: crimeLocations, title: "Crime Here", image: self.userImage!)
-                //                }
+//                for crimeLocations in self.crimeLocation {
+//                    _ = self.markerCreater(location: crimeLocations, title: "Crime Here", image: self.userImage!)
+//                }
             }
             
         })
     }
+
+    
+    @IBAction func searchButtonPressed(_ sender: Any) {
+        crimeDataSearch(neighborhood: selectedNeighborHood, theCrimeType: crimeType)
+        passCoordinateBackDelegate.didTapSearch(coordinates: crimeLocation)
+        dismiss(animated: true, completion: nil)
+
+        
+    }
+    
     
 }
 
@@ -114,6 +156,10 @@ extension CrimeFilterViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == boroughPickerView {
             return pickerData.count
+        }
+        
+        if pickerView == crimePickerView {
+            return crimeData.count
         }
         if selectedBorough == "Old Toronto" {
             return oldTorontoData.count
@@ -139,6 +185,10 @@ extension CrimeFilterViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             
             return pickerData[row]
         }
+        if pickerView == crimePickerView {
+            return crimeData[row]
+        }
+        
         if selectedBorough == "Old Toronto" {
             return oldTorontoData[row]
         } else if selectedBorough == "York" {
@@ -164,39 +214,44 @@ extension CrimeFilterViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             boroughTextField.text = selectedBorough
             print("the selected neighborhood is: \(selectedBorough ?? "")")
         }
-
+        
+        if pickerView == crimePickerView {
+            crimeType = crimeData[row]
+            crimePickerView.isHidden = true
+            crimeTypeTextField.text = crimeType
+        }
+        
         if selectedBorough == "Old Toronto" {
             selectedNeighborHood = oldTorontoData[row]
             neighborhoodTextField.text = selectedNeighborHood
-            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
-            crimeDataSearch(neighborhood: selectedNeighborHood)
+//            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
+//            crimeDataSearch(neighborhood: selectedNeighborHood)
         } else if selectedBorough == "York" {
             selectedNeighborHood = yorkData[row]
             neighborhoodTextField.text = selectedNeighborHood
-            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
-            crimeDataSearch(neighborhood: selectedNeighborHood)
         } else if selectedBorough == "East York" {
             selectedNeighborHood = eastYorkData[row]
             neighborhoodTextField.text = selectedNeighborHood
-            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
-            crimeDataSearch(neighborhood: selectedNeighborHood)
         } else if selectedBorough == "Etobicoke" {
             selectedNeighborHood = etobicokeData[row]
             neighborhoodTextField.text = selectedNeighborHood
-            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
-            crimeDataSearch(neighborhood: selectedNeighborHood)
         } else if selectedBorough == "North York" {
             selectedNeighborHood = northYorkData[row]
             neighborhoodTextField.text = selectedNeighborHood
-            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
-            crimeDataSearch(neighborhood: selectedNeighborHood)
         } else if selectedBorough == "Scarborough" {
             selectedNeighborHood = scarboroughData[row]
             neighborhoodTextField.text = selectedNeighborHood
-            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
-            crimeDataSearch(neighborhood: selectedNeighborHood)
         }
         
-        
     }
+    
+    
+}
+
+extension CrimeFilterViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        crimePickerView.isHidden = false
+        return false
+    }
+
 }

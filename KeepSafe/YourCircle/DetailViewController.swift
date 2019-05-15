@@ -16,6 +16,7 @@ class DetailViewController: UIViewController {
     var email : String = "No Email"
     var profileImage = UIImage()
     var friendsUID : String = ""
+    var friendProfileImageURL: String = ""
     
     var databaseRef : DatabaseReference!
     
@@ -48,7 +49,7 @@ class DetailViewController: UIViewController {
         let myUID = Auth.auth().currentUser?.uid
         let otherUID = friendsUID
         let thisUsersFollowerUID = self.databaseRef.child("users").child(myUID!).child("Friends").childByAutoId()
-        thisUsersFollowerUID.setValue(["otherUID": otherUID, "nameOfUser" : nameOfUser, "email" : email])
+        thisUsersFollowerUID.setValue(["otherUID": otherUID, "nameOfUser" : nameOfUser, "email" : email, "profileImageURL" : friendProfileImageURL])
         
         performSegue(withIdentifier: "friendAdded", sender: self)
         //dismiss(animated: true, completion: nil)

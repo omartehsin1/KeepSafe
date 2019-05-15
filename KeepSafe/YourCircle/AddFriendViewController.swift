@@ -141,6 +141,7 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
                 dvc.email = user.email ?? "no email"
                 dvc.friendsUID = user.userID ?? "no uid"
                 let url = URL(string: user.profileImageURL!)
+                dvc.friendProfileImageURL = user.profileImageURL ?? ""
                 let data = try? Data(contentsOf: url!)
 
                 dvc.profileImage = UIImage(data: data!) ?? UIImage(named: "defaultUser")!

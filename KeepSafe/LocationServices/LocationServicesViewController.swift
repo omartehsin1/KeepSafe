@@ -57,7 +57,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         //marker.map = mapView
         _ = markerCreater(location: currentLocation, title: "Current Location", image: userImage!)
         
-        getCrimeData()
+        //getCrimeData()
         createButton()
         
 
@@ -128,10 +128,24 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         self.view.addSubview(button)
     }
     @objc func buttonAction() {
-        performSegue(withIdentifier: "showCrimeFilter", sender: self)
+//        performSegue(withIdentifier: "showCrimeFilter", sender: self)
+        let crimeVC = storyboard?.instantiateViewController(withIdentifier: "CrimeFilter") as! CrimeFilterViewController
+        crimeVC.passCoordinateBackDelegate = self
+        present(crimeVC, animated: true, completion: nil)
     }
 }
 
+extension LocationServicesViewController: PassCoordinatesBack {
+    func didTapSearch(coordinates: [CLLocationCoordinate2D]) {
+        print(coordinates)
+        for crimeCoordinates in coordinates {
+            _ = self.markerCreater(location: crimeCoordinates, title: "Crime Here", image: self.userImage!)
+            //print(crimeCoordinates)
+        }
+    }
+    
+    
+}
 
 
 

@@ -11,6 +11,7 @@ import UIKit
 class CircleCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var friendUserName: UILabel!
+    @IBOutlet weak var friendProfileImage: UIImageView!
     
     
 

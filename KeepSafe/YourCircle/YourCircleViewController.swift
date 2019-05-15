@@ -72,9 +72,12 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
             databaseRef.child("users").child(uid).child("Friends").observe(.value) { (snapshot) in
                 for friends in snapshot.children.allObjects as! [DataSnapshot] {
                     if let dictionary = friends.value as? [String: AnyObject] {
-                        let name = dictionary["nameOfUser"] as? String ?? ""
-                        self.newFriends.append(name)
-                        print(name)
+                        let users = Users()
+                        users.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                        users.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
+                        self.myCircle.append(users)
+                        //self.newFriends.append(name)
+                        //print(name)
                         DispatchQueue.main.async {
                             self.yourCircleCollectionView.reloadData()
                         }
@@ -91,28 +94,33 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
 
 extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(newFriends.count)
-        return newFriends.count
+
+        return myCircle.count
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         yourCircleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CircleCollectionViewCell
-        yourCircleCell.friendUserName.text = newFriends[indexPath.row]
-        //        print("the user name is: \(myFriendCircle)")
+//        yourCircleCell.friendUserName.text = newFriends[indexPath.row]
+
         
         
+        let myFriendCircle = myCircle[indexPath.row]
         
+        yourCircleCell.friendUserName.text = myFriendCircle.nameOfUser
         
-        //let myFriendCircle = myCircle[indexPath.row]
-        //yourCircleCell.friendUserName.text = myCircle[indexPath.row].nameOfUser
-        //print("the username is :\(myFriendCircle.nameOfUser)")
+        print(myFriendCircle.profileImageURL)
+        
+        if let profileImageURL = myFriendCircle.profileImageURL {
+            yourCircleCell.friendProfileImage.loadImageUsingCache(urlString: profileImageURL)
+        }
+        
         
         
         return yourCircleCell
     }
     
-    
+
     
     
 }
