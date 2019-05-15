@@ -56,8 +56,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         //marker.icon = resizeImage(image: userImage!, newWidth: 50)
         //marker.map = mapView
         _ = markerCreater(location: currentLocation, title: "Current Location", image: userImage!)
-        
-        //getCrimeData()
+
         createButton()
         
 
@@ -93,29 +92,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         
         return newImage
     }
-    func getCrimeData() {
-        
-        guard let url = URL(string: "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/MCI_2014_to_2018/FeatureServer/0/query?where=reportedyear%20%3E%3D%202017%20AND%20reportedyear%20%3C%3D%202019&outFields=premisetype,offence,reportedyear,reportedmonth,reportedday,reporteddayofyear,reporteddayofweek,reportedhour,occurrenceyear,occurrencemonth,occurrenceday,occurrencedayofweek,occurrencehour,MCI,Neighbourhood,Lat,Long&outSR=4326&f=json") else { return }
-        
-        Alamofire.request(url, method: .get, parameters: ["features" : "attributes"], encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-            if let jsonValue = response.result.value {
-                    let json = JSON(jsonValue)
 
-                for(key, subJSON) in json["features"] {
-                    if let lat = subJSON["attributes"]["Lat"].double, let long = subJSON["attributes"]["Long"].double {
-                        let latAndLong = CLLocationCoordinate2DMake(lat, long)
-                        self.crimeLocation.append(latAndLong)
-                    }
-
-                }
-
-//                for crimeLocations in self.crimeLocation {
-//                    _ = self.markerCreater(location: crimeLocations, title: "Crime Here", image: self.userImage!)
-//                }
-            }
-        })
-        
-    }
     
     
     

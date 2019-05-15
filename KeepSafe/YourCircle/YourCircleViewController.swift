@@ -76,8 +76,6 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
                         users.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
                         users.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
                         self.myCircle.append(users)
-                        //self.newFriends.append(name)
-                        //print(name)
                         DispatchQueue.main.async {
                             self.yourCircleCollectionView.reloadData()
                         }
@@ -101,10 +99,7 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         yourCircleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CircleCollectionViewCell
-//        yourCircleCell.friendUserName.text = newFriends[indexPath.row]
 
-        
-        
         let myFriendCircle = myCircle[indexPath.row]
         
         yourCircleCell.friendUserName.text = myFriendCircle.nameOfUser
@@ -114,10 +109,11 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
         if let profileImageURL = myFriendCircle.profileImageURL {
             yourCircleCell.friendProfileImage.loadImageUsingCache(urlString: profileImageURL)
         }
-        
-        
-        
+
         return yourCircleCell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        <#code#>
     }
     
 

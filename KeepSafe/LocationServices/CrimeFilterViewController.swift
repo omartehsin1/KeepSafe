@@ -84,7 +84,7 @@ class CrimeFilterViewController: UIViewController {
         neighborhoodTextField.inputView = neighborhoodPicker
     }
     func createCrimeTypePicker() {
-        var crimeTypePicker = UIPickerView()
+        let crimeTypePicker = UIPickerView()
         crimeTypePicker.delegate = self
         crimeTypeTextField.inputView = crimeTypePicker
     }
@@ -124,13 +124,11 @@ class CrimeFilterViewController: UIViewController {
                     if let lat = subJSON["attributes"]["Lat"].double, let long = subJSON["attributes"]["Long"].double {
                         let latAndLong = CLLocationCoordinate2DMake(lat, long)
                         self.crimeLocation.append(latAndLong)
+                        self.passCoordinateBackDelegate.didTapSearch(coordinates: self.crimeLocation)
                         //print(self.crimeLocation)
                     }
                 }
-                
-//                for crimeLocations in self.crimeLocation {
-//                    _ = self.markerCreater(location: crimeLocations, title: "Crime Here", image: self.userImage!)
-//                }
+
             }
             
         })
@@ -139,7 +137,6 @@ class CrimeFilterViewController: UIViewController {
     
     @IBAction func searchButtonPressed(_ sender: Any) {
         crimeDataSearch(neighborhood: selectedNeighborHood, theCrimeType: crimeType)
-        passCoordinateBackDelegate.didTapSearch(coordinates: crimeLocation)
         dismiss(animated: true, completion: nil)
 
         
@@ -224,8 +221,6 @@ extension CrimeFilterViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         if selectedBorough == "Old Toronto" {
             selectedNeighborHood = oldTorontoData[row]
             neighborhoodTextField.text = selectedNeighborHood
-//            print("the selected neighborhood is: \(selectedNeighborHood ?? "")")
-//            crimeDataSearch(neighborhood: selectedNeighborHood)
         } else if selectedBorough == "York" {
             selectedNeighborHood = yorkData[row]
             neighborhoodTextField.text = selectedNeighborHood
