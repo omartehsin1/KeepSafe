@@ -313,12 +313,11 @@
                         <outlet property="emailLabel" destination="VjH-qz-ZSI" id="aZ7-IV-GMj"/>
                         <outlet property="nameOfUserLabel" destination="Adz-O3-6iZ" id="SIn-Cv-CgX"/>
                         <outlet property="profileImageView" destination="W0R-hK-PA9" id="RkZ-gh-Zxz"/>
-                        <segue destination="7xK-RI-8cn" kind="show" identifier="friendAdded" id="Eak-vh-Y5x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1c-R3-Uzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4492" y="2796"/>
+            <point key="canvasLocation" x="4431" y="2667"/>
         </scene>
         <!--Chat Log Controller-->
         <scene sceneID="zb1-oQ-umK">
@@ -522,6 +521,34 @@
             </objects>
             <point key="canvasLocation" x="2201" y="2697"/>
         </scene>
+        <!--Friends Profile View Controller-->
+        <scene sceneID="Ux9-dK-FPL">
+            <objects>
+                <viewController id="esR-ns-ZzS" customClass="FriendsProfileViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wEs-c1-Bgi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p9J-uc-stZ">
+                                <rect key="frame" x="130" y="318" width="115" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Chat"/>
+                                <connections>
+                                    <action selector="chatBtnPressed:" destination="esR-ns-ZzS" eventType="touchUpInside" id="bym-jP-0Si"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="HJ0-5m-evL"/>
+                    </view>
+                    <connections>
+                        <segue destination="QCn-t2-b68" kind="show" identifier="messageFriend" id="vVe-LI-dX7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M9c-1U-BCY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3180" y="2740.4797601199402"/>
+        </scene>
         <!--Location Services View Controller-->
         <scene sceneID="b0k-5W-wnu">
             <objects>
@@ -597,6 +624,7 @@
                     <connections>
                         <outlet property="yourCircleCollectionView" destination="q1P-Wp-43k" id="GTK-Ld-xUM"/>
                         <segue destination="jwQ-GK-YAI" kind="presentation" identifier="showAddFriend" id="b4d-yi-1R7"/>
+                        <segue destination="esR-ns-ZzS" kind="show" identifier="showFriend" id="Qr1-a7-ceQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C1J-Br-cIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -880,7 +908,7 @@
         <image name="radarImage" width="1025" height="1025"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3Fa-D7-SNS"/>
-        <segue reference="JrQ-ag-C6d"/>
+        <segue reference="Omf-57-U5L"/>
+        <segue reference="T1o-Cs-I01"/>
     </inferredMetricsTieBreakers>
 </document>

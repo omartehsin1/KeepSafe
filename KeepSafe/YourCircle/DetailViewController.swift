@@ -51,8 +51,9 @@ class DetailViewController: UIViewController {
         let thisUsersFollowerUID = self.databaseRef.child("users").child(myUID!).child("Friends").childByAutoId()
         thisUsersFollowerUID.setValue(["otherUID": otherUID, "nameOfUser" : nameOfUser, "email" : email, "profileImageURL" : friendProfileImageURL])
         
-        performSegue(withIdentifier: "friendAdded", sender: self)
-        //dismiss(animated: true, completion: nil)
+        //performSegue(withIdentifier: "friendAdded", sender: self)
+        dismiss(animated: true, completion: nil)
+
 
     }
 

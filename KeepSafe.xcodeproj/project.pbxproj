@@ -15,7 +15,6 @@
 		0755E914227613D5002752E1 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E913227613D5002752E1 /* Alert.swift */; };
 		0755E91922765E20002752E1 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E91822765E20002752E1 /* ImageExtension.swift */; };
 		0755E91B2278BBD6002752E1 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E91A2278BBD6002752E1 /* ChatLogController.swift */; };
-		0755E91D2278CA5B002752E1 /* ChatLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E91C2278CA5B002752E1 /* ChatLogTableViewCell.swift */; };
 		077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */; };
 		07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876576226260AB001DE728 /* ProfileTableViewCell.swift */; };
 		07876579226260B9001DE728 /* ProfileItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876578226260B9001DE728 /* ProfileItems.swift */; };
@@ -25,6 +24,7 @@
 		0787658522664D99001DE728 /* CustomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0787658322664D99001DE728 /* CustomMessageCell.xib */; };
 		0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787658722665D78001DE728 /* LocationServicesViewController.swift */; };
 		07B543502281F62100ED8989 /* CrimeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */; };
+		07C2CCF6228DBEA000758CE7 /* FriendsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CCF5228DBEA000758CE7 /* FriendsProfileViewController.swift */; };
 		07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */; };
 		07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B62260F7A90072D1BC /* HomePageViewController.swift */; };
 		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
@@ -40,6 +40,8 @@
 		07E30B472225C4B800904A45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B462225C4B800904A45 /* GoogleService-Info.plist */; };
 		07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4C2225D8BE00904A45 /* LogInViewController.swift */; };
 		07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */; };
+		07F4A2D222B96CAD001C2A1A /* ChatLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D022B96CAD001C2A1A /* ChatLogTableViewCell.swift */; };
+		07F4A2D322B96CAD001C2A1A /* ChatLogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07F4A2D122B96CAD001C2A1A /* ChatLogTableViewCell.xib */; };
 		215F29B78E1EFE3505004216 /* Pods_KeepSafeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA749F84653B2EFB25F62DC3 /* Pods_KeepSafeTests.framework */; };
 		A2AD0A43B7B9D5F6F4478DD7 /* Pods_KeepSafe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2FD260DFCB403E7E3BACB8F /* Pods_KeepSafe.framework */; };
 /* End PBXBuildFile section */
@@ -63,7 +65,6 @@
 		0755E913227613D5002752E1 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		0755E91822765E20002752E1 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		0755E91A2278BBD6002752E1 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
-		0755E91C2278CA5B002752E1 /* ChatLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogTableViewCell.swift; sourceTree = "<group>"; };
 		077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		07876576226260AB001DE728 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		07876578226260B9001DE728 /* ProfileItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItems.swift; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 		0787658322664D99001DE728 /* CustomMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMessageCell.xib; sourceTree = "<group>"; };
 		0787658722665D78001DE728 /* LocationServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesViewController.swift; sourceTree = "<group>"; };
 		07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrimeFilterViewController.swift; sourceTree = "<group>"; };
+		07C2CCF5228DBEA000758CE7 /* FriendsProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsProfileViewController.swift; sourceTree = "<group>"; };
 		07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		07CC04B62260F7A90072D1BC /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		07CC04B8226153230072D1BC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -92,6 +94,8 @@
 		07E30B462225C4B800904A45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07E30B4C2225D8BE00904A45 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		07F4A2D022B96CAD001C2A1A /* ChatLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogTableViewCell.swift; sourceTree = "<group>"; };
+		07F4A2D122B96CAD001C2A1A /* ChatLogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatLogTableViewCell.xib; sourceTree = "<group>"; };
 		3EC05CC27689D43FEB4E5457 /* Pods-KeepSafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepSafe.release.xcconfig"; path = "Target Support Files/Pods-KeepSafe/Pods-KeepSafe.release.xcconfig"; sourceTree = "<group>"; };
 		6098995795134EAAF354BEF3 /* Pods-KeepSafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepSafe.debug.xcconfig"; path = "Target Support Files/Pods-KeepSafe/Pods-KeepSafe.debug.xcconfig"; sourceTree = "<group>"; };
 		A2FD260DFCB403E7E3BACB8F /* Pods_KeepSafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KeepSafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +130,7 @@
 				0750E26A226672C50038201E /* AddFriendViewController.swift */,
 				0750E26C2266AA660038201E /* Users.swift */,
 				0750E26E226775340038201E /* YourCircleViewController.swift */,
+				07C2CCF5228DBEA000758CE7 /* FriendsProfileViewController.swift */,
 				0750E27622695B090038201E /* DetailViewController.swift */,
 				077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */,
 			);
@@ -162,7 +167,8 @@
 				0787658322664D99001DE728 /* CustomMessageCell.xib */,
 				0787657E2262A628001DE728 /* Message.swift */,
 				0755E91A2278BBD6002752E1 /* ChatLogController.swift */,
-				0755E91C2278CA5B002752E1 /* ChatLogTableViewCell.swift */,
+				07F4A2D022B96CAD001C2A1A /* ChatLogTableViewCell.swift */,
+				07F4A2D122B96CAD001C2A1A /* ChatLogTableViewCell.xib */,
 			);
 			path = MessageVC;
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 			files = (
 				07E30B2F2225BE7700904A45 /* LaunchScreen.storyboard in Resources */,
 				07E30B472225C4B800904A45 /* GoogleService-Info.plist in Resources */,
+				07F4A2D322B96CAD001C2A1A /* ChatLogTableViewCell.xib in Resources */,
 				07E30B2C2225BE7700904A45 /* Assets.xcassets in Resources */,
 				0787658522664D99001DE728 /* CustomMessageCell.xib in Resources */,
 				07E30B272225BE7500904A45 /* Main.storyboard in Resources */,
@@ -484,6 +491,7 @@
 				07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */,
 				0755E914227613D5002752E1 /* Alert.swift in Sources */,
 				0750E27722695B090038201E /* DetailViewController.swift in Sources */,
+				07C2CCF6228DBEA000758CE7 /* FriendsProfileViewController.swift in Sources */,
 				0750E268226670340038201E /* SpinnerViewController.swift in Sources */,
 				07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,
@@ -496,8 +504,8 @@
 				0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */,
 				07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */,
 				07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */,
-				0755E91D2278CA5B002752E1 /* ChatLogTableViewCell.swift in Sources */,
 				0755E91922765E20002752E1 /* ImageExtension.swift in Sources */,
+				07F4A2D222B96CAD001C2A1A /* ChatLogTableViewCell.swift in Sources */,
 				0787657F2262A628001DE728 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

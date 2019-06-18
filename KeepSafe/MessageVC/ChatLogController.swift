@@ -16,6 +16,7 @@ class ChatLogController: UIViewController, EmptyDataSetSource, EmptyDataSetDeleg
         super.viewDidLoad()
         chatLogtableView.delegate = self
         chatLogtableView.dataSource = self
+        chatLogtableView.register(UINib(nibName: "ChatLogTableViewCell", bundle: nil), forCellReuseIdentifier: "chatLogCell")
         
         chatLogtableView.emptyDataSetSource = self
         chatLogtableView.emptyDataSetDelegate = self

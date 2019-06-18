@@ -52,7 +52,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.avatarImageView.image = UIImage(named: "defaultUser")
         
         //Set background as blue if message is from logged in User
-        if cell.senderUsername.text == Auth.auth().currentUser?.email as! String {
+        if cell.senderUsername.text == Auth.auth().currentUser?.email {
             cell.avatarImageView.backgroundColor = UIColor.flatMint() //change to flat.mint
             cell.messageBackground.backgroundColor = UIColor.flatSkyBlue() // flatSkyBlue
             

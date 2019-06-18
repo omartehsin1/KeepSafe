@@ -113,7 +113,16 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
         return yourCircleCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
+        performSegue(withIdentifier: "showFriend", sender: self)
+        self.yourCircleCollectionView.deselectItem(at: indexPath as IndexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFriend" {
+            if let indexPath = yourCircleCollectionView.indexPathsForSelectedItems {
+                
+            }
+        }
     }
     
 
