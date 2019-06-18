@@ -8,10 +8,12 @@
 
 import UIKit
 import EmptyDataSet_Swift
+import Firebase
 
 class ChatLogController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     @IBOutlet weak var chatLogtableView: UITableView!
-    let myMessages = [String]()
+    var myMessages: [Message] = [Message]()
+    var users = [Users]()
     override func viewDidLoad() {
         super.viewDidLoad()
         chatLogtableView.delegate = self
@@ -21,6 +23,7 @@ class ChatLogController: UIViewController, EmptyDataSetSource, EmptyDataSetDeleg
         chatLogtableView.emptyDataSetSource = self
         chatLogtableView.emptyDataSetDelegate = self
         
+        retrieveMessages()
         barButtonItem()
     }
     
@@ -49,6 +52,28 @@ class ChatLogController: UIViewController, EmptyDataSetSource, EmptyDataSetDeleg
         let attributedQuote = NSAttributedString(string: title, attributes: attributes)
         return attributedQuote
     }
+    func retrieveMessages() {
+        if let uid = Auth.auth().currentUser?.uid {
+            
+            Database.database().reference().child("users").child(uid).child("Messages").observe(.value) { (snapshot) in
+                
+                for chatLogMessages in snapshot.children.allObjects as! [DataSnapshot] {
+                    
+                    if let dictionary = chatLogMessages.value as? [String: AnyObject] {
+                        let message = Message()
+                        message.messageBody = dictionary["MessageBody"] as? String ?? ""
+                        message.recepient = dictionary["Recepient"] as? String ?? ""
+                        self.myMessages.append(message)
+                        DispatchQueue.main.async {
+                            self.chatLogtableView.reloadData()
+                        }
+                    }
+                }
+                
+            }
+        }
+ 
+    }
     
 }
 
@@ -58,7 +83,10 @@ extension ChatLogController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let chatCell = chatLogtableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) as! ChatLogTableViewCell
+        let chatCell = chatLogtableView.dequeueReusableCell(withIdentifier: "chatLogCell", for: indexPath) as! ChatLogTableViewCell
+        chatCell.userNameLabel.text = myMessages[indexPath.row].recepient
+        
+        chatCell.userImageview.image = UIImage(named: "defaultUser")
         
         return chatCell
     }

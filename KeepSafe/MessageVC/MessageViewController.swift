@@ -14,6 +14,8 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*TODO: ALL USERS ARE ABLE TO SEE MESSAGES. FIX THIS*/
     var messageArray : [Message] = [Message]()
     var users = [Users]()
+    var databaseRef : DatabaseReference!
+    var recepient = String()
 
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var messageTextField: UITextField!
@@ -36,6 +38,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         retrieveMessage()
 
         messageTableView.separatorStyle = .none
+        
 
     }
 
@@ -104,11 +107,16 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         messageTextField.isEnabled = false
         sendButton.isEnabled = false
         
-        let messageDB = Database.database().reference().child("Messages")
+        let myUID = Auth.auth().currentUser?.uid
         
-        let messageDictionary : NSDictionary = ["Sender" : Auth.auth().currentUser?.email as! String, "MessageBody": messageTextField.text!]
+        let messageDB = Database.database().reference().child("users").child(myUID!).child("Messages").childByAutoId()
         
-        messageDB.childByAutoId().setValue(messageDictionary) {
+        let messageDictionary : NSDictionary = ["Sender" : Auth.auth().currentUser?.email as! String, "MessageBody": messageTextField.text!, "Recepient": recepient]
+        
+        
+        
+        
+        messageDB.setValue(messageDictionary) {
             (error, ref) in
             if error != nil {
                 print(error!)
@@ -129,24 +137,24 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: Retrieve messages
     func retrieveMessage() {
-        let messageDB = Database.database().reference().child("Messages")
-        
-        messageDB.observe(.childAdded) { (snapshot) in
-            let snapshotValue = snapshot.value as! NSDictionary
-            let text = snapshotValue["MessageBody"] as! String
-            let sender = snapshotValue["Sender"] as! String
-            
-            let message = Message()
-            message.messageBody = text
-            message.sender = sender
-            
-            self.messageArray.append(message)
-            
-            DispatchQueue.main.async {
-                self.configureTableView()
-                self.messageTableView.reloadData()
+        if let uid = Auth.auth().currentUser?.uid {
+            Database.database().reference().child("users").child(uid).child("Messages").observe(.value) { (snapshot) in
+                for messages in snapshot.children.allObjects as! [DataSnapshot] {
+                    if let dictionary = messages.value as? [String: AnyObject] {
+                        let message = Message()
+                        message.messageBody = dictionary["MessageBody"] as? String ?? ""
+                        message.sender = dictionary["Sender"] as? String ?? ""
+                        message.recepient = dictionary["Recepient"] as? String ?? ""
+                        self.messageArray.append(message)
+                        DispatchQueue.main.async {
+                            self.configureTableView()
+                            self.messageTableView.reloadData()
+                        }
+                    }
+                }
             }
         }
+        
     }
     
 

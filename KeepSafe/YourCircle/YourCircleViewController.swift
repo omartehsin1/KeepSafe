@@ -119,8 +119,15 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFriend" {
-            if let indexPath = yourCircleCollectionView.indexPathsForSelectedItems {
-                
+            if let indexPath = yourCircleCollectionView.indexPathsForSelectedItems?.first {
+                let friendVC = segue.destination as! FriendsProfileViewController
+                let friends = myCircle[indexPath.row]
+                friendVC.nameOfUser = friends.nameOfUser ?? "no name"
+                friendVC.email = friends.email ?? "no email"
+                friendVC.friendsUID = friends.userID ?? "no uid"
+                //let url = URL(string: friends.profileImageURL!)
+                //friendVC.friendProfileImageURL = friends.profileImageURL ?? ""
+                //let data = try? Data(contentsOf: url!)
             }
         }
     }

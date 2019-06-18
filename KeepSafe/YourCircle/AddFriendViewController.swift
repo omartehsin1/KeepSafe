@@ -137,6 +137,7 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
             if let indexPath = friendsTableView.indexPathForSelectedRow {
                 let dvc = segue.destination as! DetailViewController
                 let user = users[indexPath.row]
+                
                 dvc.nameOfUser = user.nameOfUser ?? "no name"
                 dvc.email = user.email ?? "no email"
                 dvc.friendsUID = user.userID ?? "no uid"
