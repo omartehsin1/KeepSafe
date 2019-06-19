@@ -14,6 +14,8 @@ class ChatLogController: UIViewController, EmptyDataSetSource, EmptyDataSetDeleg
     @IBOutlet weak var chatLogtableView: UITableView!
     var myMessages: [Message] = [Message]()
     var users = [Users]()
+    var theRecepients = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         chatLogtableView.delegate = self
@@ -63,6 +65,7 @@ class ChatLogController: UIViewController, EmptyDataSetSource, EmptyDataSetDeleg
                         let message = Message()
                         message.messageBody = dictionary["MessageBody"] as? String ?? ""
                         message.recepient = dictionary["Recepient"] as? String ?? ""
+                        
                         self.myMessages.append(message)
                         DispatchQueue.main.async {
                             self.chatLogtableView.reloadData()
@@ -79,12 +82,18 @@ class ChatLogController: UIViewController, EmptyDataSetSource, EmptyDataSetDeleg
 
 extension ChatLogController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let uniqueRecepients = uniq(source: theRecepients)
+        //print(theRecepients)
+        //print(uniqueRecepients)
         return myMessages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let chatCell = chatLogtableView.dequeueReusableCell(withIdentifier: "chatLogCell", for: indexPath) as! ChatLogTableViewCell
         chatCell.userNameLabel.text = myMessages[indexPath.row].recepient
+        //let theRec = myMessages[indexPath.row].recepient
+        //theRecepients.append(theRec)
+        //print(theRecepients)
         
         chatCell.userImageview.image = UIImage(named: "defaultUser")
         
@@ -92,4 +101,18 @@ extension ChatLogController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+}
+
+extension ChatLogController {
+    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
 }

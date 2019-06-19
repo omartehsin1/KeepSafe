@@ -9,7 +9,8 @@
 import Foundation
 
 class Message {
-    var messageBody = ""
+    var messageBody : String?
+    var date: NSDate?
     var sender = ""
     var recepient = ""
 }

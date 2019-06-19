@@ -12,39 +12,61 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customMessageCell" rowHeight="87" id="KGk-i7-Jjw" customClass="CustomMessageCell" customModule="KeepSafe" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customMessageCell" rowHeight="101" id="KGk-i7-Jjw" customClass="CustomMessageCell" customModule="KeepSafe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="101"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="86.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ZM-wV-r4p">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0ZM-wV-r4p">
                         <rect key="frame" x="7" y="11" width="60" height="65"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="Sad-dV-bqt"/>
+                            <constraint firstAttribute="height" constant="65" id="ebh-pP-MT7"/>
+                        </constraints>
                     </imageView>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="khM-Ps-AZU">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khM-Ps-AZU">
                         <rect key="frame" x="75" y="11" width="240" height="65"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNT-pr-8Nx">
-                                <rect key="frame" x="8" y="22" width="224" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNT-pr-8Nx">
+                                <rect key="frame" x="8" y="37" width="232" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="232" id="1d7-hc-yWy"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KW0-0k-s4r">
-                                <rect key="frame" x="8" y="0.0" width="224" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KW0-0k-s4r">
+                                <rect key="frame" x="8" y="0.0" width="232" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="232" id="OVS-av-Vly"/>
+                                    <constraint firstAttribute="height" constant="21" id="P5Q-mE-eKs"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.1647058824" green="0.76862745099999996" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="KW0-0k-s4r" firstAttribute="leading" secondItem="khM-Ps-AZU" secondAttribute="leading" constant="8" id="4cJ-Ca-6f4"/>
+                            <constraint firstItem="TNT-pr-8Nx" firstAttribute="leading" secondItem="khM-Ps-AZU" secondAttribute="leading" constant="8" id="9QU-hD-9RX"/>
+                            <constraint firstItem="TNT-pr-8Nx" firstAttribute="top" secondItem="KW0-0k-s4r" secondAttribute="bottom" constant="16" id="VFQ-SV-wBp"/>
+                            <constraint firstAttribute="bottom" secondItem="TNT-pr-8Nx" secondAttribute="bottom" constant="8" id="bAk-RL-p9H"/>
+                            <constraint firstItem="KW0-0k-s4r" firstAttribute="top" secondItem="khM-Ps-AZU" secondAttribute="top" id="fUt-AI-rbY"/>
+                            <constraint firstAttribute="trailing" secondItem="KW0-0k-s4r" secondAttribute="trailing" id="ijh-GJ-sch"/>
+                        </constraints>
                     </view>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="khM-Ps-AZU" secondAttribute="trailing" constant="5" id="Jtk-dm-n2n"/>
+                    <constraint firstItem="khM-Ps-AZU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="Y3Y-e7-Tim"/>
+                    <constraint firstItem="0ZM-wV-r4p" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="ZqA-Vb-G3r"/>
+                    <constraint firstItem="khM-Ps-AZU" firstAttribute="leading" secondItem="0ZM-wV-r4p" secondAttribute="trailing" constant="8" id="iga-30-eyu"/>
+                    <constraint firstAttribute="bottom" secondItem="khM-Ps-AZU" secondAttribute="bottom" constant="24.5" id="seI-jd-FX0"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
@@ -53,7 +75,7 @@
                 <outlet property="messageBody" destination="TNT-pr-8Nx" id="U6E-gJ-9lL"/>
                 <outlet property="senderUsername" destination="KW0-0k-s4r" id="UBm-XD-C71"/>
             </connections>
-            <point key="canvasLocation" x="137.59999999999999" y="127.28635682158921"/>
+            <point key="canvasLocation" x="137.59999999999999" y="132.68365817091455"/>
         </tableViewCell>
     </objects>
 </document>

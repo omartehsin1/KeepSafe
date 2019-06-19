@@ -26,6 +26,11 @@ class FriendsProfileViewController: UIViewController {
     @IBAction func chatBtnPressed(_ sender: Any) {
         performSegue(withIdentifier: "messageFriend", sender: self)
     }
+    
+    @IBAction func otherChatBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: "goToOtherChat", sender: self)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "messageFriend" {
             let messageVC = segue.destination as! MessageViewController
