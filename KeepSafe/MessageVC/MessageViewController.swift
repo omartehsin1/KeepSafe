@@ -16,37 +16,37 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     var users = [Users]()
     var databaseRef : DatabaseReference!
     var recepient = String()
-
+    
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageTableView: UITableView!
-
+    
     var topButton = UIButton()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         messageTableView.delegate = self
         messageTableView.dataSource = self
         messageTableView.register(UINib(nibName: "CustomMessageCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
         messageTextField.delegate = self
-
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tableViewTapped))
         messageTableView.addGestureRecognizer(tapGesture)
         
         configureTableView()
         retrieveMessage()
-
+        
         messageTableView.separatorStyle = .none
         
-
+        
     }
-
+    
     //MARK: Table view Methods
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
         
         cell.messageBody.text = messageArray[indexPath.row].messageBody
         cell.senderUsername.text = messageArray[indexPath.row].sender
@@ -60,20 +60,20 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.messageBackground.backgroundColor = UIColor.flatSkyBlue() // flatSkyBlue
             
         }
-        //Set background as grey if message is from another user
-        
+            //Set background as grey if message is from another user
+            
         else  {
             cell.avatarImageView.backgroundColor = UIColor.flatWatermelon() //flatWatermelon
             cell.messageBackground.backgroundColor = UIColor.flatGray() // flatgrey
         }
         return cell
-
+        
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return messageArray.count
-
+        
     }
     
     @objc func tableViewTapped() {
@@ -90,14 +90,14 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: Textfield Methods:
     func textFieldDidBeginEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.5) {
-           self.heightConstraint.constant = 308
+            self.heightConstraint.constant = 308
             self.view.layoutIfNeeded()
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.5) {
-           self.heightConstraint.constant = 50
+            self.heightConstraint.constant = 50
             self.view.layoutIfNeeded()
         }
     }
@@ -107,31 +107,28 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         messageTextField.isEnabled = false
         sendButton.isEnabled = false
         
-        let myUID = Auth.auth().currentUser?.uid
+                let myUID = Auth.auth().currentUser?.uid
         
-        let messageDB = Database.database().reference().child("users").child(myUID!).child("Messages").childByAutoId()
+                let messageDB = Database.database().reference().child("users").child(myUID!).child("Messages").childByAutoId()
         
-        let messageDictionary : NSDictionary = ["Sender" : Auth.auth().currentUser?.email as! String, "MessageBody": messageTextField.text!, "Recepient": recepient]
+                let messageDictionary : NSDictionary = ["Sender" : Auth.auth().currentUser?.email as! String, "MessageBody": messageTextField.text!, "Recepient": recepient]
+ 
+                messageDB.setValue(messageDictionary) {
+                    (error, ref) in
+                    if error != nil {
+                        print(error!)
+                    }
+                    else {
+                        print("Message Saved Successfully!")
+                    }
+                    DispatchQueue.main.async {
+                        self.messageTextField.isEnabled = true
+                        self.sendButton.isEnabled = true
+                        self.messageTextField.text = ""
+                    }
+                }
         
-        
-        
-        
-        messageDB.setValue(messageDictionary) {
-            (error, ref) in
-            if error != nil {
-                print(error!)
-            }
-            else {
-                print("Message Saved Successfully!")
-            }
-            DispatchQueue.main.async {
-                self.messageTextField.isEnabled = true
-                self.sendButton.isEnabled = true
-                self.messageTextField.text = ""
-            }
-        }
-        
-        
+
     }
     
     
@@ -157,6 +154,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-
-
+    
+    
 }
