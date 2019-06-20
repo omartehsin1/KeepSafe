@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import EmptyDataSet_Swift
 
 class Friend: NSObject {
     var name: String?
@@ -19,8 +20,9 @@ class TheMessage: NSObject{
     
     var friend: Friend?
 }
-
-class FriendsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+//showChatLogController
+//showMessageVC
+class FriendsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, EmptyDataSetSource, EmptyDataSetDelegate {
     private let cellID = "cellID"
     var theMessages: [TheMessage]?
     var myMessages: [Message] = [Message]()
@@ -28,55 +30,22 @@ class FriendsViewController: UICollectionViewController, UICollectionViewDelegat
     var tempLast : [String] = []
     var lastMessage : [String] = []
     
-    func setUpData() {
-        let omar = Friend()
-        omar.name = "Omar Tehsin"
-        omar.profileImageName = "defaultUser"
-        
-        let message = TheMessage()
-        message.friend = omar
-        message.text = "Hello my name is omar. Nice to meet you..."
-        message.date = NSDate()
-        
-        theMessages = [message]
-    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //collectionView.backgroundColor = UIColor.white
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.alwaysBounceVertical = true
+        collectionView.emptyDataSetSource = self
+        collectionView.emptyDataSetDelegate = self
         navigationItem.title = "Messages"
         retrieveMessages()
-        //print(lastMessage)
 
-        //setUpData()
 
     }
     func retrieveMessages() {
-//        if let uid = Auth.auth().currentUser?.uid {
-//            Database.database().reference().child("users").child(uid).child("Messages").observe(.value) { (snapshot) in
-//                for chatLogMessages in snapshot.children.allObjects as! [DataSnapshot] {
-//                    if let dictionary = chatLogMessages.value as? [String: AnyObject] {
-//                        let lastVal = dictionary["MessageBody"] as? String ?? ""
-//
-//                        self.tempLast.append(lastVal)
-//
-//
-//                        let message = Message()
-//                        message.messageBody = dictionary["MessageBody"] as? String ?? ""
-//                        message.recepient = dictionary["Recepient"] as? String ?? ""
-//                        self.myMessages.append(message)
-//                        DispatchQueue.main.async {
-//                            self.collectionView.reloadData()
-//                            self.appendTheArray()
-//
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
+
         if let otherUID = Auth.auth().currentUser?.uid {
             let ref = Database.database().reference().child("users").child(otherUID).child("Messages").queryLimited(toLast: 1)
             ref.observeSingleEvent(of: .value) { (snapshot) in
@@ -94,13 +63,8 @@ class FriendsViewController: UICollectionViewController, UICollectionViewDelegat
             }
         }
         
-        
     }
-    func appendTheArray() {
-        guard let mostRecentMessage = tempLast.last else { return }
-        lastMessage.append(mostRecentMessage)
-        //print(lastMessage)
-    }
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
@@ -269,5 +233,23 @@ class BaseCell: UICollectionViewCell {
     func setupViews() {
         backgroundColor = UIColor.blue
         
+    }
+}
+
+extension FriendsViewController {
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        let noCircle = UIImage(named: "noCircle")
+        return noCircle
+    }
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let title = "You have no chats!"
+        let font = UIFont.boldSystemFont(ofSize: 18)
+        let shadow = NSShadow()
+        shadow.shadowColor = UIColor.black
+        shadow.shadowBlurRadius = 1
+        
+        let attributes: [NSAttributedString.Key : Any] = [.font : font, .foregroundColor: UIColor.darkGray, .shadow: shadow]
+        let attributedQuote = NSAttributedString(string: title, attributes: attributes)
+        return attributedQuote
     }
 }
