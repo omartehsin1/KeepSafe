@@ -24,13 +24,25 @@ class FriendsProfileViewController: UIViewController {
     }
     
     @IBAction func chatBtnPressed(_ sender: Any) {
+        
         performSegue(withIdentifier: "messageFriend", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "messageFriend" {
             let friendChatMessage = segue.destination as! FriendMessageCollectionViewController
             friendChatMessage.recepient = nameOfUser
+            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let friendMessageVC = storyboard.instantiateViewController(withIdentifier: "FriendChat") as! FriendMessageCollectionViewController
+//            friendMessageVC.recepient = nameOfUser
+//            self.present(friendMessageVC, animated: true, completion: nil)
+            
         }
+    }
+    func showMessageControllerForUser(user: Message) {
+        let friendMessageControler = FriendMessageCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        //navigationController?.pushViewController(friendMessageControler, animated: true)
+        navigationController?.present(friendMessageControler, animated: true, completion: nil)
     }
     
 

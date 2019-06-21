@@ -59,6 +59,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         return cell
     }
     
+    
     func retrieveChat() {
         if let uid = Auth.auth().currentUser?.uid {
             Database.database().reference().child("users").child(uid).child("Messages").observe(.value) { (snapshot) in
@@ -100,6 +101,11 @@ class ChatCell: BaseCell {
             }
         }
     }
+    let messageTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont.systemFont(ofSize: 16)
+        return textView
+    }()
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -140,6 +146,12 @@ class ChatCell: BaseCell {
     
     
     override func setupViews() {
+        //addSubview(messageTextView)
+        //addConstraintsWithFormat(format: "H:|[v0]|", views: messageTextView)
+        //addConstraintsWithFormat(format: "V:|[v0]|", views: messageTextView)
+        
+        
+        
         addSubview(profileImageView)
         
         
@@ -259,7 +271,7 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     @objc func sendPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
-        
+        //Auth.auth().currentUser?.email as! String
         let messageDictionary: NSDictionary = ["Sender": Auth.auth().currentUser?.email as! String, "MessageBody": textField.text, "Recepient": recepient]
         
         messageDB.setValue(messageDictionary) {

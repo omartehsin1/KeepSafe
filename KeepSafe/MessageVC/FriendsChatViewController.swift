@@ -27,7 +27,7 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
     var theMessages: [TheMessage]?
     var myMessages: [Message] = [Message]()
     var users = [Users]()
-    //var recepient = String()
+    var recepient = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +82,22 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 100)
     }
+    var friendProfileViewController: FriendsProfileViewController?
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showMessageVC", sender: self)
+        //print(myMessages[indexPath.row].recepient)
+        let friendMessageVC = FriendMessageCollectionViewController()
+        //friendMessageVC.recepient = myMessages[indexPath.row].recepient
+//        let user = self.myMessages[indexPath.row]
+//        print(user.sender)
+//        dismiss(animated: true) {
+//            print("Dismiss Completed")
+//            let user = self.myMessages[indexPath.row]
+//            self.friendProfileViewController?.showMessageControllerForUser(user: user)
+//            //self.showMessageControllerForUser(user: user)
+//        }
     }
+
 
 }
 
