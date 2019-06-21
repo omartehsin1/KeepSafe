@@ -22,15 +22,12 @@ class TheMessage: NSObject{
 }
 //showChatLogController
 //showMessageVC
-class FriendsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, EmptyDataSetSource, EmptyDataSetDelegate {
+class FriendsChatViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, EmptyDataSetSource, EmptyDataSetDelegate {
     private let cellID = "cellID"
     var theMessages: [TheMessage]?
     var myMessages: [Message] = [Message]()
     var users = [Users]()
-    var tempLast : [String] = []
-    var lastMessage : [String] = []
-    
-
+    //var recepient = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +72,7 @@ class FriendsViewController: UICollectionViewController, UICollectionViewDelegat
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MessageCell
 
         let message = myMessages[indexPath.row]
-        //let message = lastMessage[indexPath.row]
+        
         cell.message = message
             
         
@@ -85,10 +82,22 @@ class FriendsViewController: UICollectionViewController, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 100)
     }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showMessageVC", sender: self)
+    }
 
 }
 
 class MessageCell: BaseCell {
+    
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor(red: 0, green: 134/255, blue: 249/255, alpha: 1) : UIColor.white
+            nameLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
+            timeLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
+            messageLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
+        }
+    }
     
 //    var message: TheMessage? {
 //        didSet {
@@ -110,10 +119,17 @@ class MessageCell: BaseCell {
 //        }
 //    }
     var message: Message? {
+
         didSet {
             nameLabel.text = message?.recepient
             
             messageLabel.text = message?.messageBody
+            if let date = message?.date {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "h:mm a"
+                timeLabel.text = dateFormatter.string(from: date as Date)
+                
+            }
         }
     }
     
@@ -146,7 +162,7 @@ class MessageCell: BaseCell {
     }()
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "12:05 pm"
+        label.text = "12:10 pm"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = NSTextAlignment.right
         return label
@@ -236,7 +252,7 @@ class BaseCell: UICollectionViewCell {
     }
 }
 
-extension FriendsViewController {
+extension FriendsChatViewController {
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
         let noCircle = UIImage(named: "noCircle")
         return noCircle
@@ -253,3 +269,5 @@ extension FriendsViewController {
         return attributedQuote
     }
 }
+
+
