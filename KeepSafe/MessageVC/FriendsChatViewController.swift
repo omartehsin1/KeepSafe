@@ -51,7 +51,10 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
                         let message = Message()
                         message.messageBody = dictionary["MessageBody"] as? String ?? ""
                         message.recepient = dictionary["Recepient"] as? String ?? ""
+                        message.date = dictionary["timestamp"] as? Double
+
                         self.myMessages.append(message)
+                        
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
@@ -112,36 +115,31 @@ class MessageCell: BaseCell {
         }
     }
     
-//    var message: TheMessage? {
-//        didSet {
-//            nameLabel.text = message?.friend?.name
-//
-//            if let profileImageName = message?.friend?.profileImageName {
-//                profileImageView.image = UIImage(named: profileImageName)
-//                hasReadImageView.image = UIImage(named: profileImageName)
-//            }
-//
-//            messageLabel.text = message?.text
-//
-//            if let date = message?.date {
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "h:mm a"
-//                timeLabel.text = dateFormatter.string(from: date as Date)
-//
-//            }
-//        }
-//    }
+
     var message: Message? {
 
         didSet {
             nameLabel.text = message?.recepient
             
             messageLabel.text = message?.messageBody
+            
+            
+            
             if let date = message?.date {
+                let x = date / 1000
+                let theDate = NSDate(timeIntervalSince1970: x)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "h:mm a"
-                timeLabel.text = dateFormatter.string(from: date as Date)
+                let elapsedTimeInSeconds = NSDate().timeIntervalSince(theDate as Date)
                 
+                let secondsInDays: TimeInterval = 60 * 60 * 24
+                
+                if elapsedTimeInSeconds > secondsInDays {
+                    dateFormatter.dateFormat = "EEE"
+                }
+//
+                timeLabel.text = dateFormatter.string(from: theDate as Date)
+//                
             }
         }
     }

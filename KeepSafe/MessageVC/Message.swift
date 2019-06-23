@@ -10,7 +10,7 @@ import Foundation
 
 class Message {
     var messageBody : String?
-    var date: NSDate?
+    var date: Double?
     var sender = ""
     var recepient = ""
 }

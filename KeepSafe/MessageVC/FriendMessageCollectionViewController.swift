@@ -19,7 +19,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     let textField = UITextView()
     let button = UIButton(type: .system)
     var recepient = String()
-    
+    let timeStamp = ServerValue.timestamp()
     
     
     
@@ -51,9 +51,24 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatCell
         
-        let message = messagesArray[indexPath.row]
+        //let message = messagesArray[indexPath.row]
+        cell.messageTextView.text = messagesArray[indexPath.row].messageBody
         
-        cell.message = message
+        if let messageText = messagesArray[indexPath.item].messageBody {
+            //, profileImageName = messagesArray[indexPath.item].profileimage(or we)
+            cell.profileImageView.image = UIImage(named: "defaultUser")
+            
+            let size = CGSize(width: 250, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)], context: nil)
+            
+           cell.messageTextView.frame = CGRect(x:48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+            cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+        }
+        
+        
+        
+        //cell.message = message
         
         
         return cell
@@ -82,34 +97,44 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if let messageText = messagesArray[indexPath.item].messageBody {
+            let size = CGSize(width: 250, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)], context: nil)
+            
+            return CGSize(width: view.frame.width, height: estimatedFrame.height + 20)
+        }
+        
         return CGSize(width: view.frame.width, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
     }
     
 }
 
 class ChatCell: BaseCell {
-    var message: Message? {
-        didSet {
-            nameLabel.text = message?.sender
-            messageLabel.text = message?.messageBody
-            
-            if let date = message?.date {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "h:mm a"
-                timeLabel.text = dateFormatter.string(from: date as Date)
-                
-            }
-        }
-    }
+
     let messageTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 16)
+        textView.backgroundColor = UIColor.clear
         return textView
     }()
+    
+    let textBubbleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = UIView.ContentMode.scaleAspectFit
-        imageView.layer.cornerRadius = 34
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        imageView.layer.cornerRadius = 15
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -128,72 +153,20 @@ class ChatCell: BaseCell {
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    let timeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "12:10 pm"
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textAlignment = NSTextAlignment.right
-        return label
-    }()
-    
-    let hasReadImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = UIView.ContentMode.scaleAspectFit
-        imageView.layer.cornerRadius = 10
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
+
     
     
     override func setupViews() {
-        //addSubview(messageTextView)
-        //addConstraintsWithFormat(format: "H:|[v0]|", views: messageTextView)
-        //addConstraintsWithFormat(format: "V:|[v0]|", views: messageTextView)
         
-        
-        
+        addSubview(textBubbleView)
+        addSubview(messageTextView)
         addSubview(profileImageView)
-        
-        
-        setUpContainerView()
-        
-        
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.image = UIImage(named: "defaultUser")
-        hasReadImageView.image = UIImage(named: "defaultUser")
-        
-        addConstraintsWithFormat(format: "H:|-12-[v0(68)]", views: profileImageView)
-        addConstraintsWithFormat(format: "V:[v0(68)]", views: profileImageView)
-        
-        
-        NSLayoutConstraint.activate([NSLayoutConstraint(item: profileImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)])
-        
+        addConstraintsWithFormat(format: "H:|-8-[v0(30)]", views: profileImageView)
+        addConstraintsWithFormat(format: "V:[v0(30)]|", views: profileImageView)
+ 
         
     }
-    private func setUpContainerView() {
-        let containerView = UIView()
-        
-        addSubview(containerView)
-        
-        addConstraintsWithFormat(format: "H:|-90-[v0]|", views: containerView)
-        addConstraintsWithFormat(format: "V:[v0(50)]", views: containerView)
-        NSLayoutConstraint.activate([NSLayoutConstraint(item: containerView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)])
-        
-        containerView.addSubview(nameLabel)
-        containerView.addSubview(messageLabel)
-        containerView.addSubview(timeLabel)
-        containerView.addSubview(hasReadImageView)
-        
-        containerView.addConstraintsWithFormat(format: "H:|[v0][v1(80)]-12-|", views: nameLabel, timeLabel)
-        
-        containerView.addConstraintsWithFormat(format: "V:|[v0][v1(24)]|", views: nameLabel, messageLabel)
-        
-        containerView.addConstraintsWithFormat(format: "H:|[v0]-8-[v1(20)]-12-|", views: messageLabel, hasReadImageView)
-        
-        containerView.addConstraintsWithFormat(format: "V:|[v0(24)]", views: timeLabel)
-        
-        containerView.addConstraintsWithFormat(format: "V:[v0(20)]|", views: hasReadImageView)
-    }
+
 }
 
 extension FriendMessageCollectionViewController {
@@ -272,7 +245,10 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
         //Auth.auth().currentUser?.email as! String
-        let messageDictionary: NSDictionary = ["Sender": Auth.auth().currentUser?.email as! String, "MessageBody": textField.text, "Recepient": recepient]
+        
+        
+        //let convertedTime = NSDate(timeIntervalSince1970: timeStamp / 1000)
+        let messageDictionary: NSDictionary = ["Sender": Auth.auth().currentUser?.email as! String, "MessageBody": textField.text, "Recepient": recepient, "timestamp": timeStamp]
         
         messageDB.setValue(messageDictionary) {
             (error, ref) in
@@ -285,10 +261,12 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
             
             DispatchQueue.main.async {
                 self.textField.text = ""
+                
             }
         }
         
     }
+    
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.text = ""
