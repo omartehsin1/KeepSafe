@@ -48,43 +48,66 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
     //var messagesDictionary = [String: Message]()
     func retrieveMessages() {
         var messagesDictionary = [String: Message]()
-        if let myUID = Auth.auth().currentUser?.uid {
-            let ref = Database.database().reference().child("users").child(myUID).child("Messages")
-            ref.observe(.childAdded) { (snapshot) in
-
-                    if let dictionary = snapshot.value as? [String: AnyObject] {
-                        let message = Message()
-                        message.fromID = dictionary["fromID"] as? String ?? ""
-                        message.messageBody = dictionary["messageBody"] as? String ?? ""
-                        message.recepient = dictionary["recepient"] as? String ?? ""
-                        message.sender = dictionary["sender"] as? String ?? ""
-                        message.timestamp = dictionary["timestamp"] as? Double
-                        message.toID = dictionary["toID"] as? String ?? ""
-
-
-                        if let toID = message.toID {
-                           messagesDictionary[toID] = message
-                            self.myMessages = Array(messagesDictionary.values)
-                            self.myMessages.sort(by: { (message1, message2) -> Bool in
-                                guard let firstMessage = message1.timestamp else {return false}
-                                guard let secondMessage = message2.timestamp else {return false}
-                                return firstMessage > secondMessage
-                            })
-                        }
-                        
-                        
-
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-
-
-                    }
-
-
+        let ref = Database.database().reference().child("Message")
+        ref.observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.fromID = dictionary["fromID"] as? String ?? ""
+                message.messageBody = dictionary["messageBody"] as? String ?? ""
+                message.recepient = dictionary["recepient"] as? String ?? ""
+                message.sender = dictionary["sender"] as? String ?? ""
+                message.timestamp = dictionary["timestamp"] as? Double
+                message.toID = dictionary["toID"] as? String ?? ""
+                
+                
+                if let toID = message.toID {
+                    messagesDictionary[toID] = message
+                    self.myMessages = Array(messagesDictionary.values)
+                    self.myMessages.sort(by: { (message1, message2) -> Bool in
+                        guard let firstMessage = message1.timestamp else {return false}
+                        guard let secondMessage = message2.timestamp else {return false}
+                        return firstMessage > secondMessage
+                    })
+                }
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+                
+                
             }
-
         }
+//        if let myUID = Auth.auth().currentUser?.uid {
+//            let ref = Database.database().reference().child("users").child(myUID).child("Messages")
+//            ref.observe(.childAdded) { (snapshot) in
+//
+//                    if let dictionary = snapshot.value as? [String: AnyObject] {
+//                        let message = Message()
+//                        message.fromID = dictionary["fromID"] as? String ?? ""
+//                        message.messageBody = dictionary["messageBody"] as? String ?? ""
+//                        message.recepient = dictionary["recepient"] as? String ?? ""
+//                        message.sender = dictionary["sender"] as? String ?? ""
+//                        message.timestamp = dictionary["timestamp"] as? Double
+//                        message.toID = dictionary["toID"] as? String ?? ""
+//
+//
+//                        if let toID = message.toID {
+//                           messagesDictionary[toID] = message
+//                            self.myMessages = Array(messagesDictionary.values)
+//                            self.myMessages.sort(by: { (message1, message2) -> Bool in
+//                                guard let firstMessage = message1.timestamp else {return false}
+//                                guard let secondMessage = message2.timestamp else {return false}
+//                                return firstMessage > secondMessage
+//                            })
+//                        }
+//                        DispatchQueue.main.async {
+//                            self.collectionView.reloadData()
+//                        }
+//
+//
+//                    }
+//            }
+//
+//        }
 
     }
     func showFriendMessageControllerForUser(theuser: Message) {

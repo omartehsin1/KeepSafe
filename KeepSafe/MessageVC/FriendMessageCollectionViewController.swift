@@ -98,56 +98,51 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     func retrieveChat() {
         var messagesDictionary = [String: Message]()
         
-        if let uid = Auth.auth().currentUser?.uid {
-            Database.database().reference().child("users").child(uid).child("Messages").queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
-                //let messageDict = snapshot.value as? [String: AnyObject]
-                //print(messageDict)
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    let message = Message()
-                    message.fromID = dictionary["fromID"] as? String
-                    message.messageBody = dictionary["messageBody"] as? String ?? ""
-                    message.recepient = dictionary["recepient"] as? String ?? ""
-                    message.sender = dictionary["sender"] as? String ?? ""
-                    message.timestamp = dictionary["timestamp"] as? Double
-                    message.toID = dictionary["toID"] as? String ?? ""
-                    
-                    self.messagesArray.append(message)
-                    
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-
+//        if let uid = Auth.auth().currentUser?.uid {
+//            Database.database().reference().child("users").child(uid).child("Messages").queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
+//                //let messageDict = snapshot.value as? [String: AnyObject]
+//                //print(messageDict)
+//                if let dictionary = snapshot.value as? [String: AnyObject] {
+//                    let message = Message()
+//                    message.fromID = dictionary["fromID"] as? String
+//                    message.messageBody = dictionary["messageBody"] as? String ?? ""
+//                    message.recepient = dictionary["recepient"] as? String ?? ""
+//                    message.sender = dictionary["sender"] as? String ?? ""
+//                    message.timestamp = dictionary["timestamp"] as? Double
+//                    message.toID = dictionary["toID"] as? String ?? ""
+//                    
+//                    self.messagesArray.append(message)
+//                    
+//                    DispatchQueue.main.async {
+//                        self.collectionView.reloadData()
+//                    }
+//
+//                }
+//            }
+//        }
+        
+        let ref = Database.database().reference().child("Message")
+        ref.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.fromID = dictionary["fromID"] as? String
+                message.messageBody = dictionary["messageBody"] as? String ?? ""
+                message.recepient = dictionary["recepient"] as? String ?? ""
+                message.sender = dictionary["sender"] as? String ?? ""
+                message.timestamp = dictionary["timestamp"] as? Double
+                message.toID = dictionary["toID"] as? String ?? ""
+                
+                self.messagesArray.append(message)
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
                 }
+                
             }
         }
         
-//        if let uid = Auth.auth().currentUser?.uid {
-//            Database.database().reference().child("users").child(uid).child("Messages").observe(.childAdded) { (snapshot) in
-//
-//                    //self.messagesArray.removeAll()
-//                    if let dictionary =  snapshot.value as? [String: AnyObject] {
-//                        let message = Message()
-//                        message.fromID = dictionary["fromID"] as? String
-//                        message.messageBody = dictionary["messageBody"] as? String ?? ""
-//                        message.recepient = dictionary["recepient"] as? String ?? ""
-//                        message.sender = dictionary["sender"] as? String ?? ""
-//                        message.timestamp = dictionary["timestamp"] as? Double
-//                        message.toID = dictionary["toID"] as? String ?? ""
-//
-//                        self.messagesArray.append(message)
-//                        //print("The message toID is: \(message.toID)")
-//                        if let theToID = message.toID {
-//                            messagesDictionary[theToID] = message
-//                            //self.messagesArray = Array(messagesDictionary.values)
-//                        }
-//
-//                        DispatchQueue.main.async {
-//                            self.collectionView.reloadData()
-//                        }
-//                    }
-//
-//            }
-//        }
+        
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let messageText = messagesArray[indexPath.item].messageBody {
@@ -296,9 +291,9 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     }
     @objc func sendPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-        let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
+//        let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
 
-        
+        let messageDB = Database.database().reference().child("Message").childByAutoId()
 
         let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
         

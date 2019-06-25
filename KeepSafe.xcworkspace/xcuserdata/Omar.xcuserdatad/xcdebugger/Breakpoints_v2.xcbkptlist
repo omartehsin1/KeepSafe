@@ -138,61 +138,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/MessageVC/FriendMessageCollectionViewController.swift"
-            timestampString = "583189023.762888"
+            timestampString = "583190336.519069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
             endingLineNumber = "45"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KeepSafe/MessageVC/FriendsChatViewController.swift"
-            timestampString = "583189023.763701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "retrieveMessages()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in KeepSafe.FriendsChatViewController.retrieveMessages() -&gt; ()"
-                  moduleName = "KeepSafe"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Omar/Desktop/Coding/Projects/KeepSafe/KeepSafe/MessageVC/FriendsChatViewController.swift"
-                  timestampString = "583174210.700272"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "95"
-                  endingLineNumber = "95"
-                  offsetFromSymbolStart = "4332">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (__C.FIRDataSnapshot) -&gt; () in KeepSafe.FriendsChatViewController.retrieveMessages() -&gt; ()"
-                  moduleName = "KeepSafe"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Omar/Desktop/Coding/Projects/KeepSafe/KeepSafe/MessageVC/FriendsChatViewController.swift"
-                  timestampString = "583174210.704499"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "96"
-                  endingLineNumber = "96"
-                  offsetFromSymbolStart = "41">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
