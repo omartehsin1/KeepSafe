@@ -8,9 +8,14 @@
 
 import Foundation
 
-class Message {
+class Message: NSObject {
+    var fromID: String?
     var messageBody : String?
-    var date: Double?
-    var sender = ""
-    var recepient = ""
+    var recepient : String?
+    var sender : String?
+    //var timestamp: NSNumber?
+    var timestamp: Double?
+    var toID: String?
+    
+    
 }

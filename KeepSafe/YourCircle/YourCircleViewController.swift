@@ -75,6 +75,7 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
                         let users = Users()
                         users.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
                         users.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
+                        users.userID = dictionary["otherUID"] as? String ?? ""
                         self.myCircle.append(users)
                         DispatchQueue.main.async {
                             self.yourCircleCollectionView.reloadData()

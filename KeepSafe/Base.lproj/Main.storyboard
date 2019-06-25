@@ -548,7 +548,7 @@
         <!--Friend Message Collection View Controller-->
         <scene sceneID="J4C-c1-KgX">
             <objects>
-                <collectionViewController storyboardIdentifier="FriendChat" id="jK0-T2-wxg" customClass="FriendMessageCollectionViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="friendMessageCollectionViewController" id="jK0-T2-wxg" customClass="FriendMessageCollectionViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="QH1-qh-d11">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -939,6 +939,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Omf-57-U5L"/>
-        <segue reference="UFq-pb-bXn"/>
+        <segue reference="1q2-ew-XuA"/>
     </inferredMetricsTieBreakers>
 </document>

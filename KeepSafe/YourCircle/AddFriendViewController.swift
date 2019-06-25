@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+
+
 class AddFriendViewController: UIViewController {
     
     var users = [Users]()
@@ -30,6 +32,7 @@ class AddFriendViewController: UIViewController {
         navigationItem.title = "Add Friends"
         
         fetchUser()
+        
         
         
         
@@ -86,6 +89,8 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         let user = users[indexPath.row]
+        
+        
         friendCell.textLabel?.text = user.nameOfUser
         friendCell.detailTextLabel?.text = user.email
         
@@ -141,6 +146,9 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
                 dvc.nameOfUser = user.nameOfUser ?? "no name"
                 dvc.email = user.email ?? "no email"
                 dvc.friendsUID = user.userID ?? "no uid"
+                
+                //let friendInfo = FriendInfo()
+                //print(FriendInfo.init(friendsUID: user.userID))
                 let url = URL(string: user.profileImageURL!)
                 dvc.friendProfileImageURL = user.profileImageURL ?? ""
                 let data = try? Data(contentsOf: url!)

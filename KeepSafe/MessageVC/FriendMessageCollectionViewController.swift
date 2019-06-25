@@ -13,15 +13,19 @@ import EmptyDataSet_Swift
 
 
 class FriendMessageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, EmptyDataSetSource, EmptyDataSetDelegate {
+    
+    
     private let cellID = "cellID"
     var messagesArray: [Message] = [Message]()
     var users = [Users]()
     let textField = UITextView()
     let button = UIButton(type: .system)
     var recepient = String()
-    let timeStamp = ServerValue.timestamp()
-    
-    
+    let timestamp = ServerValue.timestamp()
+    var toID = String()
+    let theUser = Users()
+    var otherRec = String()
+    var otherToID = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +40,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         createTextView()
         createButton()
         button.addTarget(self, action: #selector(sendPressed), for: .touchUpInside)
-        
-        
-        
+
     }
     
     
@@ -53,17 +55,33 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         
         //let message = messagesArray[indexPath.row]
         cell.messageTextView.text = messagesArray[indexPath.row].messageBody
+        navigationItem.title = messagesArray[indexPath.row].recepient
+        
+        
         
         if let messageText = messagesArray[indexPath.item].messageBody {
             //, profileImageName = messagesArray[indexPath.item].profileimage(or we)
             cell.profileImageView.image = UIImage(named: "defaultUser")
-            
             let size = CGSize(width: 250, height: 1000)
             let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
             let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)], context: nil)
             
-           cell.messageTextView.frame = CGRect(x:48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
-            cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+            if messagesArray[indexPath.row].sender == Auth.auth().currentUser?.email {
+                cell.messageTextView.frame = CGRect(x:48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+                cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+                cell.textBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+                cell.messageTextView.textColor = UIColor.black
+                cell.profileImageView.isHidden = false
+            }
+            
+            else {
+                cell.messageTextView.frame = CGRect(x:view.frame.width - estimatedFrame.width - 16 - 16, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+                cell.textBubbleView.frame = CGRect(x: view.frame.width - estimatedFrame.width - 16 - 8 - 16, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+                cell.textBubbleView.backgroundColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
+                cell.messageTextView.textColor = UIColor.white
+            }
+
+           
         }
         
         
@@ -82,10 +100,13 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
                     //self.messagesArray.removeAll()
                     if let dictionary = messages.value as? [String: AnyObject] {
                         let message = Message()
-                        message.messageBody = dictionary["MessageBody"] as? String ?? ""
+                        message.fromID = dictionary["fromID"] as? String
+                        message.messageBody = dictionary["messageBody"] as? String ?? ""
+                        message.recepient = dictionary["recepient"] as? String ?? ""
+                        message.sender = dictionary["sender"] as? String ?? ""
+                        message.timestamp = dictionary["timestamp"] as? Double
+                        message.toID = dictionary["toID"] as? String ?? ""
                         
-                        message.sender = dictionary["Sender"] as? String ?? ""
-                        message.recepient = dictionary["Recepient"] as? String ?? ""
                         self.messagesArray.append(message)
                         
                         DispatchQueue.main.async {
@@ -244,11 +265,10 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     @objc func sendPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
-        //Auth.auth().currentUser?.email as! String
+
         
-        
-        //let convertedTime = NSDate(timeIntervalSince1970: timeStamp / 1000)
-        let messageDictionary: NSDictionary = ["Sender": Auth.auth().currentUser?.email as! String, "MessageBody": textField.text, "Recepient": recepient, "timestamp": timeStamp]
+
+        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
         
         messageDB.setValue(messageDictionary) {
             (error, ref) in

@@ -10,12 +10,16 @@ import UIKit
 import Firebase
 import PMSuperButton
 
+
+
+
 class DetailViewController: UIViewController {
     
     var nameOfUser : String = "No Name"
     var email : String = "No Email"
     var profileImage = UIImage()
     var friendsUID : String = ""
+    
     var friendProfileImageURL: String = ""
     
     var databaseRef : DatabaseReference!
@@ -41,16 +45,22 @@ class DetailViewController: UIViewController {
         nameOfUserLabel.text = nameOfUser
         emailLabel.text = email
         profileImageView.image = profileImage
+        print("friend uid is: \(friendsUID)")
+        
 
       
     }
 
     @IBAction func addFriendBTNPressed(_ sender: Any) {
         let myUID = Auth.auth().currentUser?.uid
+        
         let otherUID = friendsUID
+        //print("The other UID is: \(otherUID)")
         let thisUsersFollowerUID = self.databaseRef.child("users").child(myUID!).child("Friends").childByAutoId()
         thisUsersFollowerUID.setValue(["otherUID": otherUID, "nameOfUser" : nameOfUser, "email" : email, "profileImageURL" : friendProfileImageURL])
         
+        
+
         //performSegue(withIdentifier: "friendAdded", sender: self)
         dismiss(animated: true, completion: nil)
 
