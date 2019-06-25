@@ -24,7 +24,7 @@ class TheMessage: NSObject{
 //showMessageVC
 class FriendsChatViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, EmptyDataSetSource, EmptyDataSetDelegate {
     private let cellID = "cellID"
-    var theMessages: [TheMessage]?
+    var theMessage = Message()
     var myMessages: [Message] = [Message]()
     var users = [Users]()
     var recepient = String()
@@ -43,40 +43,15 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
         
     }
 
-//        func retrieveMessages() {
-//
-//            if let otherUID = Auth.auth().currentUser?.uid {
-//                let ref = Database.database().reference().child("users").child(otherUID).child("Messages").queryLimited(toLast: 1)
-//                ref.observeSingleEvent(of: .value) { (snapshot) in
-//                    for chatLogMessages in snapshot.children.allObjects as! [DataSnapshot] {
-//                        if let dictionary = chatLogMessages.value as? [String: AnyObject] {
-//                            let message = Message()
-//                            message.messageBody = dictionary["messageBody"] as? String ?? ""
-//                            message.recepient = dictionary["recepient"] as? String ?? ""
-//
-//                            message.date = dictionary["timestamp"] as? Double
-//                            message.toID = dictionary["toID"] as? String ?? ""
-//
-//
-//
-//                            self.myMessages.append(message)
-//
-//                            DispatchQueue.main.async {
-//                                self.collectionView.reloadData()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//        }
+
     
-    var messagesDictionary = [String: Message]()
+    //var messagesDictionary = [String: Message]()
     func retrieveMessages() {
+        var messagesDictionary = [String: Message]()
         if let myUID = Auth.auth().currentUser?.uid {
             let ref = Database.database().reference().child("users").child(myUID).child("Messages")
             ref.observe(.childAdded) { (snapshot) in
-//                for chatLogMessages in snapshot.children.allObjects as! [DataSnapshot] {
+
                     if let dictionary = snapshot.value as? [String: AnyObject] {
                         let message = Message()
                         message.fromID = dictionary["fromID"] as? String ?? ""
@@ -86,14 +61,10 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
                         message.timestamp = dictionary["timestamp"] as? Double
                         message.toID = dictionary["toID"] as? String ?? ""
 
-                        //message.setValuesForKeys(dictionary)
-                        //print(message.messageBody)
-                        //self.myMessages.append(message)
-                        
-                        
+
                         if let toID = message.toID {
-                           self.messagesDictionary[toID] = message
-                            self.myMessages = Array(self.messagesDictionary.values)
+                           messagesDictionary[toID] = message
+                            self.myMessages = Array(messagesDictionary.values)
                             self.myMessages.sort(by: { (message1, message2) -> Bool in
                                 guard let firstMessage = message1.timestamp else {return false}
                                 guard let secondMessage = message2.timestamp else {return false}
@@ -110,7 +81,7 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
 
                     }
 
-//                }
+
             }
 
         }
@@ -123,6 +94,7 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
         navigationController?.pushViewController(friendMesageController, animated: true)
         friendMesageController.recepient = theuser.recepient ?? ""
         friendMesageController.toID = theuser.toID ?? ""
+        
     }
     
     
@@ -154,8 +126,9 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
         let theUsername = self.myMessages[indexPath.row]
         self.showFriendMessageControllerForUser(theuser: theUsername)
         
-        
-        
+        print("toID is: \(theUsername.toID)")
+        print("The name is: \(theUsername.recepient)")
+        print("the message is: \(theUsername.messageBody)")
     }
     
     

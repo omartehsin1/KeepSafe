@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/MessageVC/FriendMessageCollectionViewController.swift"
-            timestampString = "583178009.289366"
+            timestampString = "583189023.762888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/MessageVC/FriendsChatViewController.swift"
-            timestampString = "583178009.28945"
+            timestampString = "583189023.763701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "retrieveMessages()"
             landmarkType = "7">
             <Locations>
