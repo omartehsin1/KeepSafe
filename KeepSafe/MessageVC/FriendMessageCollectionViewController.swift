@@ -81,6 +81,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
                 cell.textBubbleView.frame = CGRect(x: view.frame.width - estimatedFrame.width - 16 - 8 - 16, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
                 cell.textBubbleView.backgroundColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
                 cell.messageTextView.textColor = UIColor.white
+                cell.profileImageView.isHidden = true
             }
 
            
