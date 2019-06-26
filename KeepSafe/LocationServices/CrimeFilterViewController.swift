@@ -13,10 +13,11 @@ import GoogleMaps
 import GooglePlaces
 
 protocol PassCoordinatesBack {
-    func didTapSearch(coordinates: [CLLocationCoordinate2D])
+    func didTapSearch(coordinates: [CLLocationCoordinate2D], kindofCrime: String, date: [String])
 }
 
 class CrimeFilterViewController: UIViewController {
+    var spinnerView = SpinnerViewController()
 
     @IBOutlet weak var boroughTextField: UITextField!
     @IBOutlet weak var neighborhoodTextField: UITextField!
@@ -112,22 +113,48 @@ class CrimeFilterViewController: UIViewController {
     func crimeDataSearch(neighborhood: String, theCrimeType: String) {
         let formattedNeighborood = neighborhood.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let crimeType = theCrimeType
+        var theDateArray = [String]()
 
         let url = URL(string: "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/MCI_2014_to_2018/FeatureServer/0/query?where=reportedyear%20%3E%3D%202017%20AND%20reportedyear%20%3C%3D%202018%20AND%20UPPER(Neighbourhood)%20like%20%27%25\(formattedNeighborood)%25%27%20AND%20MCI%20%3D%20%27\(crimeType)%27&outFields=*&outSR=4326&f=json")!
-        print("URL IS: \(url)")
+
+
+//        let url = URL(string: "https://services.arcgis.com/S9th0jAJ7bqgIRjw/arcgis/rest/services/MCI_2014_to_2018/FeatureServer/0/query?where=reportedyear%20%3E%3D%202017%20AND%20reportedyear%20%3C%3D%202018%20AND%20UPPER(Neighbourhood)%20like%20%27%25\(formattedNeighborood)%25%27%20AND%20MCI%20%3D%20%27\(crimeType)%27&outFields=occurrenceyear,occurrencemonth,occurrenceday,Neighbourhood,MCI,Lat,Long&outSR=4326&f=json")!
+        //print("URL IS: \(url)")
         
         Alamofire.request(url, method: .get, parameters: ["features" : "attributes"], encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
             if let jsonValue = response.result.value {
                 let json = JSON(jsonValue)
                 
                 for(_, subJSON) in json["features"] {
-                    if let lat = subJSON["attributes"]["Lat"].double, let long = subJSON["attributes"]["Long"].double {
+
+//                    guard let occurenceDay = subJSON["attributes"]["occurrenceday"].double else {return}
+//                    guard let occurenceMonth = subJSON["attributes"]["occurrencemonth"].string else {return}
+//                    guard let occurenceYear = subJSON["attributes"]["occurrenceyear"].double else {return}
+//
+//                    guard let dayDoubleToString: String = String(format: "%.0f", occurenceDay) else {return}
+//                    guard let yearDoubleToString: String = String(format: "%.0f", occurenceYear) else {return}
+                   
+//                    let theDate = occurenceMonth + " \(dayDoubleToString), \(yearDoubleToString)"
+                    
+                    //print(occurenceMonth + " \(dayDoubleToString), \(yearDoubleToString)")
+                    if let lat = subJSON["attributes"]["Lat"].double, let long = subJSON["attributes"]["Long"].double, let occurenceDay = subJSON["attributes"]["occurrenceday"].double, let occurenceMonth = subJSON["attributes"]["occurrencemonth"].string, let occurenceYear = subJSON["attributes"]["occurrenceyear"].double{
                         let latAndLong = CLLocationCoordinate2DMake(lat, long)
+                        guard let dayDoubleToString: String = String(format: "%.0f", occurenceDay) else {return}
+                        guard let yearDoubleToString: String = String(format: "%.0f", occurenceYear) else {return}
+                        let theDate = occurenceMonth + " \(dayDoubleToString), \(yearDoubleToString)"
+                        theDateArray.append(theDate)
+                        
                         self.crimeLocation.append(latAndLong)
-                        self.passCoordinateBackDelegate.didTapSearch(coordinates: self.crimeLocation)
-                        //print(self.crimeLocation)
+                        
+                        self.passCoordinateBackDelegate.didTapSearch(coordinates: self.crimeLocation, kindofCrime: theCrimeType, date: theDateArray)
+
+                       
                     }
+                    
+                    //print(self.crimeLocation)
+                    
                 }
+                self.spinnerView.removeSpinner()
 
             }
             
@@ -138,6 +165,8 @@ class CrimeFilterViewController: UIViewController {
     @IBAction func searchButtonPressed(_ sender: Any) {
         crimeDataSearch(neighborhood: selectedNeighborHood, theCrimeType: crimeType)
         dismiss(animated: true, completion: nil)
+        spinnerView.showSpinner(onView: self.view)
+
 
         
     }
@@ -209,7 +238,8 @@ extension CrimeFilterViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         if pickerView == boroughPickerView {
             selectedBorough = pickerData[row]
             boroughTextField.text = selectedBorough
-            print("the selected neighborhood is: \(selectedBorough ?? "")")
+            //print("the selected neighborhood is: \(selectedBorough ?? "")")
+            
         }
         
         if pickerView == crimePickerView {
@@ -237,6 +267,7 @@ extension CrimeFilterViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             selectedNeighborHood = scarboroughData[row]
             neighborhoodTextField.text = selectedNeighborHood
         }
+        
         
     }
     

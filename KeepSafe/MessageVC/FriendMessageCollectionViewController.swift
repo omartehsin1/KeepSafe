@@ -41,7 +41,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         createTextView()
         createButton()
         button.addTarget(self, action: #selector(sendPressed), for: .touchUpInside)
-        //print("mESSAGE COLLECECTION: \(toID)")
+        
 
     }
     
@@ -97,29 +97,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     
     func retrieveChat() {
         var messagesDictionary = [String: Message]()
-        
-//        if let uid = Auth.auth().currentUser?.uid {
-//            Database.database().reference().child("users").child(uid).child("Messages").queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
-//                //let messageDict = snapshot.value as? [String: AnyObject]
-//                //print(messageDict)
-//                if let dictionary = snapshot.value as? [String: AnyObject] {
-//                    let message = Message()
-//                    message.fromID = dictionary["fromID"] as? String
-//                    message.messageBody = dictionary["messageBody"] as? String ?? ""
-//                    message.recepient = dictionary["recepient"] as? String ?? ""
-//                    message.sender = dictionary["sender"] as? String ?? ""
-//                    message.timestamp = dictionary["timestamp"] as? Double
-//                    message.toID = dictionary["toID"] as? String ?? ""
-//                    
-//                    self.messagesArray.append(message)
-//                    
-//                    DispatchQueue.main.async {
-//                        self.collectionView.reloadData()
-//                    }
-//
-//                }
-//            }
-//        }
+
         
         let ref = Database.database().reference().child("Message")
         ref.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in

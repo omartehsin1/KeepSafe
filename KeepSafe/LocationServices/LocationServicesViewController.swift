@@ -55,7 +55,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         userImage = UIImage(named: "defaultUser")
         //marker.icon = resizeImage(image: userImage!, newWidth: 50)
         //marker.map = mapView
-        _ = markerCreater(location: currentLocation, title: "Current Location", image: userImage!)
+        _ = markerCreater(location: currentLocation, title: "Current Location", image: "defaultUser")
 
         createButton()
         
@@ -72,20 +72,22 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         view.addSubview(searchBar)
     }
     
-    func markerCreater(location: CLLocationCoordinate2D, title: String, image: UIImage) -> GMSMarker {
+    func markerCreater(location: CLLocationCoordinate2D, title: String, image: String) -> GMSMarker {
         let marker = GMSMarker(position: location)
+        //guard let stringToImage = UIImage(named: image) else {return marker}
         marker.title = title
         marker.icon = resizeImage(image: image, newWidth: 50)
         marker.map = mapView
         return marker
     }
     
-    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+    func resizeImage(image: String, newWidth: CGFloat) -> UIImage? {
         
-        let scale = newWidth / image.size.width
-        let newHeight = image.size.height * scale
+        guard let stringToImage = UIImage(named: image) else {return nil}
+        let scale = newWidth / stringToImage.size.width
+        let newHeight = stringToImage.size.height * scale
         UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        stringToImage.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -113,14 +115,24 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 }
 
 extension LocationServicesViewController: PassCoordinatesBack {
-    func didTapSearch(coordinates: [CLLocationCoordinate2D]) {
-        print(coordinates)
-        for crimeCoordinates in coordinates {
-            _ = self.markerCreater(location: crimeCoordinates, title: "Crime Here", image: self.userImage!)
-            //print(crimeCoordinates)
+    func didTapSearch(coordinates: [CLLocationCoordinate2D], kindofCrime: String, date: [String]) {
+        var theDate = String()
+        for dates in date {
+            theDate = dates
         }
+        for crimeCoordinates in coordinates {
+            _ = self.markerCreater(location: crimeCoordinates, title: theDate, image: kindofCrime)
+
+
+        }
+        
+        
     }
     
+    
+    
+    
+
     
 }
 
