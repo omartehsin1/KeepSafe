@@ -296,9 +296,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgd-RK-tSp">
-                                <rect key="frame" x="154" y="499" width="75" height="30"/>
+                                <rect key="frame" x="56" y="499" width="303" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Friend"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="Add Friend">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="addFriendBTNPressed:" destination="3Rn-Ou-DXU" eventType="touchUpInside" id="yDd-0J-dJQ"/>
                                 </connections>
@@ -317,7 +320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1c-R3-Uzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4431" y="2667"/>
+            <point key="canvasLocation" x="4429.6000000000004" y="2666.7166416791606"/>
         </scene>
         <!--Message-->
         <scene sceneID="miz-F1-bHk">

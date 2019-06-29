@@ -68,22 +68,22 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
     
     
     func fetchFriends() {
-        if let uid = Auth.auth().currentUser?.uid {
-            databaseRef.child("users").child(uid).child("Friends").observe(.value) { (snapshot) in
-                for friends in snapshot.children.allObjects as! [DataSnapshot] {
-                    if let dictionary = friends.value as? [String: AnyObject] {
-                        let users = Users()
-                        users.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
-                        users.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
-                        users.userID = dictionary["otherUID"] as? String ?? ""
-                        self.myCircle.append(users)
-                        DispatchQueue.main.async {
-                            self.yourCircleCollectionView.reloadData()
-                        }
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        databaseRef.child("friends").child(myUID).observe(.value) { (snapshot) in
+            for friends in snapshot.children.allObjects as! [DataSnapshot] {
+                if let dictionary = friends.value as? [String: AnyObject] {
+                    let users = Users()
+                    users.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                    users.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
+                    users.userID = dictionary["UID"] as? String ?? ""
+                    self.myCircle.append(users)
+                    DispatchQueue.main.async {
+                        self.yourCircleCollectionView.reloadData()
                     }
                 }
             }
         }
+        
     }
 }
 

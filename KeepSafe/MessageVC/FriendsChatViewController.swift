@@ -46,6 +46,7 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
     func retrieveMessages() {
         var messagesDictionary = [String: Message]()
         let ref = Database.database().reference().child("Message")
+        
         ref.observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
