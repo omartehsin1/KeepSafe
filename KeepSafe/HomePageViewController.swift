@@ -18,6 +18,7 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var nameOfUserLabel: UILabel!
     var username : String = "No Name"
     var userImage: UIImage = UIImage(named: "defaultUser")!
+    var friendDataBase = Database.database().reference().child("friends")
     
     var hamburgerMenuIsVisible = false
     var menuItems: [MenuItems] = []

@@ -144,10 +144,7 @@ class DetailViewController: UIViewController {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
             let formattedDate = dateFormatter.string(from: currentDate)
-            //guard let myFuncUID = Auth.auth().currentUser?.uid else {return}
             guard let myEmail = Auth.auth().currentUser?.email else {return}
-            var theUsers = [Users]()
-             let theUser = Users()
             var myName = String()
             var myImageURL = String()
             
@@ -156,13 +153,10 @@ class DetailViewController: UIViewController {
                    
                      myName = dictionary["nameOfUser"] as? String ?? ""
                     myImageURL = dictionary["profileImageURL"] as? String ?? ""
-                    
                     //theUsers.append(theUser)
                 }
 
             }
-            
-            
             friendDataBase.child(myUID).child(otherUID).setValue(["dateAdded": formattedDate, "UID": otherUID, "nameOfUser" : nameOfUser, "email" : email, "profileImageURL" : friendProfileImageURL]) { (error, ref) in
                 if error != nil {
                     print(error!)

@@ -262,7 +262,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="friendsTableView" destination="fBe-0p-JRc" id="nnt-ni-MW5"/>
-                        <segue destination="3Rn-Ou-DXU" kind="show" identifier="showFriendProfile" id="gyJ-12-VwQ"/>
+                        <segue destination="esR-ns-ZzS" kind="show" identifier="showFriendProfile" id="sCM-2B-y56"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMD-xH-zAF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -320,7 +320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O1c-R3-Uzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4429.6000000000004" y="2666.7166416791606"/>
+            <point key="canvasLocation" x="5170" y="2740"/>
         </scene>
         <!--Message-->
         <scene sceneID="miz-F1-bHk">
@@ -492,18 +492,64 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p9J-uc-stZ">
-                                <rect key="frame" x="130" y="318" width="115" height="30"/>
+                                <rect key="frame" x="27" y="543" width="115" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Chat"/>
                                 <connections>
                                     <action selector="chatBtnPressed:" destination="esR-ns-ZzS" eventType="touchUpInside" id="bym-jP-0Si"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AtE-F0-bZH">
+                                <rect key="frame" x="0.0" y="64" width="142" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ek3-nE-M3O">
+                                <rect key="frame" x="154" y="64" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDO-dl-AZo">
+                                <rect key="frame" x="154" y="93" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPa-xA-USt">
+                                <rect key="frame" x="150" y="122" width="209" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="Add Friend">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="addFriendBTNPressed:" destination="esR-ns-ZzS" eventType="touchUpInside" id="MNQ-DF-qPz"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Some Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFb-cb-lya">
+                                <rect key="frame" x="154" y="323" width="81" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-jV-SmO">
+                                <rect key="frame" x="0.0" y="200" width="375" height="467"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="HJ0-5m-evL"/>
                     </view>
                     <connections>
+                        <outlet property="addFriendBTN" destination="RPa-xA-USt" id="5zY-2m-KMt"/>
+                        <outlet property="emailLabel" destination="tDO-dl-AZo" id="iLS-Ap-2Mv"/>
+                        <outlet property="nameLabel" destination="ek3-nE-M3O" id="1aP-wk-lo7"/>
+                        <outlet property="privacyView" destination="YuC-jV-SmO" id="945-sX-Dnm"/>
+                        <outlet property="profileImageView" destination="AtE-F0-bZH" id="QP5-hb-XNL"/>
                         <segue destination="jK0-T2-wxg" kind="show" identifier="messageFriend" id="UFq-pb-bXn"/>
                     </connections>
                 </viewController>
@@ -942,6 +988,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Omf-57-U5L"/>
-        <segue reference="1q2-ew-XuA"/>
+        <segue reference="UFq-pb-bXn"/>
+        <segue reference="sCM-2B-y56"/>
     </inferredMetricsTieBreakers>
 </document>

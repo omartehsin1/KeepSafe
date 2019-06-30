@@ -140,20 +140,20 @@ extension AddFriendViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFriendProfile" {
             if let indexPath = friendsTableView.indexPathForSelectedRow {
-                let dvc = segue.destination as! DetailViewController
+                let fvc = segue.destination as! FriendsProfileViewController
                 let user = users[indexPath.row]
                 
-                dvc.nameOfUser = user.nameOfUser ?? "no name"
-                dvc.email = user.email ?? "no email"
-                dvc.friendsUID = user.userID ?? "no uid"
+                fvc.nameOfUser = user.nameOfUser ?? "no name"
+                fvc.email = user.email ?? "no email"
+                fvc.friendsUID = user.userID ?? "no uid"
                 
                 //let friendInfo = FriendInfo()
                 //print(FriendInfo.init(friendsUID: user.userID))
                 let url = URL(string: user.profileImageURL!)
-                dvc.friendProfileImageURL = user.profileImageURL ?? ""
+                fvc.friendProfileImageURL = user.profileImageURL ?? ""
                 let data = try? Data(contentsOf: url!)
 
-                dvc.profileImage = UIImage(data: data!) ?? UIImage(named: "defaultUser")!
+                fvc.profileImage = UIImage(data: data!) ?? UIImage(named: "defaultUser")!
 
             }
 
