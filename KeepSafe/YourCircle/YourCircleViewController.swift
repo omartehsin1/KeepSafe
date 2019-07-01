@@ -126,9 +126,10 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
                 friendVC.nameOfUser = friends.nameOfUser ?? "no name"
                 friendVC.email = friends.email ?? "no email"
                 friendVC.friendsUID = friends.userID ?? "no uid"
-                //let url = URL(string: friends.profileImageURL!)
-                //friendVC.friendProfileImageURL = friends.profileImageURL ?? ""
-                //let data = try? Data(contentsOf: url!)
+                let url = URL(string: friends.profileImageURL!)
+                friendVC.friendProfileImageURL = friends.profileImageURL ?? ""
+                let data = try? Data(contentsOf: url!)
+                friendVC.profileImage = UIImage(data: data!) ?? UIImage(named: "defaultUser")!
             }
         }
     }

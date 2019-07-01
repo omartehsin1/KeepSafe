@@ -15,8 +15,8 @@ class FriendsProfileViewController: UIViewController {
     var profileImage = UIImage()
     var friendsUID : String = ""
     var friendProfileImageURL: String = ""
-    
-    var currentState = "notFriends"
+    let privacyView = UIView()
+    var currentState = String()
     var friendRequestDatabase = Database.database().reference().child("friendReq")
     var friendDataBase = Database.database().reference().child("friends")
     var userDatabase = Database.database().reference().child("users")
@@ -27,7 +27,7 @@ class FriendsProfileViewController: UIViewController {
     
     @IBOutlet weak var addFriendBTN: UIButton!
     
-    @IBOutlet weak var privacyView: UIView!
+    
     
     @IBOutlet weak var profileImageView: UIImageView!
     override func viewDidLoad() {
@@ -37,7 +37,18 @@ class FriendsProfileViewController: UIViewController {
         profileImageView.image = profileImage
         currentState = "notFriends"
         fetchUserProfile()
+        //privacyView.isHidden = true
+        friendsOrNot()
+        view.addSubview(privacyView)
+        //blurEffect()
+        createPrivacyView()
     }
+//    let privacyView: UIView = {
+//        let thePrivacyView = UIView()
+//        thePrivacyView.backgroundColor = UIColor.red
+//        thePrivacyView.layer.masksToBounds = true
+//        return thePrivacyView
+//    }()
     
     @IBAction func addFriendBTNPressed(_ sender: Any) {
         
@@ -99,6 +110,7 @@ class FriendsProfileViewController: UIViewController {
         
         //----Request Received state----
         if (currentState == "reqReceived") {
+            self.privacyView.isHidden = true
             let currentDate = Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
@@ -116,11 +128,11 @@ class FriendsProfileViewController: UIViewController {
                 }
                 
             }
-            friendDataBase.child(myUID).child(otherUID).setValue(["dateAdded": formattedDate, "UID": otherUID, "nameOfUser" : nameOfUser, "email" : email, "profileImageURL" : friendProfileImageURL]) { (error, ref) in
+            friendDataBase.child(myUID).child(otherUID).setValue(["dateAdded": formattedDate, "UID": otherUID, "nameOfUser" : nameOfUser, "email" : email, "profileImageURL" : friendProfileImageURL, "currentState" : "friends"]) { (error, ref) in
                 if error != nil {
                     print(error!)
                 } else {
-                    self.friendDataBase.child(otherUID).child(myUID).setValue(["dateAdded": formattedDate, "UID": myUID, "nameOfUser" : myName, "email" : myEmail, "profileImageURL" : myImageURL], withCompletionBlock: { (error, ref) in
+                    self.friendDataBase.child(otherUID).child(myUID).setValue(["dateAdded": formattedDate, "UID": myUID, "nameOfUser" : myName, "email" : myEmail, "profileImageURL" : myImageURL, "currentState" : "friends"], withCompletionBlock: { (error, ref) in
                         if error != nil {
                             print(error!)
                         } else {
@@ -145,16 +157,43 @@ class FriendsProfileViewController: UIViewController {
                 }
             }
         }
-        
+        if (currentState == "friends") {
+            privacyView.isHidden = true
+            friendDataBase.child(myUID).child(otherUID).removeValue { (error, ref) in
+                if error != nil {
+                    print(error!)
+                } else {
+                    self.friendDataBase.child(otherUID).child(myUID).removeValue(completionBlock: { (error, ref) in
+                        self.currentState = "notFriends"
+                        self.addFriendBTN.setTitle("Add Friend", for: .normal)
+                        self.addFriendBTN.backgroundColor = UIColor.red
+                        self.privacyView.isHidden = false
+                    })
+                }
+            }
+        }
         
     }
-    
+    func friendsOrNot() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        friendDataBase.child(myUID).observe(.value) { (snapshot) in
+            if(snapshot.hasChild(self.friendsUID)) {
+                let friends: String = snapshot.childSnapshot(forPath: self.friendsUID).childSnapshot(forPath: "currentState").value as! String
+                
+                if(friends == "friends") {
+                    self.privacyView.isHidden = true
+                    self.addFriendBTN.setTitle("Unfriend \(self.nameOfUser)?", for: .normal)
+                }
+            }
+        }
+        //currentState = "friends"
+    }
     
     
     func fetchUserProfile() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         friendRequestDatabase.child(myUID).observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot)
+            //print(snapshot)
             if(snapshot.hasChild(self.friendsUID)) {
                 let reqType: String = snapshot.childSnapshot(forPath: self.friendsUID).childSnapshot(forPath: "requestType").value as! String
                 if(reqType == "received") {
@@ -196,5 +235,30 @@ class FriendsProfileViewController: UIViewController {
         navigationController?.present(friendMessageControler, animated: true, completion: nil)
     }
     
+    func blurEffect() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = privacyView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        privacyView.addSubview(blurEffectView)
+    }
+    
 
+}
+
+extension FriendsProfileViewController {
+
+    func createPrivacyView() {
+        privacyView.frame = CGRect(x: 0, y: 200, width: 375, height: 467)
+        privacyView.backgroundColor = UIColor.red
+        view.addSubview(privacyView)
+        
+        privacyView.translatesAutoresizingMaskIntoConstraints = false
+        [privacyView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+         privacyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+         privacyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+         privacyView.heightAnchor.constraint(equalToConstant: 467)
+            ].forEach {$0.isActive = true}
+        
+    }
 }

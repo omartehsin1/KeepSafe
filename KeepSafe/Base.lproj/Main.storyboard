@@ -504,14 +504,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ek3-nE-M3O">
-                                <rect key="frame" x="154" y="64" width="42" height="21"/>
+                                <rect key="frame" x="154" y="64" width="205" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDO-dl-AZo">
-                                <rect key="frame" x="154" y="93" width="42" height="21"/>
+                                <rect key="frame" x="154" y="93" width="205" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -535,11 +535,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-jV-SmO">
-                                <rect key="frame" x="0.0" y="200" width="375" height="467"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="HJ0-5m-evL"/>
@@ -548,7 +543,6 @@
                         <outlet property="addFriendBTN" destination="RPa-xA-USt" id="5zY-2m-KMt"/>
                         <outlet property="emailLabel" destination="tDO-dl-AZo" id="iLS-Ap-2Mv"/>
                         <outlet property="nameLabel" destination="ek3-nE-M3O" id="1aP-wk-lo7"/>
-                        <outlet property="privacyView" destination="YuC-jV-SmO" id="945-sX-Dnm"/>
                         <outlet property="profileImageView" destination="AtE-F0-bZH" id="QP5-hb-XNL"/>
                         <segue destination="jK0-T2-wxg" kind="show" identifier="messageFriend" id="UFq-pb-bXn"/>
                     </connections>
