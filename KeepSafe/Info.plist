@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Needed to save interactions</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Needed to record audio interaction</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Needed to record interactions</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allows you to add Profile pic</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

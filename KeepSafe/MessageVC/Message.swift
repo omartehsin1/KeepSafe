@@ -16,6 +16,7 @@ class Message: NSObject {
     //var timestamp: NSNumber?
     var timestamp: Double?
     var toID: String?
+    var SOSMessage: String?
     
     
 }

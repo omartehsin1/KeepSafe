@@ -28,6 +28,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var longitude : CLLocationDegrees?
     var crimeLocation = [CLLocationCoordinate2D]()
     var friendDataBase = FirebaseConstants.friendDataBase
+    var SOSDatabase = FirebaseConstants.SOSDatabase
     var friendsUIDArray = [String]()
     var tappedSOSButtonDelegate : DidTapSOS!
     
@@ -145,6 +146,8 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     }
     @objc func sosPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
+        guard let myEmail = Auth.auth().currentUser?.email else {return}
+
         friendDataBase.child(myUID).observe(.value) { (snapshot) in
             for friendsUID in snapshot.children.allObjects as! [DataSnapshot] {
                 if let dictionary = friendsUID.value as? [String: AnyObject] {
@@ -152,16 +155,32 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
                     let uid = dictionary["UID"] as? String ?? ""
                     self.friendsUIDArray.append(uid)
                     
+                    
                     //self.tappedSOSButtonDelegate.didTapSOSButton(friendID: self.friendsUIDArray)
                     
                 }
                 
             }
+
             
-            let messageCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "FriendChatViewController") as! FriendsChatViewController
+            for friendsUID in self.friendsUIDArray {
+                print(friendsUID)
+                let SOSMessageDictionary: NSDictionary = ["sender": myEmail, "SOSMessage": "SOS PLEASE HELP!", "toID": friendsUID]
+                self.SOSDatabase.childByAutoId().setValue(SOSMessageDictionary, withCompletionBlock: { (error, ref) in
+                    if error != nil {
+                        print(error)
+                    } else {
+                        print("SOS Sent Successfull \(friendsUID)")
+                    }
+                })
+                
+            }
             
-            messageCollectionVC.friendsUID = self.friendsUIDArray
-            self.navigationController?.pushViewController(messageCollectionVC, animated: true)
+            
+//            let messageCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "FriendChatViewController") as! FriendsChatViewController
+//
+//            messageCollectionVC.friendsUID = self.friendsUIDArray
+//            self.navigationController?.pushViewController(messageCollectionVC, animated: true)
 
         }
         

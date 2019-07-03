@@ -30,6 +30,7 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
     var recepient = String()
     var friendsUID = [String]()
     let messagesDatabase = FirebaseConstants.messagesDatabase
+    let SOSDatabse = FirebaseConstants.SOSDatabase
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,6 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
         navigationItem.title = "Messages"
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellID)
         retrieveMessages()
-        print(friendsUID)
         
     }
 
@@ -76,6 +76,29 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
                 
             }
         }
+        SOSDatabse.observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.messageBody = dictionary["SOSMessage"] as? String ?? ""
+                message.toID = dictionary["toID"] as? String ?? ""
+
+                if let toID = message.toID {
+                    messagesDictionary[toID] = message
+                    self.myMessages = Array(messagesDictionary.values)
+                    self.myMessages.sort(by: { (message1, message2) -> Bool in
+                        guard let firstMessage = message1.timestamp else {return false}
+                        guard let secondMessage = message2.timestamp else {return false}
+                        return firstMessage > secondMessage
+                    })
+                }
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+
+            }
+
+        }
+        
 
 
     }

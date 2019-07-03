@@ -17,6 +17,7 @@ class MessageCell: BaseCell {
             nameLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
             timeLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
             messageLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
+            //SOSMessageLabel.textColor = isHighlighted ? UIColor.white : UIColor.black
         }
     }
     
@@ -27,6 +28,8 @@ class MessageCell: BaseCell {
             nameLabel.text = message?.recepient
             
             messageLabel.text = message?.messageBody
+            
+            //SOSMessageLabel.text = message?.SOSMessage
             
             if let toID = message?.toID {
                 print(toID)
@@ -97,6 +100,13 @@ class MessageCell: BaseCell {
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
+//    let SOSMessageLabel: UILabel = {
+//       let label = UILabel()
+//        label.text = "Temporary SOS"
+//        label.textColor = UIColor.red
+//        label.font = UIFont.systemFont(ofSize: 14)
+//        return label
+//    }()
     let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "12:10 pm"
@@ -145,6 +155,7 @@ class MessageCell: BaseCell {
         
         containerView.addSubview(nameLabel)
         containerView.addSubview(messageLabel)
+        //containerView.addSubview(SOSMessageLabel)
         containerView.addSubview(timeLabel)
         containerView.addSubview(hasReadImageView)
         

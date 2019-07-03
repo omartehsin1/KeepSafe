@@ -40,6 +40,7 @@
 		07F4A2D722BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */; };
 		07F4A2DA22C27CC7001C2A1A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D922C27CC7001C2A1A /* MessageCell.swift */; };
 		07F4A2DC22CD1417001C2A1A /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2DB22CD1417001C2A1A /* FirebaseConstants.swift */; };
+		07F4A2E122CD350E001C2A1A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2E022CD350E001C2A1A /* CameraViewController.swift */; };
 		215F29B78E1EFE3505004216 /* Pods_KeepSafeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA749F84653B2EFB25F62DC3 /* Pods_KeepSafeTests.framework */; };
 		A2AD0A43B7B9D5F6F4478DD7 /* Pods_KeepSafe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2FD260DFCB403E7E3BACB8F /* Pods_KeepSafe.framework */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,7 @@
 		07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMessageCollectionViewController.swift; sourceTree = "<group>"; };
 		07F4A2D922C27CC7001C2A1A /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		07F4A2DB22CD1417001C2A1A /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
+		07F4A2E022CD350E001C2A1A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		3EC05CC27689D43FEB4E5457 /* Pods-KeepSafe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepSafe.release.xcconfig"; path = "Target Support Files/Pods-KeepSafe/Pods-KeepSafe.release.xcconfig"; sourceTree = "<group>"; };
 		6098995795134EAAF354BEF3 /* Pods-KeepSafe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepSafe.debug.xcconfig"; path = "Target Support Files/Pods-KeepSafe/Pods-KeepSafe.debug.xcconfig"; sourceTree = "<group>"; };
 		A2FD260DFCB403E7E3BACB8F /* Pods_KeepSafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KeepSafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +201,7 @@
 			children = (
 				07E30B212225BE7500904A45 /* AppDelegate.swift */,
 				07F4A2D822C27C92001C2A1A /* Model */,
+				07F4A2DD22CD2AAD001C2A1A /* Camera */,
 				0755E915227613E8002752E1 /* HelperFunctions */,
 				0750E269226672B10038201E /* YourCircle */,
 				0787658622665D59001DE728 /* LocationServices */,
@@ -236,6 +239,14 @@
 				07F4A2DB22CD1417001C2A1A /* FirebaseConstants.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		07F4A2DD22CD2AAD001C2A1A /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				07F4A2E022CD350E001C2A1A /* CameraViewController.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		7DFD31A795D77660F117AA1D /* Frameworks */ = {
@@ -493,6 +504,7 @@
 				0750E268226670340038201E /* SpinnerViewController.swift in Sources */,
 				07F4A2DA22C27CC7001C2A1A /* MessageCell.swift in Sources */,
 				07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */,
+				07F4A2E122CD350E001C2A1A /* CameraViewController.swift in Sources */,
 				07F4A2D722BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift in Sources */,
 				07F4A2DC22CD1417001C2A1A /* FirebaseConstants.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,

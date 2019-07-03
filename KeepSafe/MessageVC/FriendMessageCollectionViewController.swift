@@ -23,11 +23,8 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     var recepient = String()
     let timestamp = ServerValue.timestamp()
     var toID = String()
-    let theUser = Users()
-    let theMessage = Message()
-    var otherRec = String()
-    var otherToID = String()
-    
+    let messageDB = FirebaseConstants.messagesDatabase
+    let SOSDatabase = FirebaseConstants.SOSDatabase
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,11 +96,10 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     
     
     func retrieveChat() {
-        var messagesDictionary = [String: Message]()
-
+        //var messagesDictionary = [String: Message]()
         
-        let ref = Database.database().reference().child("Message")
-        ref.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
+        
+        messageDB.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
                 message.fromID = dictionary["fromID"] as? String
@@ -119,6 +115,19 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
                     self.collectionView.reloadData()
                 }
                 
+            }
+        }
+        SOSDatabase.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.messageBody = dictionary["SOSMessage"] as? String ?? ""
+                message.toID = dictionary["toID"] as? String ?? ""
+                
+                self.messagesArray.append(message)
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
             }
         }
         
@@ -274,7 +283,7 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         guard let myUID = Auth.auth().currentUser?.uid else {return}
 //        let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
 
-        let messageDB = Database.database().reference().child("Message").childByAutoId()
+        let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
 
         let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
         

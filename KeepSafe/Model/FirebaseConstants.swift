@@ -14,4 +14,5 @@ struct FirebaseConstants {
     static let friendDataBase: DatabaseReference = Database.database().reference().child("friends")
     static let userDatabase: DatabaseReference = Database.database().reference().child("users")
     static let messagesDatabase: DatabaseReference = Database.database().reference().child("Message")
+    static let SOSDatabase: DatabaseReference = Database.database().reference().child("SOS")
 }
