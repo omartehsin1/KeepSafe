@@ -28,6 +28,8 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
     var myMessages: [Message] = [Message]()
     var users = [Users]()
     var recepient = String()
+    var friendsUID = [String]()
+    let messagesDatabase = FirebaseConstants.messagesDatabase
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +41,15 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
         navigationItem.title = "Messages"
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellID)
         retrieveMessages()
-        
+        print(friendsUID)
         
     }
 
     func retrieveMessages() {
         var messagesDictionary = [String: Message]()
-        let ref = Database.database().reference().child("Message")
         
-        ref.observe(.childAdded) { (snapshot) in
+        
+        messagesDatabase.observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
                 message.fromID = dictionary["fromID"] as? String ?? ""
@@ -84,6 +86,9 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
         navigationController?.pushViewController(friendMesageController, animated: true)
         friendMesageController.recepient = theuser.recepient ?? ""
         friendMesageController.toID = theuser.toID ?? ""
+        
+    }
+    func sendMessages() {
         
     }
     

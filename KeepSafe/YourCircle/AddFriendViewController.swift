@@ -20,7 +20,7 @@ class AddFriendViewController: UIViewController {
     var searchController = UISearchController()
     var resultsController = UITableViewController()
     
-    var databaseRef = Database.database().reference()
+    var userDatabase = FirebaseConstants.userDatabase
     
     
     @IBOutlet weak var friendsTableView: UITableView!
@@ -49,7 +49,7 @@ class AddFriendViewController: UIViewController {
     
     
     func fetchUser() {
-        databaseRef.child("users").observe(.childAdded) { (snapshot) in
+        userDatabase.observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let user = Users()
 

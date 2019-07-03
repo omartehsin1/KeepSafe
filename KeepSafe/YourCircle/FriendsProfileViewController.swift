@@ -17,9 +17,10 @@ class FriendsProfileViewController: UIViewController {
     var friendProfileImageURL: String = ""
     let privacyView = UIView()
     var currentState = String()
-    var friendRequestDatabase = Database.database().reference().child("friendReq")
-    var friendDataBase = Database.database().reference().child("friends")
-    var userDatabase = Database.database().reference().child("users")
+    var friendRequestDatabase = FirebaseConstants.friendRequestDatabase
+    var friendDataBase = FirebaseConstants.friendDataBase
+    var userDatabase = FirebaseConstants.userDatabase
+    
     
 
     @IBOutlet weak var nameLabel: UILabel!
@@ -37,18 +38,12 @@ class FriendsProfileViewController: UIViewController {
         profileImageView.image = profileImage
         currentState = "notFriends"
         fetchUserProfile()
-        //privacyView.isHidden = true
         friendsOrNot()
         view.addSubview(privacyView)
         //blurEffect()
         createPrivacyView()
     }
-//    let privacyView: UIView = {
-//        let thePrivacyView = UIView()
-//        thePrivacyView.backgroundColor = UIColor.red
-//        thePrivacyView.layer.masksToBounds = true
-//        return thePrivacyView
-//    }()
+
     
     @IBAction func addFriendBTNPressed(_ sender: Any) {
         

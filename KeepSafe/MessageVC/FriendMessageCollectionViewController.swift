@@ -28,6 +28,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     var otherRec = String()
     var otherToID = String()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +42,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         createTextView()
         createButton()
         button.addTarget(self, action: #selector(sendPressed), for: .touchUpInside)
+        
         
 
     }
@@ -253,7 +255,7 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         button.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         button.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: 20).isActive = true
         view.bringSubviewToFront(button)
-        
+        //x: 135, y: 546, w: 107, h:30
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -298,3 +300,8 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         textView.text = ""
     }
 }
+
+
+    
+    
+

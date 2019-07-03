@@ -9,10 +9,13 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
-
+import Firebase
 import Alamofire
 import SwiftyJSON
 
+protocol DidTapSOS {
+    func didTapSOSButton(friendID: [String])
+}
 
 class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
@@ -24,6 +27,10 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var latitude : CLLocationDegrees?
     var longitude : CLLocationDegrees?
     var crimeLocation = [CLLocationCoordinate2D]()
+    var friendDataBase = FirebaseConstants.friendDataBase
+    var friendsUIDArray = [String]()
+    var tappedSOSButtonDelegate : DidTapSOS!
+    
     
     
 
@@ -57,6 +64,9 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         //marker.map = mapView
         _ = markerCreater(location: currentLocation, title: "Current Location", image: "defaultUser")
 
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(buttonAction))
+//        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(buttonAction))
         createButton()
         
 
@@ -99,19 +109,83 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
     
     func createButton() {
-        let button = UIButton(frame: CGRect(x: 313, y: 584, width: 100, height: 50))
-        button.backgroundColor = .blue
-        button.setTitle("Query Data", for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        //        let button = UIButton(frame: CGRect(x: 313, y: 584, width: 100, height: 50))
+        //        button.backgroundColor = .blue
+        //        button.setTitle("Query Data", for: .normal)
+        //        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
-        self.view.addSubview(button)
+        
+        let SOSButton = UIButton(frame: CGRect(x: 200, y: 546, width: 107, height: 100))
+        //let SOSButton = UIButton()
+
+        SOSButton.layer.cornerRadius = 50
+        SOSButton.layer.masksToBounds = true
+        
+        SOSButton.backgroundColor = .orange
+        SOSButton.setTitle("SOS", for: .normal)
+        SOSButton.addTarget(self, action: #selector(sosPressed), for: .touchUpInside)
+//        SOSButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//
+//        [SOSButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50),
+//         SOSButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100),
+//         SOSButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 100),
+//        SOSButton.heightAnchor.constraint(equalToConstant: 40),
+//        SOSButton.widthAnchor.constraint(equalToConstant: 100)
+//
+//            ].forEach{$0.isActive = true}
+        
+        
+        //view.bringSubviewToFront(SOSButton)
+        //mapView.bringSubviewToFront(SOSButton)
+        
+
+//
+        self.view.addSubview(SOSButton)
     }
+    @objc func sosPressed() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        friendDataBase.child(myUID).observe(.value) { (snapshot) in
+            for friendsUID in snapshot.children.allObjects as! [DataSnapshot] {
+                if let dictionary = friendsUID.value as? [String: AnyObject] {
+                    
+                    let uid = dictionary["UID"] as? String ?? ""
+                    self.friendsUIDArray.append(uid)
+                    
+                    //self.tappedSOSButtonDelegate.didTapSOSButton(friendID: self.friendsUIDArray)
+                    
+                }
+                
+            }
+            
+            let messageCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "FriendChatViewController") as! FriendsChatViewController
+            
+            messageCollectionVC.friendsUID = self.friendsUIDArray
+            self.navigationController?.pushViewController(messageCollectionVC, animated: true)
+
+        }
+        
+        
+        
+        
+        
+        
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.destination is FriendMessageCollectionViewController {
+//            let messageController = segue.destination as? FriendMessageCollectionViewController
+//            messageController?.friendsUID = friendsUIDArray
+//        }
+//    }
     @objc func buttonAction() {
-//        performSegue(withIdentifier: "showCrimeFilter", sender: self)
+        //performSegue(withIdentifier: "showCrimeFilter", sender: self)
         let crimeVC = storyboard?.instantiateViewController(withIdentifier: "CrimeFilter") as! CrimeFilterViewController
+        //let crimeVC = CrimeFilterViewController()
         crimeVC.passCoordinateBackDelegate = self
-        present(crimeVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(crimeVC, animated: true)
     }
+
 }
 
 extension LocationServicesViewController: PassCoordinatesBack {

@@ -24,9 +24,9 @@ class DetailViewController: UIViewController {
     
     var databaseRef : DatabaseReference!
     var currentState = "notFriends"
-    var friendRequestDatabase = Database.database().reference().child("friendReq")
-    var friendDataBase = Database.database().reference().child("friends")
-    var userDatabase = Database.database().reference().child("users")
+    var friendRequestDatabase = FirebaseConstants.friendRequestDatabase
+    var friendDataBase = FirebaseConstants.friendDataBase
+    var userDatabase = FirebaseConstants.userDatabase
     
     
     //NEW VARS:

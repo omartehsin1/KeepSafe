@@ -20,7 +20,7 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
     var nameOfFriend = String()
     var imageOfFriend = UIImage()
     var emailOfFriend = String()
-    var databaseRef = Database.database().reference()
+    var friendDataBase = FirebaseConstants.friendDataBase
     
     
     
@@ -69,7 +69,7 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
     
     func fetchFriends() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-        databaseRef.child("friends").child(myUID).observe(.value) { (snapshot) in
+        friendDataBase.child(myUID).observe(.value) { (snapshot) in
             for friends in snapshot.children.allObjects as! [DataSnapshot] {
                 if let dictionary = friends.value as? [String: AnyObject] {
                     let users = Users()
