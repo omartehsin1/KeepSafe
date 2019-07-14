@@ -38,10 +38,6 @@ This project still needs work on UI and UX, the readme will continue to be updat
 
 
 **In this case, it shows robberies in the Upper Beaches area of Toronto. Annotations also show the date of the crime**
-<<<<<<< HEAD
 ![](screenshots/SOSButton.png)
-=======
 
-![](screenshots/CrimeView.png)
->>>>>>> be7e75845f3cf7e395c9b3d9f1bd9d91360de9f2
 
