@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var nameTitle: UILabel!
+    @IBOutlet weak var theUsernameLabel: UILabel!
     @IBOutlet weak var locationTitle: UILabel!
     let homePageVC = HomePageViewController()
     
@@ -18,19 +18,24 @@ class ProfileTableViewCell: UITableViewCell {
         profileImage.layer.cornerRadius = (profileImage.bounds.height) / 2
         profileImage.clipsToBounds = true
         
-        homePageVC.loadProfileimage(completion: { userImage in
-            profileItems.profileImage = userImage
-            self.profileImage.image = profileItems.profileImage
-        })
+
         
+//        homePageVC.loadProfileImageView { (userImage) in
+//            profileItems.profileImage = userImage
+//            self.profileImage = profileItems.profileImage
+//        }
         
+        homePageVC.loadProfileImageView { (userImageURL) in
+            profileItems.profileImage.loadImageUsingCache(urlString: userImageURL)
+            self.profileImage.loadImageUsingCache(urlString: userImageURL)
+        }
         
         locationTitle.text = profileItems.location
         
         
         homePageVC.loadUserName(completion: { username in
-            profileItems.nameTitle = username
-            self.nameTitle.text = profileItems.nameTitle
+            profileItems.theUsername = username
+            self.theUsernameLabel.text = profileItems.theUsername
         })
     }
     

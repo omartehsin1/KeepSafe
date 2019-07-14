@@ -81,6 +81,7 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
                 let message = Message()
                 message.messageBody = dictionary["SOSMessage"] as? String ?? ""
                 message.toID = dictionary["toID"] as? String ?? ""
+                message.recepient = dictionary["nameOfUser"] as? String ?? ""
 
                 if let toID = message.toID {
                     messagesDictionary[toID] = message

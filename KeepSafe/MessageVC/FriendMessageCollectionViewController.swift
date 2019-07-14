@@ -122,6 +122,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
                 let message = Message()
                 message.messageBody = dictionary["SOSMessage"] as? String ?? ""
                 message.toID = dictionary["toID"] as? String ?? ""
+                message.recepient = dictionary["nameOfUser"] as? String ?? ""
                 
                 self.messagesArray.append(message)
                 
@@ -284,8 +285,9 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
 //        let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
 
         let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
+        let timestamp = ServerValue.timestamp()
 
-        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
+        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID, "timestamp": timestamp]
         
         messageDB.setValue(messageDictionary) {
             (error, ref) in

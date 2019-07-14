@@ -10,13 +10,21 @@ import Foundation
 import UIKit
 
 class ProfileItems {
-    var profileImage: UIImage
-    var nameTitle: String
+    var profileImage: UIImageView
+    var theUsername: String
     var location: String
+    var email: String
+    var firstName: String
+    var lastName: String
+    var phoneNumber: String
     
-    init(profileImage: UIImage, nameTitle: String, location: String) {
+    init(profileImage: UIImageView, theUsername: String, location: String, email: String, firstName: String, lastName: String, phoneNumber: String) {
         self.profileImage = profileImage
-        self.nameTitle = nameTitle
+        self.theUsername = theUsername
         self.location = location
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.phoneNumber = phoneNumber
     }
 }

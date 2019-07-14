@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import TextFieldEffects
 import PMSuperButton
+import FlagPhoneNumber
 
 
 
@@ -21,6 +22,12 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var emailTextField: MinoruTextField!
     @IBOutlet weak var usernameTextField: MinoruTextField!
     @IBOutlet weak var passwordTextField: MinoruTextField!
+    @IBOutlet weak var firstNameTextField: MinoruTextField!
+    @IBOutlet weak var lastNameTextField: MinoruTextField!
+    @IBOutlet weak var phoneNumberTextField: FPNTextField!
+    
+    
+    
     //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
     var registeredUser = [Users]()
     var ref: DatabaseReference!
@@ -77,7 +84,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBAction func restrationBTNPressed(_ sender: PMSuperButton) {
         spinnerView.showSpinner(onView: self.view)
         
-        guard let email = emailTextField.text, let password = passwordTextField.text, let usernameText = usernameTextField.text else {
+        guard let email = emailTextField.text, let password = passwordTextField.text, let usernameText = usernameTextField.text, let firstName = firstNameTextField.text, let lastName = lastNameTextField.text, let phoneNumber = phoneNumberTextField.text else {
             print("Form is not valied")
             return
         }
@@ -122,7 +129,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                             if let downloadURL = url {
                                 let downloadString = downloadURL.absoluteString
                                 
-                                let values = ["nameOfUser": usernameText, "email": email, "profileImageURL": downloadString, "uid": uid]
+                                let values = ["nameOfUser": usernameText, "email": email, "profileImageURL": downloadString, "firstName": firstName, "lastName": lastName, "phoneNumber": phoneNumber, "uid": uid]
                                 self.registerUserIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
                                 
                             }

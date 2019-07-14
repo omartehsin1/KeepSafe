@@ -105,7 +105,7 @@ extension YourCircleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         yourCircleCell.friendUserName.text = myFriendCircle.nameOfUser
         
-        print(myFriendCircle.profileImageURL)
+        //print(myFriendCircle.profileImageURL)
         
         if let profileImageURL = myFriendCircle.profileImageURL {
             yourCircleCell.friendProfileImage.loadImageUsingCache(urlString: profileImageURL)

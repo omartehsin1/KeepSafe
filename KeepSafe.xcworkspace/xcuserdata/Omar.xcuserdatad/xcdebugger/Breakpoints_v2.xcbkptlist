@@ -41,22 +41,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KeepSafe/HomePageViewController.swift"
-            timestampString = "583882390.82932"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "loadProfileimage(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "KeepSafe/LocationServices/CrimeFilterViewController.swift"
             timestampString = "583721104.938633"
             startingColumnNumber = "9223372036854775807"
@@ -106,13 +90,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/MessageVC/FriendMessageCollectionViewController.swift"
-            timestampString = "583882390.829458"
+            timestampString = "583956785.916047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
             endingLineNumber = "44"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KeepSafe/TableView/ProfileTableViewCell.swift"
+            timestampString = "583964234.596559"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "setProfileItem(profileItems:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KeepSafe.ProfileTableViewCell.setProfileItem(profileItems: KeepSafe.ProfileItems) -&gt; ()"
+                  moduleName = "KeepSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Omar/Desktop/Coding/Projects/KeepSafe/KeepSafe/TableView/ProfileTableViewCell.swift"
+                  timestampString = "583884653.370474"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "920">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIImage) -&gt; () in KeepSafe.ProfileTableViewCell.setProfileItem(profileItems: KeepSafe.ProfileItems) -&gt; ()"
+                  moduleName = "KeepSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Omar/Desktop/Coding/Projects/KeepSafe/KeepSafe/TableView/ProfileTableViewCell.swift"
+                  timestampString = "583884653.373534"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "121">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

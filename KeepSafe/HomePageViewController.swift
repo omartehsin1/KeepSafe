@@ -16,10 +16,18 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var leadingC: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameOfUserLabel: UILabel!
-    var username : String = "No Name"
-    var userImage: UIImage = UIImage(named: "defaultUser")!
-    var friendDataBase = FirebaseConstants.friendDataBase
+    @IBOutlet weak var userImageView: UIImageView!
     
+    
+    var username : String = "No Name"
+    var userImageURL = String()
+    var randomImage = UIImageView()
+    var email = String()
+    var firstName = String()
+    var lastName = String()
+    var phoneNumber = String()
+    var friendDataBase = FirebaseConstants.friendDataBase
+    var userDatabase = FirebaseConstants.userDatabase
     var hamburgerMenuIsVisible = false
     var menuItems: [MenuItems] = []
     var profileItems: [ProfileItems] = []
@@ -40,7 +48,11 @@ class HomePageViewController: UIViewController {
             self.nameOfUserLabel.text = "Welcome \(username)"
             
         })
-        //nameOfUserLabel.text = username
+        
+        loadProfileImageView { (userImageURL) in
+            self.userImageView.loadImageUsingCache(urlString: userImageURL)
+        }
+
         
 
     }
@@ -78,8 +90,10 @@ class HomePageViewController: UIViewController {
         var tempProfileItems: [ProfileItems] = []
         
     
-
-        let profileItem = ProfileItems(profileImage: userImage, nameTitle: username, location: "Toronto")
+//
+//        let profileItem = ProfileItems(profileImage: userImageURL, nameTitle: username, location: "Toronto")
+        //let profileItem = ProfileItems(profileImage: randomImage, theUsername: username, location: "Toronto")
+        let profileItem = ProfileItems(profileImage: randomImage, theUsername: username, location: "Toronto", email: email, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber)
 
         tempProfileItems.append(profileItem)
 
@@ -137,31 +151,20 @@ class HomePageViewController: UIViewController {
     }
     
     
-    func loadProfileimage(completion: @escaping(_ userImage: UIImage) -> Void) {
-        if let uid = Auth.auth().currentUser?.uid {
-            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    if let profileImageURL = dictionary["profileImageURL"] as? String {
-                        let url = URL(string: profileImageURL)
-                        print("The URL is \(url!)")
-                        URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                            if error != nil {
-                                print(error)
-                                return
-                            }
-                            DispatchQueue.main.async {
-                                self.userImage = UIImage(data: data!)!
-                               
-                            }
-                        }.resume()
-                        completion(self.userImage)
-                    }
-                }
+
+    
+    func loadProfileImageView(completion: @escaping(_ userImageURL: String) -> Void) {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        userDatabase.child(myUID).observe(.value) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                //let user = Users()
+                let imageUrl = dictionary["profileImageURL"] as? String ?? ""
+                self.userImageURL = imageUrl
+                completion(self.userImageURL)
+                
             }
-            
         }
     }
-    
 
 }
 
@@ -181,7 +184,7 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
 
         if (indexPath.row == 0) {
             let profileItem = profileItems[indexPath.row]
-
+            //profileItem.nameTitle = profileItem[indexPath.row]
             let profileCell = tableView.dequeueReusableCell(withIdentifier: "profileCell") as! ProfileTableViewCell
 
             profileCell.setProfileItem(profileItems: profileItem)
@@ -232,6 +235,33 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
         
         else if (indexPath.row == 3) {
             performSegue(withIdentifier: "showYourCircleVC", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showProfileVC" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+                
+                let profileSettingVC = segue.destination as! ProfileSettingViewController
+                let myProfile = profileItems[indexPath.row]
+                guard let myUID = Auth.auth().currentUser?.uid else {return}
+                
+                userDatabase.child(myUID).observe(.value) { (snapshot) in
+                    if let dictionary = snapshot.value as? [String: AnyObject] {
+                        profileSettingVC.nameLabel.text = dictionary["firstName"] as? String ?? ""
+                        profileSettingVC.emailTextField.text = dictionary["email"] as? String ?? ""
+                        profileSettingVC.firstNameTextField.text = dictionary["firstName"] as? String ?? ""
+                        profileSettingVC.lastNameTextField.text = dictionary["lastName"] as? String ?? ""
+                        profileSettingVC.phoneNumberTextField.text = dictionary["phoneNumber"] as? String ?? ""
+                        print(dictionary["firstName"] as? String ?? "")
+                    }
+                }
+
+                
+            }
+            
+            
         }
     }
     

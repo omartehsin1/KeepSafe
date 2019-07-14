@@ -153,28 +153,30 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
                 if let dictionary = friendsUID.value as? [String: AnyObject] {
                     
                     let uid = dictionary["UID"] as? String ?? ""
+                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
                     self.friendsUIDArray.append(uid)
                     
                     
                     //self.tappedSOSButtonDelegate.didTapSOSButton(friendID: self.friendsUIDArray)
+                    let SOSMessageDictionary: NSDictionary = ["sender": myEmail, "SOSMessage": "SOS PLEASE HELP!", "toID": uid, "nameOfUser": nameOfUser]
+                    self.SOSDatabase.childByAutoId().setValue(SOSMessageDictionary, withCompletionBlock: { (error, ref) in
+                        if error != nil {
+                            print(error)
+                        } else {
+                            print("SOS Sent Successfull \(uid)")
+                        }
+                    })
                     
                 }
                 
             }
 
-            
-            for friendsUID in self.friendsUIDArray {
-                print(friendsUID)
-                let SOSMessageDictionary: NSDictionary = ["sender": myEmail, "SOSMessage": "SOS PLEASE HELP!", "toID": friendsUID]
-                self.SOSDatabase.childByAutoId().setValue(SOSMessageDictionary, withCompletionBlock: { (error, ref) in
-                    if error != nil {
-                        print(error)
-                    } else {
-                        print("SOS Sent Successfull \(friendsUID)")
-                    }
-                })
-                
-            }
+//
+//            for friendsUID in self.friendsUIDArray {
+//                print(friendsUID)
+//
+//
+//            }
             
             
 //            let messageCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "FriendChatViewController") as! FriendsChatViewController

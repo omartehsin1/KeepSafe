@@ -20,6 +20,7 @@ pod 'EmptyDataSet-Swift', '~> 4.2.0'
 pod 'SwiftLocation', '~> 4.0'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Alamofire', '~> 4.5'
+pod "FlagPhoneNumber"
 
   target 'KeepSafeTests' do
     inherit! :search_paths
