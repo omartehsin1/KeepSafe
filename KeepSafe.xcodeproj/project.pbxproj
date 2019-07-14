@@ -124,6 +124,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0704F53F22DBBA5700293718 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */,
+				0704F53D22CE7D8800293718 /* ProfileSettingViewController.swift */,
+				07CC04B62260F7A90072D1BC /* HomePageViewController.swift */,
+				07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */,
+				07E30B4C2225D8BE00904A45 /* LogInViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		0750E269226672B10038201E /* YourCircle */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +213,7 @@
 		07E30B202225BE7500904A45 /* KeepSafe */ = {
 			isa = PBXGroup;
 			children = (
+				0704F53F22DBBA5700293718 /* Profile */,
 				07E30B212225BE7500904A45 /* AppDelegate.swift */,
 				07F4A2D822C27C92001C2A1A /* Model */,
 				07F4A2DD22CD2AAD001C2A1A /* Camera */,
@@ -209,12 +222,7 @@
 				0787658622665D59001DE728 /* LocationServices */,
 				0787657D226282B0001DE728 /* MessageVC */,
 				0787657C22628289001DE728 /* TableView */,
-				07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */,
-				0704F53D22CE7D8800293718 /* ProfileSettingViewController.swift */,
-				07CC04B62260F7A90072D1BC /* HomePageViewController.swift */,
-				07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */,
 				07E30B232225BE7500904A45 /* ViewController.swift */,
-				07E30B4C2225D8BE00904A45 /* LogInViewController.swift */,
 				07E30B252225BE7500904A45 /* Main.storyboard */,
 				07E30B2B2225BE7700904A45 /* Assets.xcassets */,
 				07E30B2D2225BE7700904A45 /* LaunchScreen.storyboard */,

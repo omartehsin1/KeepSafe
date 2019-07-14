@@ -16,9 +16,11 @@ protocol PassCoordinatesBack {
     func didTapSearch(coordinates: [CLLocationCoordinate2D], kindofCrime: String, date: [String])
 }
 
+
+
 class CrimeFilterViewController: UIViewController {
     var spinnerView = SpinnerViewController()
-
+    
     @IBOutlet weak var boroughTextField: UITextField!
     @IBOutlet weak var neighborhoodTextField: UITextField!
     @IBOutlet weak var boroughPickerView: UIPickerView!
@@ -164,8 +166,9 @@ class CrimeFilterViewController: UIViewController {
     
     @IBAction func searchButtonPressed(_ sender: Any) {
         crimeDataSearch(neighborhood: selectedNeighborHood, theCrimeType: crimeType)
-        dismiss(animated: true, completion: nil)
         spinnerView.showSpinner(onView: self.view)
+        //dismiss(animated: true, completion: nil)
+        
 
 
         

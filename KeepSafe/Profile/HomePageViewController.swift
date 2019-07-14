@@ -9,14 +9,20 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import GoogleMaps
+import GooglePlaces
 
-class HomePageViewController: UIViewController {
+class HomePageViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var trailingC: NSLayoutConstraint!
     @IBOutlet weak var leadingC: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameOfUserLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
+    var mapView: GMSMapView!
+    var userCurrentLocation: GMSMarker?
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
     
     
     var username : String = "No Name"
@@ -40,18 +46,26 @@ class HomePageViewController: UIViewController {
         menuItems = createArray()
 
         profileItems = createProfileArray()
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
+        GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
+        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
+        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        view = mapView
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        loadUserName(completion: { username in
-            self.nameOfUserLabel.text = "Welcome \(username)"
-            
-        })
+//        loadUserName(completion: { username in
+//            self.nameOfUserLabel.text = "Welcome \(username)"
+//
+//        })
         
-        loadProfileImageView { (userImageURL) in
-            self.userImageView.loadImageUsingCache(urlString: userImageURL)
-        }
+//        loadProfileImageView { (userImageURL) in
+//            self.userImageView.loadImageUsingCache(urlString: userImageURL)
+//        }
 
         
 
