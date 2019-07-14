@@ -15,8 +15,10 @@ This project still needs work on UI and UX, the readme will continue to be updat
 
 
 
+
 **Add friends and search thorough your circle**
 ![](screenshots/MyCircleView.png)
+
 
 
 **Find chats with people in your circle where you can share images, videos and live location**
@@ -25,10 +27,12 @@ This project still needs work on UI and UX, the readme will continue to be updat
 ![](screenshots/MessagevIEW.png)
 
 
+
 **Filter through different types of crime depending on borough and the the specific neighborhood**
 ![](screenshots/FilterView.png)
 
 
+
 **In this case, it shows robberies in the Upper Beaches area of Toronto. Annotations also show the date of the crime**
-![](screenshots/CrimeView.png)
+![](screenshots/SOSButton.png)
 
