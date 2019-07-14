@@ -43,4 +43,7 @@ struct Alert {
     static func showIncorrectEmailAlert(on vc: UIViewController) {
         showBasicAction(on: vc, with: "Email is incorrect", message: "Please try again with the right email address")
     }
+    static func showUpdatedSuccessAlert(on vc: UIViewController) {
+        showBasicAction(on: vc, with: "Success", message: "Your information has been successfully updated")
+    }
 }

@@ -8,29 +8,98 @@
 
 import UIKit
 import FlagPhoneNumber
+import Firebase
 
-class ProfileSettingViewController: UIViewController {
+class ProfileSettingViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var nameLabel: UILabel!
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumberTextField.delegate = self
+        loadUserProfile()
+        userImageView.isUserInteractionEnabled = true
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func saveBTNPressed(_ sender: Any) {
-        //print(phoneNumberTextField.text)
+    
+    @IBAction func imageTapped(_ sender: Any) {
+        changeImage()
     }
     
     
-
+    
+    @IBAction func saveBTNPressed(_ sender: Any) {
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+        guard let firstName = self.firstNameTextField.text,
+            let lastName = lastNameTextField.text,
+            let email = emailTextField.text,
+            let phoneNumber = phoneNumberTextField.text
+            else {
+                return
+                
+        }
+        
+        let imageName = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(imageName).png")
+        
+        
+        
+        
+        
+        if let uploadData = self.userImageView.image?.pngData() {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                storageRef.downloadURL(completion: { (url, erro) in
+                    if (erro == nil) {
+                        if let downloadurl = url {
+                            let downloadString = downloadurl.absoluteString
+                            let dictionary = ["firstName" : firstName, "lastName": lastName, "email": email, "phoneNumber": phoneNumber, "profileImageURL": downloadString]
+                            FirebaseConstants.userDatabase.child(myUID).updateChildValues(dictionary) { (error, ref) in
+                                if error != nil {
+                                    Alert.showUnableToRetrieveDataAlert(on: self)
+                                } else {
+                                    Alert.showUpdatedSuccessAlert(on: self)
+                                    //self.dismiss(animated: true, completion: nil)
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+                    else {
+                        print(erro!)
+                    }
+                })
+            }
+        }
+        
+    }
+    func loadUserProfile() {
+        guard let myUID = Auth.auth().currentUser?.uid else { return }
+        FirebaseConstants.userDatabase.child(myUID).observe(.value) { (snapshot) in
+            if let dictionary = snapshot.value as? [String:AnyObject] {
+                self.firstNameTextField.text = dictionary["firstName"] as? String ?? ""
+                self.lastNameTextField.text = dictionary["lastName"] as? String ?? ""
+                self.emailTextField.text = dictionary["email"] as? String ?? ""
+                self.phoneNumberTextField.text = dictionary["phoneNumber"] as? String ?? ""
+                let imageURL = dictionary["profileImageURL"] as? String ?? ""
+                
+                DispatchQueue.main.async {
+                    self.userImageView.loadImageUsingCache(urlString: imageURL)
+                }
+            }
+        }
+    }
 
 }
 
@@ -50,5 +119,31 @@ extension ProfileSettingViewController: FPNTextFieldDelegate {
         }
     }
     
+    
+}
+
+extension ProfileSettingViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            userImageView.image = selectedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    func changeImage() {
+        
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+        
+    }
     
 }

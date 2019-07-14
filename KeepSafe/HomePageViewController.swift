@@ -249,9 +249,9 @@ extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 userDatabase.child(myUID).observe(.value) { (snapshot) in
                     if let dictionary = snapshot.value as? [String: AnyObject] {
-                        profileSettingVC.nameLabel.text = dictionary["firstName"] as? String ?? ""
-                        profileSettingVC.emailTextField.text = dictionary["email"] as? String ?? ""
-                        profileSettingVC.firstNameTextField.text = dictionary["firstName"] as? String ?? ""
+                        //profileSettingVC.nameLabel.text = dictionary["firstName"] as? String ?? ""
+                        //profileSettingVC.emailTextField.text = dictionary["email"] as? String ?? ""
+                        //profileSettingVC.firstNameTextField.text = dictionary["firstName"] as? String ?? ""
                         profileSettingVC.lastNameTextField.text = dictionary["lastName"] as? String ?? ""
                         profileSettingVC.phoneNumberTextField.text = dictionary["phoneNumber"] as? String ?? ""
                         print(dictionary["firstName"] as? String ?? "")

@@ -248,6 +248,10 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eej-ab-keU">
                                 <rect key="frame" x="117" y="100" width="141" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="wPo-3b-BML" appends="YES" id="8AG-HH-iv2"/>
+                                </connections>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Z7-YX-ixl">
                                 <rect key="frame" x="16" y="289" width="343" height="30"/>
@@ -295,13 +299,6 @@
                                     <action selector="saveBTNPressed:" destination="x98-rs-V8N" eventType="touchUpInside" id="E9H-39-96y"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7f-bx-ohj">
-                                <rect key="frame" x="16" y="237" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="XGV-VU-7cg"/>
@@ -310,13 +307,17 @@
                         <outlet property="emailTextField" destination="DUC-zy-HI6" id="lYD-Rw-F3r"/>
                         <outlet property="firstNameTextField" destination="6Z7-YX-ixl" id="UGG-nk-n08"/>
                         <outlet property="lastNameTextField" destination="UJ0-9L-uO7" id="Qby-hW-TnT"/>
-                        <outlet property="nameLabel" destination="i7f-bx-ohj" id="sEc-kt-FCN"/>
                         <outlet property="passwordTextField" destination="TDX-qS-8C7" id="7d2-PO-n9I"/>
                         <outlet property="phoneNumberTextField" destination="slA-yJ-MfZ" id="JOq-wJ-deL"/>
                         <outlet property="userImageView" destination="eej-ab-keU" id="XIP-uW-SN4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRQ-kP-OKf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="wPo-3b-BML">
+                    <connections>
+                        <action selector="imageTapped:" destination="x98-rs-V8N" id="Eep-5n-Vb2"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3312.8000000000002" y="917.99100449775119"/>
         </scene>
