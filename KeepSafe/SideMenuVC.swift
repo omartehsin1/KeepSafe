@@ -132,7 +132,7 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
     }
 
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        sideMenuTableView.deselectRow(at: indexPath, animated: true)
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
         
         switch indexPath.row {

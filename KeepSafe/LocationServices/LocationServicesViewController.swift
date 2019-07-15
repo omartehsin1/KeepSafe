@@ -13,6 +13,7 @@ import Firebase
 import Alamofire
 import SwiftyJSON
 
+
 protocol DidTapSOS {
     func didTapSOSButton(friendID: [String])
 }
@@ -32,7 +33,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var friendsUIDArray = [String]()
     var tappedSOSButtonDelegate : DidTapSOS!
     var sideMenuOpen = false
-    
+    var coordinateLoc: CLLocationCoordinate2D!
     
     
 
@@ -43,8 +44,13 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         
+        
 
-        //mapView.delegate = self
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
 
         GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
         GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
@@ -52,7 +58,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
 
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        //self.locationManager.delegate = self
+        
         view = mapView
  
         
@@ -211,7 +217,15 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         crimeVC.passCoordinateBackDelegate = self
         self.navigationController?.pushViewController(crimeVC, animated: true)
     }
+    
 
+}
+
+extension LocationServicesViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {return}
+        coordinateLoc = locValue
+    }
 }
 
 extension LocationServicesViewController: PassCoordinatesBack {

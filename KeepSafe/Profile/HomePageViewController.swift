@@ -29,7 +29,10 @@ class HomePageViewController: UIViewController{
         NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
 
 
+
     }
+    
+
     
     func layoutView() {
         sideMenuView.layer.backgroundColor = UIColor.clear.cgColor

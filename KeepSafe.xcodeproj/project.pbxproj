@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0704F53E22CE7D8800293718 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F53D22CE7D8800293718 /* ProfileSettingViewController.swift */; };
 		0704F61322DBDFA500293718 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61222DBDFA500293718 /* SideMenuVC.swift */; };
+		0704F61622DD3BF800293718 /* FollowMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61522DD3BF800293718 /* FollowMeViewController.swift */; };
+		0704F61822DD3C1A00293718 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61722DD3C1A00293718 /* CheckInViewController.swift */; };
 		0750E268226670340038201E /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E267226670340038201E /* SpinnerViewController.swift */; };
 		0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26A226672C50038201E /* AddFriendViewController.swift */; };
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
@@ -59,6 +61,8 @@
 /* Begin PBXFileReference section */
 		0704F53D22CE7D8800293718 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		0704F61222DBDFA500293718 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
+		0704F61522DD3BF800293718 /* FollowMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowMeViewController.swift; sourceTree = "<group>"; };
+		0704F61722DD3C1A00293718 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		0750E267226670340038201E /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		0750E26A226672C50038201E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
@@ -134,6 +138,15 @@
 				07E30B4C2225D8BE00904A45 /* LogInViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		0704F61422DD3BAC00293718 /* TabBarViews */ = {
+			isa = PBXGroup;
+			children = (
+				0704F61522DD3BF800293718 /* FollowMeViewController.swift */,
+				0704F61722DD3C1A00293718 /* CheckInViewController.swift */,
+			);
+			path = TabBarViews;
 			sourceTree = "<group>";
 		};
 		0750E269226672B10038201E /* YourCircle */ = {
@@ -213,6 +226,7 @@
 		07E30B202225BE7500904A45 /* KeepSafe */ = {
 			isa = PBXGroup;
 			children = (
+				0704F61422DD3BAC00293718 /* TabBarViews */,
 				0704F53F22DBBA5700293718 /* Profile */,
 				07E30B212225BE7500904A45 /* AppDelegate.swift */,
 				07F4A2D822C27C92001C2A1A /* Model */,
@@ -521,6 +535,8 @@
 				0704F53E22CE7D8800293718 /* ProfileSettingViewController.swift in Sources */,
 				0704F61322DBDFA500293718 /* SideMenuVC.swift in Sources */,
 				07F4A2E122CD350E001C2A1A /* CameraViewController.swift in Sources */,
+				0704F61822DD3C1A00293718 /* CheckInViewController.swift in Sources */,
+				0704F61622DD3BF800293718 /* FollowMeViewController.swift in Sources */,
 				07F4A2D722BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift in Sources */,
 				07F4A2DC22CD1417001C2A1A /* FirebaseConstants.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,
