@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0704F53E22CE7D8800293718 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F53D22CE7D8800293718 /* ProfileSettingViewController.swift */; };
+		0704F61322DBDFA500293718 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61222DBDFA500293718 /* SideMenuVC.swift */; };
 		0750E268226670340038201E /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E267226670340038201E /* SpinnerViewController.swift */; };
 		0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26A226672C50038201E /* AddFriendViewController.swift */; };
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		0704F53D22CE7D8800293718 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		0704F61222DBDFA500293718 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		0750E267226670340038201E /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		0750E26A226672C50038201E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				0787657C22628289001DE728 /* TableView */,
 				07E30B232225BE7500904A45 /* ViewController.swift */,
 				07E30B252225BE7500904A45 /* Main.storyboard */,
+				0704F61222DBDFA500293718 /* SideMenuVC.swift */,
 				07E30B2B2225BE7700904A45 /* Assets.xcassets */,
 				07E30B2D2225BE7700904A45 /* LaunchScreen.storyboard */,
 				07E30B302225BE7700904A45 /* Info.plist */,
@@ -520,6 +523,7 @@
 				07F4A2DA22C27CC7001C2A1A /* MessageCell.swift in Sources */,
 				07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */,
 				0704F53E22CE7D8800293718 /* ProfileSettingViewController.swift in Sources */,
+				0704F61322DBDFA500293718 /* SideMenuVC.swift in Sources */,
 				07F4A2E122CD350E001C2A1A /* CameraViewController.swift in Sources */,
 				07F4A2D722BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift in Sources */,
 				07F4A2DC22CD1417001C2A1A /* FirebaseConstants.swift in Sources */,

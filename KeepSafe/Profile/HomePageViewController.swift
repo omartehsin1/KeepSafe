@@ -13,16 +13,11 @@ import GoogleMaps
 import GooglePlaces
 
 class HomePageViewController: UIViewController, GMSMapViewDelegate {
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var trailingC: NSLayoutConstraint!
-    @IBOutlet weak var leadingC: NSLayoutConstraint!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var nameOfUserLabel: UILabel!
-    @IBOutlet weak var userImageView: UIImageView!
-    var mapView: GMSMapView!
-    var userCurrentLocation: GMSMarker?
-    var locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
+    @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var sideMenuView: UIView!
+    let containerView = UIView()
+    let cornerRadius: CGFloat = 6.0
     
     
     var username : String = "No Name"
@@ -35,6 +30,7 @@ class HomePageViewController: UIViewController, GMSMapViewDelegate {
     var friendDataBase = FirebaseConstants.friendDataBase
     var userDatabase = FirebaseConstants.userDatabase
     var hamburgerMenuIsVisible = false
+    var sideMenuOpen = false
     var menuItems: [MenuItems] = []
     var profileItems: [ProfileItems] = []
     var combinedArray: [Any] = []
@@ -43,98 +39,64 @@ class HomePageViewController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         barButtonItem()
-        menuItems = createArray()
+        //menuItems = createArray()
 
-        profileItems = createProfileArray()
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
+        //profileItems = createProfileArray()
         
-        GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
-        GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
-        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
-        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        view = mapView
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-//        loadUserName(completion: { username in
-//            self.nameOfUserLabel.text = "Welcome \(username)"
-//
-//        })
-        
-//        loadProfileImageView { (userImageURL) in
-//            self.userImageView.loadImageUsingCache(urlString: userImageURL)
-//        }
-
         
 
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        leadingC.constant = 0
-        trailingC.constant = 0
-        
-        hamburgerMenuIsVisible = false
-    }
-    func createArray() -> [MenuItems] {
-        var tempMenuItems: [MenuItems] = []
 
-        let menuItems1 = MenuItems(image: UIImage(named: "message")!, title: "message")
-        let menuItem2 = MenuItems(image: UIImage(named: "message")!, title: "Message")
-        let menuItem3 = MenuItems(image: UIImage(named: "location")!, title: "Location Services")
-        let menuItem4 = MenuItems(image: UIImage(named: "circle")!, title: "Your Circle")
-        let menuItem5 = MenuItems(image: UIImage(named: "crime")!, title: "Report Crime")
-        let menuItem6 = MenuItems(image: UIImage(named: "places")!, title: "Places")
+        NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
         
-        tempMenuItems.append(menuItems1)
-        tempMenuItems.append(menuItem2)
-        tempMenuItems.append(menuItem3)
-        tempMenuItems.append(menuItem4)
-        tempMenuItems.append(menuItem5)
-        tempMenuItems.append(menuItem6)
-        
-        //combinedArray.append(contentsOf: tempMenuItems)
-
-        return tempMenuItems
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(showMessages), name: NSNotification.Name("ShowMessages"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showYourCircle), name: NSNotification.Name("ShowYourCircle"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showProfile), name: NSNotification.Name("ShowProfile"), object: nil)
 
     }
     
-    func createProfileArray() -> [ProfileItems] {
-        var tempProfileItems: [ProfileItems] = []
+    func layoutView() {
+        sideMenuView.layer.backgroundColor = UIColor.clear.cgColor
+        sideMenuView.layer.shadowColor = UIColor.black.cgColor
+        sideMenuView.layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        sideMenuView.layer.shadowOpacity = 1
+        sideMenuView.layer.shadowRadius = 10
+        sideMenuView.clipsToBounds = false
+        sideMenuView.layer.shadowPath = UIBezierPath(roundedRect: sideMenuView.bounds, cornerRadius: 10).cgPath
+        containerView.layer.cornerRadius = cornerRadius
+        containerView.layer.masksToBounds = true
         
-    
-//
-//        let profileItem = ProfileItems(profileImage: userImageURL, nameTitle: username, location: "Toronto")
-        //let profileItem = ProfileItems(profileImage: randomImage, theUsername: username, location: "Toronto")
-        let profileItem = ProfileItems(profileImage: randomImage, theUsername: username, location: "Toronto", email: email, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber)
+        sideMenuView.addSubview(containerView)
+        
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
 
-        tempProfileItems.append(profileItem)
-
-
-        return tempProfileItems
+        
     }
+    
+    @objc func toggleSideMenu() {
+        if sideMenuOpen {
+            sideMenuOpen = false
+            sideMenuConstraint.constant = -240
+        } else {
+            sideMenuOpen = true
+            sideMenuConstraint.constant = 0
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+
+
     
     func barButtonItem() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogOut))
     }
     @IBAction func hamburgerBtnTapped(_ sender: Any) {
         
-        if !hamburgerMenuIsVisible {
-            leadingC.constant = 250
-            //trailingC.constant = -150
-            hamburgerMenuIsVisible = true
-        } else {
-            leadingC.constant = 0
-            trailingC.constant = 0
-            
-            hamburgerMenuIsVisible = false
-        }
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-            self.view.layoutIfNeeded()
-        }) { (animationComplete) in
-            
-        }
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
     @objc func handleLogOut() {
@@ -148,135 +110,32 @@ class HomePageViewController: UIViewController, GMSMapViewDelegate {
         }
         
     }
-
     
-    func loadUserName(completion: @escaping(_ username: String) -> Void) {
-        if let uid = Auth.auth().currentUser?.uid {
-            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    if let nameOfUser = dictionary["nameOfUser"] as? String {
-                        self.username = nameOfUser
-                        //print("The name of the user is \(self.username)")
-                        completion(self.username)
-                    }
-                }
-            }
-        }
+    @objc func showProfile() {
+        performSegue(withIdentifier: "ShowProfile", sender: nil)
+        
     }
     
-    
-
-    
-    func loadProfileImageView(completion: @escaping(_ userImageURL: String) -> Void) {
-        guard let myUID = Auth.auth().currentUser?.uid else {return}
-        userDatabase.child(myUID).observe(.value) { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                //let user = Users()
-                let imageUrl = dictionary["profileImageURL"] as? String ?? ""
-                self.userImageURL = imageUrl
-                completion(self.userImageURL)
-                
-            }
-        }
+    @objc func showMessages() {
+        performSegue(withIdentifier: "ShowMessages", sender: nil)
+        
     }
+    @objc func showYourCircle() {
+        performSegue(withIdentifier: "ShowYourCircle", sender: nil)
+        
+    }
+    @objc func showReportCrime() {
+        performSegue(withIdentifier: "ShowReportCrime", sender: nil)
+        
+    }
+    @objc func showPlaces() {
+        performSegue(withIdentifier: "ShowPlaces", sender: nil)
+        
+    }
+
 
 }
 
-extension HomePageViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return menuItems.count
-
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return profileItems.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        if (indexPath.row == 0) {
-            let profileItem = profileItems[indexPath.row]
-            //profileItem.nameTitle = profileItem[indexPath.row]
-            let profileCell = tableView.dequeueReusableCell(withIdentifier: "profileCell") as! ProfileTableViewCell
-
-            profileCell.setProfileItem(profileItems: profileItem)
-
-            return profileCell
-        } else if (indexPath.row >= 1){
-            let menuItem = menuItems[indexPath.row]
-
-
-            let cell = tableView.dequeueReusableCell(withIdentifier: "menuItemCell") as! MenuTableViewCell
-
-
-            cell.setMenuItem(menuItems: menuItem)
-
-            return cell
-        }
 
 
 
-        return UITableViewCell()
-
-
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if (indexPath.row == 0) {
-            return 115
-        }
-        
-        return 90
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if (indexPath.row == 0) {
-            performSegue(withIdentifier: "showProfileVC", sender: self)
-        }
-        
-        if (indexPath.row == 1) {
-            performSegue(withIdentifier: "showChatLogController", sender: self)
-        }
-        
-        else if (indexPath.row == 2) {
-            performSegue(withIdentifier: "showLocationServiceVC", sender: self)
-        }
-        
-        else if (indexPath.row == 3) {
-            performSegue(withIdentifier: "showYourCircleVC", sender: self)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showProfileVC" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                
-                
-                let profileSettingVC = segue.destination as! ProfileSettingViewController
-                let myProfile = profileItems[indexPath.row]
-                guard let myUID = Auth.auth().currentUser?.uid else {return}
-                
-                userDatabase.child(myUID).observe(.value) { (snapshot) in
-                    if let dictionary = snapshot.value as? [String: AnyObject] {
-                        //profileSettingVC.nameLabel.text = dictionary["firstName"] as? String ?? ""
-                        //profileSettingVC.emailTextField.text = dictionary["email"] as? String ?? ""
-                        //profileSettingVC.firstNameTextField.text = dictionary["firstName"] as? String ?? ""
-                        profileSettingVC.lastNameTextField.text = dictionary["lastName"] as? String ?? ""
-                        profileSettingVC.phoneNumberTextField.text = dictionary["phoneNumber"] as? String ?? ""
-                        print(dictionary["firstName"] as? String ?? "")
-                    }
-                }
-
-                
-            }
-            
-            
-        }
-    }
-    
-}

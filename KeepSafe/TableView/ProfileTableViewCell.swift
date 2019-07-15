@@ -12,20 +12,17 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var theUsernameLabel: UILabel!
     @IBOutlet weak var locationTitle: UILabel!
-    let homePageVC = HomePageViewController()
+    //let homePageVC = HomePageViewController()
+    let sideMenuVC = SideMenuVC()
     
     func setProfileItem(profileItems: ProfileItems) {
         profileImage.layer.cornerRadius = (profileImage.bounds.height) / 2
         profileImage.clipsToBounds = true
         
 
+
         
-//        homePageVC.loadProfileImageView { (userImage) in
-//            profileItems.profileImage = userImage
-//            self.profileImage = profileItems.profileImage
-//        }
-        
-        homePageVC.loadProfileImageView { (userImageURL) in
+        sideMenuVC.loadProfileImageView { (userImageURL) in
             profileItems.profileImage.loadImageUsingCache(urlString: userImageURL)
             self.profileImage.loadImageUsingCache(urlString: userImageURL)
         }
@@ -33,7 +30,7 @@ class ProfileTableViewCell: UITableViewCell {
         locationTitle.text = profileItems.location
         
         
-        homePageVC.loadUserName(completion: { username in
+        sideMenuVC.loadUserName(completion: { username in
             profileItems.theUsername = username
             self.theUsernameLabel.text = profileItems.theUsername
         })
