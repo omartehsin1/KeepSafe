@@ -146,7 +146,10 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             }
  
             spinnerView.removeSpinner()
-            self.performSegue(withIdentifier: "goToMain", sender: self)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "HomePage")
+            self.present(controller, animated: true, completion: nil)
+            //self.performSegue(withIdentifier: "goToMain", sender: self)
             
         }
 

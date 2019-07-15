@@ -212,8 +212,12 @@ class FriendsProfileViewController: UIViewController {
 
     
     @IBAction func chatBtnPressed(_ sender: Any) {
-        
-        performSegue(withIdentifier: "messageFriend", sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "friendMessageCollectionViewController")
+//        //self.present(controller, animated: true, completion: nil)
+
+        self.navigationController?.pushViewController(controller, animated: true)
+        //performSegue(withIdentifier: "messageFriend", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "messageFriend" {

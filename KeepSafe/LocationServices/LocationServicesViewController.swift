@@ -31,6 +31,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var SOSDatabase = FirebaseConstants.SOSDatabase
     var friendsUIDArray = [String]()
     var tappedSOSButtonDelegate : DidTapSOS!
+    var sideMenuOpen = false
     
     
     
@@ -66,13 +67,33 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         _ = markerCreater(location: currentLocation, title: "Current Location", image: "defaultUser")
 
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(buttonAction))
-//        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(buttonAction))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(buttonAction))
+
         createButton()
+        notificationCenter()
         
 
 
     }
+    
+    @IBAction func logoutBtnPressed(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            var welcomeViewController = WelcomeViewController()
+            welcomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+            self.present(welcomeViewController, animated: true, completion: nil)
+        } catch let error {
+            print("There was an error: \(error)")
+        }
+    }
+    
+    
+    @IBAction func sideMenuBtnTapped(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
+    }
+    
+    
+    
     
     func createSearchBar() {
         let searchBar = UISearchBar()
@@ -125,23 +146,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         SOSButton.backgroundColor = .orange
         SOSButton.setTitle("SOS", for: .normal)
         SOSButton.addTarget(self, action: #selector(sosPressed), for: .touchUpInside)
-//        SOSButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//
-//        [SOSButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50),
-//         SOSButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100),
-//         SOSButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 100),
-//        SOSButton.heightAnchor.constraint(equalToConstant: 40),
-//        SOSButton.widthAnchor.constraint(equalToConstant: 100)
-//
-//            ].forEach{$0.isActive = true}
-        
-        
-        //view.bringSubviewToFront(SOSButton)
-        //mapView.bringSubviewToFront(SOSButton)
-        
 
-//
         self.view.addSubview(SOSButton)
     }
     @objc func sosPressed() {
@@ -223,12 +228,42 @@ extension LocationServicesViewController: PassCoordinatesBack {
         
         
     }
-    
-    
-    
-    
 
     
+}
+
+extension LocationServicesViewController {
+    func notificationCenter(){
+        NotificationCenter.default.addObserver(self, selector: #selector(showProfile), name: NSNotification.Name("ShowProfile"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showMessages), name: NSNotification.Name("ShowMessages"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showYourCircle), name: NSNotification.Name("ShowYourCircle"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
+
+    }
+    
+    @objc func showProfile() {
+        performSegue(withIdentifier: "ShowProfile", sender: nil)
+        
+    }
+    
+    @objc func showMessages() {
+        performSegue(withIdentifier: "ShowMessages", sender: nil)
+        
+    }
+    @objc func showYourCircle() {
+        performSegue(withIdentifier: "ShowYourCircle", sender: nil)
+        
+    }
+//    @objc func showReportCrime() {
+//        performSegue(withIdentifier: "ShowReportCrime", sender: nil)
+//        
+//    }
+//    @objc func showPlaces() {
+//        performSegue(withIdentifier: "ShowPlaces", sender: nil)
+//        
+//    }
+
 }
 
 

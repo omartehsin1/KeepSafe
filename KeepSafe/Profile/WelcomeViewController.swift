@@ -18,12 +18,13 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         
-        if Auth.auth().currentUser != nil {
-            self.performSegue(withIdentifier: "goToHome", sender: self)
-            print("Logged In")
-        } else {
-            print("Not Logged In")
-        }
+//        if Auth.auth().currentUser != nil {
+//            //present(HomePageViewController(), animated: true, completion: nil)
+//            self.performSegue(withIdentifier: "goToHome", sender: self)
+//            print("Logged In")
+//        } else {
+//            print("Not Logged In")
+//        }
 
     }
     

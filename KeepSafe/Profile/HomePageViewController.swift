@@ -9,50 +9,25 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-import GoogleMaps
-import GooglePlaces
 
-class HomePageViewController: UIViewController, GMSMapViewDelegate {
+
+class HomePageViewController: UIViewController{
     @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var sideMenuView: UIView!
     let containerView = UIView()
     let cornerRadius: CGFloat = 6.0
-    
-    
-    var username : String = "No Name"
-    var userImageURL = String()
-    var randomImage = UIImageView()
-    var email = String()
-    var firstName = String()
-    var lastName = String()
-    var phoneNumber = String()
-    var friendDataBase = FirebaseConstants.friendDataBase
-    var userDatabase = FirebaseConstants.userDatabase
-    var hamburgerMenuIsVisible = false
+
     var sideMenuOpen = false
-    var menuItems: [MenuItems] = []
-    var profileItems: [ProfileItems] = []
-    var combinedArray: [Any] = []
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        barButtonItem()
-        //menuItems = createArray()
-
-        //profileItems = createProfileArray()
-        
-        
-
+        //barButtonItem()
 
         NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(showMessages), name: NSNotification.Name("ShowMessages"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showYourCircle), name: NSNotification.Name("ShowYourCircle"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showProfile), name: NSNotification.Name("ShowProfile"), object: nil)
+
 
     }
     
@@ -94,10 +69,7 @@ class HomePageViewController: UIViewController, GMSMapViewDelegate {
     func barButtonItem() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogOut))
     }
-    @IBAction func hamburgerBtnTapped(_ sender: Any) {
-        
-        NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
-    }
+
     
     @objc func handleLogOut() {
         do {
@@ -111,27 +83,7 @@ class HomePageViewController: UIViewController, GMSMapViewDelegate {
         
     }
     
-    @objc func showProfile() {
-        performSegue(withIdentifier: "ShowProfile", sender: nil)
-        
-    }
-    
-    @objc func showMessages() {
-        performSegue(withIdentifier: "ShowMessages", sender: nil)
-        
-    }
-    @objc func showYourCircle() {
-        performSegue(withIdentifier: "ShowYourCircle", sender: nil)
-        
-    }
-    @objc func showReportCrime() {
-        performSegue(withIdentifier: "ShowReportCrime", sender: nil)
-        
-    }
-    @objc func showPlaces() {
-        performSegue(withIdentifier: "ShowPlaces", sender: nil)
-        
-    }
+
 
 
 }

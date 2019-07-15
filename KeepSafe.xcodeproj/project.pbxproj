@@ -28,7 +28,6 @@
 		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
 		07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04BA226172A30072D1BC /* MenuItems.swift */; };
 		07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B212225BE7500904A45 /* AppDelegate.swift */; };
-		07E30B242225BE7500904A45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B232225BE7500904A45 /* ViewController.swift */; };
 		07E30B272225BE7500904A45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B252225BE7500904A45 /* Main.storyboard */; };
 		07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B282225BE7500904A45 /* KeepSafe.xcdatamodeld */; };
 		07E30B2C2225BE7700904A45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B2B2225BE7700904A45 /* Assets.xcassets */; };
@@ -80,7 +79,6 @@
 		07CC04BA226172A30072D1BC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		07E30B1E2225BE7500904A45 /* KeepSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E30B212225BE7500904A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07E30B232225BE7500904A45 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		07E30B262225BE7500904A45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07E30B292225BE7500904A45 /* KeepSafe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KeepSafe.xcdatamodel; sourceTree = "<group>"; };
 		07E30B2B2225BE7700904A45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -224,7 +222,6 @@
 				0787658622665D59001DE728 /* LocationServices */,
 				0787657D226282B0001DE728 /* MessageVC */,
 				0787657C22628289001DE728 /* TableView */,
-				07E30B232225BE7500904A45 /* ViewController.swift */,
 				07E30B252225BE7500904A45 /* Main.storyboard */,
 				0704F61222DBDFA500293718 /* SideMenuVC.swift */,
 				07E30B2B2225BE7700904A45 /* Assets.xcassets */,
@@ -511,7 +508,6 @@
 			files = (
 				07876579226260B9001DE728 /* ProfileItems.swift in Sources */,
 				07F4A2D522BA9A22001C2A1A /* FriendsChatViewController.swift in Sources */,
-				07E30B242225BE7500904A45 /* ViewController.swift in Sources */,
 				07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */,
 				077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */,
 				0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */,

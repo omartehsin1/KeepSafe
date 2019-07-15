@@ -63,8 +63,10 @@ class LogInViewController: UIViewController {
                 spinnerView.removeSpinner()
                 return
             } else {
-                self.performSegue(withIdentifier: "goToMainFromLogIn", sender: self)
-                print("success")
+                //self.performSegue(withIdentifier: "goToMainFromLogIn", sender: self)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "HomePage")
+                self.present(controller, animated: true, completion: nil)
                 spinnerView.removeSpinner()
             }
         }
