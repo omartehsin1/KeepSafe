@@ -12,6 +12,7 @@
 		0704F61622DD3BF800293718 /* FollowMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61522DD3BF800293718 /* FollowMeViewController.swift */; };
 		0704F61822DD3C1A00293718 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61722DD3C1A00293718 /* CheckInViewController.swift */; };
 		0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */; };
+		0704F61C22E1053900293718 /* FirebaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61B22E1053900293718 /* FirebaseClass.swift */; };
 		0750E268226670340038201E /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E267226670340038201E /* SpinnerViewController.swift */; };
 		0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26A226672C50038201E /* AddFriendViewController.swift */; };
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
@@ -65,6 +66,7 @@
 		0704F61522DD3BF800293718 /* FollowMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowMeViewController.swift; sourceTree = "<group>"; };
 		0704F61722DD3C1A00293718 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
+		0704F61B22E1053900293718 /* FirebaseClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClass.swift; sourceTree = "<group>"; };
 		0750E267226670340038201E /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		0750E26A226672C50038201E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				0755E913227613D5002752E1 /* Alert.swift */,
+				0704F61B22E1053900293718 /* FirebaseClass.swift */,
 				0750E267226670340038201E /* SpinnerViewController.swift */,
 				0755E91822765E20002752E1 /* ImageExtension.swift */,
 			);
@@ -545,6 +548,7 @@
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,
 				0750E26F226775340038201E /* YourCircleViewController.swift in Sources */,
 				0750E26D2266AA660038201E /* Users.swift in Sources */,
+				0704F61C22E1053900293718 /* FirebaseClass.swift in Sources */,
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
 				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
 				0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */,

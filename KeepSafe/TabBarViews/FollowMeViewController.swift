@@ -12,23 +12,62 @@ import Firebase
 class FollowMeViewController: UIViewController {
 
     @IBOutlet weak var friendsCollectionVC: UICollectionView!
+    
+    @IBOutlet weak var followBTN: UIButton!
+    
     let friendDB = FirebaseConstants.friendDataBase
     var myFriends = [Users]()
+    var selectedUsers = [Users]()
     var myFriendCell = FriendCollectionViewCell()
+    var friendsUIDArray = [String]()
+    var followMeDB = FirebaseConstants.followMeDataBase
     override func viewDidLoad() {
         friendsCollectionVC.delegate = self
         friendsCollectionVC.dataSource = self
-        
+        followBTN.isEnabled = false
         fetchFriends()
         super.viewDidLoad()
 
     }
-    func fetchFriends() {
+    
+    @IBAction func followBTNPressed(_ sender: Any) {
         guard let myUID = Auth.auth().currentUser?.uid else {
             return
         }
+        guard let myEmail = Auth.auth().currentUser?.email else {return}
+        friendDB.child(myUID).observe(.value) { (snapshot) in
+            for friendUID in snapshot.children.allObjects as! [DataSnapshot] {
+                if let dictionary = friendUID.value as? [String: AnyObject] {
+                    let uid = dictionary["UID"] as? String ?? ""
+                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                    self.friendsUIDArray.append(uid)
+                    
+                    
+                    let followMeDictionary: NSDictionary = ["sender": myEmail, "FollowMeLink": "\(myEmail) has requested a follow, please click here", "toID": uid, "nameOfUser": nameOfUser]
+                    self.followMeDB.childByAutoId().setValue(followMeDictionary, withCompletionBlock: { (error, ref) in
+                        if error != nil {
+                            print(error)
+                        } else {
+                            print("Follow request sent successfully")
+                        }
+                    })
+                    
+                    
+                }
+            }
+        }
         
-        friendDB.child(myUID).observeSingleEvent(of: .value) { (snapshot) in
+    }
+    
+    
+    func fetchFriends() {
+
+        guard let myUID = Auth.auth().currentUser?.uid else {
+            return
+        }
+
+        
+        friendDB.child(myUID).observe(.value) { (snapshot) in
             for friends in snapshot.children.allObjects as! [DataSnapshot] {
                 if let dictionary = friends.value as? [String: AnyObject] {
                     let users = Users()
@@ -36,14 +75,18 @@ class FollowMeViewController: UIViewController {
                     users.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
                     users.userID = dictionary["UID"] as? String ?? ""
                     self.myFriends.append(users)
-                    
+
                 }
                 DispatchQueue.main.async {
                     self.friendsCollectionVC.reloadData()
                 }
-                
+
             }
         }
+        
+        
+        
+        
     }
 
 
@@ -64,6 +107,13 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
             myFriendCell.friendImageView.loadImageUsingCache(urlString: profileImageURL)
         }
         return myFriendCell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedUsers.append(myFriends[indexPath.row])
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.borderWidth = 2.0
+        cell?.layer.borderColor = UIColor.gray.cgColor
+        followBTN.isEnabled = true
     }
     
     

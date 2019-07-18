@@ -14,9 +14,7 @@ import Alamofire
 import SwiftyJSON
 
 
-protocol DidTapSOS {
-    func didTapSOSButton(friendID: [String])
-}
+
 
 class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
@@ -31,7 +29,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var friendDataBase = FirebaseConstants.friendDataBase
     var SOSDatabase = FirebaseConstants.SOSDatabase
     var friendsUIDArray = [String]()
-    var tappedSOSButtonDelegate : DidTapSOS!
     var sideMenuOpen = false
     var coordinateLoc: CLLocationCoordinate2D!
 
