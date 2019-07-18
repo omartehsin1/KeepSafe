@@ -11,6 +11,7 @@
 		0704F61322DBDFA500293718 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61222DBDFA500293718 /* SideMenuVC.swift */; };
 		0704F61622DD3BF800293718 /* FollowMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61522DD3BF800293718 /* FollowMeViewController.swift */; };
 		0704F61822DD3C1A00293718 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61722DD3C1A00293718 /* CheckInViewController.swift */; };
+		0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */; };
 		0750E268226670340038201E /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E267226670340038201E /* SpinnerViewController.swift */; };
 		0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26A226672C50038201E /* AddFriendViewController.swift */; };
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
@@ -63,6 +64,7 @@
 		0704F61222DBDFA500293718 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		0704F61522DD3BF800293718 /* FollowMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowMeViewController.swift; sourceTree = "<group>"; };
 		0704F61722DD3C1A00293718 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
+		0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
 		0750E267226670340038201E /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		0750E26A226672C50038201E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				0704F61522DD3BF800293718 /* FollowMeViewController.swift */,
+				0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */,
 				0704F61722DD3C1A00293718 /* CheckInViewController.swift */,
 			);
 			path = TabBarViews;
@@ -544,6 +547,7 @@
 				0750E26D2266AA660038201E /* Users.swift in Sources */,
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
 				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
+				0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */,
 				07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */,
 				07B543502281F62100ED8989 /* CrimeFilterViewController.swift in Sources */,
 				0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */,

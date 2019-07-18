@@ -128,7 +128,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WVv-MM-8ce">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <connections>
-                                    <segue destination="rlC-T5-X2d" kind="embed" id="XkO-H6-aRs"/>
+                                    <segue destination="4ne-8V-qRx" kind="embed" id="XkO-H6-aRs"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -157,7 +157,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozk-50-hmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3438" y="-69"/>
+            <point key="canvasLocation" x="5274.3999999999996" y="-354.87256371814095"/>
         </scene>
         <!--Side MenuVC-->
         <scene sceneID="imt-Fv-XQ7">
@@ -239,7 +239,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2tO-PR-5NO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3504" y="993"/>
+            <point key="canvasLocation" x="6252.8000000000002" y="645.42728635682158"/>
         </scene>
         <!--Profile Setting View Controller-->
         <scene sceneID="fSr-p9-jhE">
@@ -545,7 +545,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pbI-PI-M7O">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="pbI-PI-M7O">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -582,7 +582,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hve-mx-iu9">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="hve-mx-iu9">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -971,6 +971,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="dJQ-c6-Qxd"/>
                     </view>
                     <navigationItem key="navigationItem" id="NfL-h0-P5G">
                         <barButtonItem key="leftBarButtonItem" image="lines" id="LnP-Ae-hXl">
@@ -993,12 +994,107 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rPN-A4-Tr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="484"/>
+            <point key="canvasLocation" x="1708" y="483.50824587706148"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Follow Me-->
+        <scene sceneID="NnW-3b-kIU">
+            <objects>
+                <viewController id="L7b-Ih-odG" customClass="FollowMeViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1WJ-AP-vqA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This will start sharing your location live with selected connections so that they can follow you on their map." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdN-4i-fcb">
+                                <rect key="frame" x="16" y="67" width="343" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMk-vi-MGl">
+                                <rect key="frame" x="164" y="513" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Connections" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v72-uQ-tnr">
+                                <rect key="frame" x="113" y="198" width="149" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="A9c-AC-QB0">
+                                <rect key="frame" x="0.0" y="241" width="375" height="234"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Pyo-jf-fqd">
+                                    <size key="itemSize" width="156" height="163"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="bQe-MK-V5B" customClass="FriendCollectionViewCell" customModule="KeepSafe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="156" height="163"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="156" height="163"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfP-gr-DXU">
+                                                    <rect key="frame" x="10" y="7" width="136" height="125"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5y-fn-Bu8">
+                                                    <rect key="frame" x="11" y="135" width="135" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="friendImageView" destination="IfP-gr-DXU" id="Cdj-0Q-YoC"/>
+                                            <outlet property="friendNameLabel" destination="S5y-fn-Bu8" id="BUW-0P-6ua"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="sMh-H0-1bJ"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Follow Me" image="follow" id="DBT-Qv-s4N"/>
+                    <connections>
+                        <outlet property="friendsCollectionVC" destination="A9c-AC-QB0" id="A3l-KN-2io"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JGt-kU-Iod" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2660" y="492.50374812593708"/>
+        </scene>
+        <!--Check In-->
+        <scene sceneID="pYj-uq-MIC">
+            <objects>
+                <viewController id="YvC-2G-rqt" customClass="CheckInViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4p7-mE-ZFh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5Ge-qk-QAn"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Check In" image="checkIn" id="R2s-59-Hhe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IX6-LT-vdo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3589" y="509"/>
+        </scene>
+        <!--Map-->
         <scene sceneID="rn6-JM-qas">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rlC-T5-X2d" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" id="2pS-vI-dsp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qj8-4r-Ca3">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1011,15 +1107,36 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezG-CX-rMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-138" y="485"/>
+            <point key="canvasLocation" x="800.79999999999995" y="484.40779610194909"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="xb3-dn-H8A">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="4ne-8V-qRx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FSw-yI-bLv">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="rlC-T5-X2d" kind="relationship" relationship="viewControllers" id="Iue-5g-p5d"/>
+                        <segue destination="L7b-Ih-odG" kind="relationship" relationship="viewControllers" id="Sa2-WP-WuH"/>
+                        <segue destination="YvC-2G-rqt" kind="relationship" relationship="viewControllers" id="Wi8-dL-vcn"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F5A-eO-l8q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-138.40000000000001" y="484.40779610194909"/>
         </scene>
     </scenes>
     <resources>
+        <image name="checkIn" width="30" height="30"/>
         <image name="defaultUser" width="300" height="300"/>
+        <image name="follow" width="30" height="30"/>
         <image name="lines" width="30" height="30"/>
         <image name="radarImage" width="1025" height="1025"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sCM-2B-y56"/>
+        <segue reference="Qr1-a7-ceQ"/>
     </inferredMetricsTieBreakers>
 </document>

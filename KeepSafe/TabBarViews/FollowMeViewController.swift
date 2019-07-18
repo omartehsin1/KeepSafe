@@ -7,26 +7,68 @@
 //
 
 import UIKit
+import Firebase
 
 class FollowMeViewController: UIViewController {
 
+    @IBOutlet weak var friendsCollectionVC: UICollectionView!
+    let friendDB = FirebaseConstants.friendDataBase
+    var myFriends = [Users]()
+    var myFriendCell = FriendCollectionViewCell()
     override func viewDidLoad() {
+        friendsCollectionVC.delegate = self
+        friendsCollectionVC.dataSource = self
+        
+        fetchFriends()
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Follow Me"
-        // Do any additional setup after loading the view.
-    }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
+    func fetchFriends() {
+        guard let myUID = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        friendDB.child(myUID).observeSingleEvent(of: .value) { (snapshot) in
+            for friends in snapshot.children.allObjects as! [DataSnapshot] {
+                if let dictionary = friends.value as? [String: AnyObject] {
+                    let users = Users()
+                    users.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                    users.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
+                    users.userID = dictionary["UID"] as? String ?? ""
+                    self.myFriends.append(users)
+                    
+                }
+                DispatchQueue.main.async {
+                    self.friendsCollectionVC.reloadData()
+                }
+                
+            }
+        }
+    }
+
 
 }
+
+extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return myFriends.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        myFriendCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FriendCollectionViewCell
+        
+        let myFriendsCircle = myFriends[indexPath.row]
+        myFriendCell.friendNameLabel.text = myFriendsCircle.nameOfUser
+        
+        if let profileImageURL = myFriendsCircle.profileImageURL {
+            myFriendCell.friendImageView.loadImageUsingCache(urlString: profileImageURL)
+        }
+        return myFriendCell
+    }
+    
+    
+}
+
+
+
+

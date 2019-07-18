@@ -19,6 +19,8 @@ struct Alert {
         
     }
     
+
+    
     static func showIncompleteFormAlert(on vc: UIViewController) {
         showBasicAction(on: vc, with: "Incomplete Form", message: "Please fill out all the fields in the form")
     }

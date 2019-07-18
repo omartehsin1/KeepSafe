@@ -19,19 +19,21 @@ class HomePageViewController: UIViewController{
     let cornerRadius: CGFloat = 6.0
 
     var sideMenuOpen = false
-
+    
+    let locationVC = LocationServicesViewController()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //barButtonItem()
+        //createTabBarController()
 
         NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
 
 
 
     }
-    
+
 
     
     func layoutView() {

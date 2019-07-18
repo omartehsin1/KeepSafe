@@ -10,18 +10,6 @@ import UIKit
 import Firebase
 import EmptyDataSet_Swift
 
-class Friend: NSObject {
-    var name: String?
-    var profileImageName: String?
-}
-class TheMessage: NSObject{
-    var text: String?
-    var date: NSDate?
-    
-    var friend: Friend?
-}
-//showChatLogController
-//showMessageVC
 class FriendsChatViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, EmptyDataSetSource, EmptyDataSetDelegate {
     private let cellID = "cellID"
     var theMessage = Message()

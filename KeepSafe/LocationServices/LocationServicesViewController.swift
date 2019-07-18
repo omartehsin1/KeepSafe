@@ -34,12 +34,14 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var tappedSOSButtonDelegate : DidTapSOS!
     var sideMenuOpen = false
     var coordinateLoc: CLLocationCoordinate2D!
+
     
     
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //createTabBarController()
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -279,6 +281,5 @@ extension LocationServicesViewController {
 //    }
 
 }
-
 
 
