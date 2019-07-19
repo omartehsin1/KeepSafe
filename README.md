@@ -13,6 +13,7 @@ This project still needs work on UI and UX, the readme will continue to be updat
 **HomePage is a map that includes a hamburger menu and tab bar at the bottom**
 
 ![](screenshots/HomepageMap.png)
+
 ![](screenshots/HomepageHamburgerMenu.png)
 
 
@@ -41,6 +42,8 @@ This project still needs work on UI and UX, the readme will continue to be updat
 
 **Live Location Tab allows you to select which user you want to send your live location too**
 ![](screenshots/FollowMePage.png)
+
+
 ![](screenshots/FollowMeConfirmationAlert.png)
 
 
