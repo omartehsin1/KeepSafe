@@ -19,7 +19,9 @@ struct Alert {
         
     }
     
-
+    static func showFollowConfirmationAlert(on vc: UIViewController) {
+        showBasicAction(on: vc, with: "Follow Request", message: "Are you sure you want this user to follow you?")
+    }
     
     static func showIncompleteFormAlert(on vc: UIViewController) {
         showBasicAction(on: vc, with: "Incomplete Form", message: "Please fill out all the fields in the form")

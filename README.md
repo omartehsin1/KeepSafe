@@ -10,9 +10,11 @@ This project still needs work on UI and UX, the readme will continue to be updat
 
 
 
-**Different options available**
+**HomePage is a map that includes a hamburger menu and tab bar at the bottom**
 
-![](screenshots/HomePage.png)
+![](screenshots/HomepageMap.png)
+![](screenshots/HomepageHamburgerMenu.png)
+
 
 
 
@@ -27,7 +29,7 @@ This project still needs work on UI and UX, the readme will continue to be updat
 
 ![](screenshots/ChatView.png)
 
-![](screenshots/MessagevIEW.png)
+![](screenshots/MessagePage.png)
 
 
 
@@ -37,7 +39,8 @@ This project still needs work on UI and UX, the readme will continue to be updat
 
 
 
-**In this case, it shows robberies in the Upper Beaches area of Toronto. Annotations also show the date of the crime**
-![](screenshots/SOSButton.png)
+**Live Location Tab allows you to select which user you want to send your live location too**
+![](screenshots/FollowMePage.png)
+![](screenshots/FollowMeConfirmationAlert.png)
 
 

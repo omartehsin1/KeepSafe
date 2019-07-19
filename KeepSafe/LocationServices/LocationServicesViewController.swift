@@ -142,7 +142,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         //        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
         
-        let SOSButton = UIButton(frame: CGRect(x: 200, y: 546, width: 107, height: 100))
+        let SOSButton = UIButton(frame: CGRect(x: 150, y: 490, width: 107, height: 100))
         //let SOSButton = UIButton()
 
         SOSButton.layer.cornerRadius = 50

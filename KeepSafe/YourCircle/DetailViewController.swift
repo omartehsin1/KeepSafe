@@ -50,7 +50,7 @@ class DetailViewController: UIViewController {
         nameOfUserLabel.text = nameOfUser
         emailLabel.text = email
         profileImageView.image = profileImage
-        print("friend uid is: \(friendsUID)")
+        
         currentState = "notFriends"
         fetchUserProfile()
         

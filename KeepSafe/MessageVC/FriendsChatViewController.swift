@@ -19,7 +19,7 @@ class FriendsChatViewController: UICollectionViewController, UICollectionViewDel
     var friendsUID = [String]()
     let messagesDatabase = FirebaseConstants.messagesDatabase
     let SOSDatabse = FirebaseConstants.SOSDatabase
-    
+    var followMeDB = FirebaseConstants.followMeDataBase
     override func viewDidLoad() {
         super.viewDidLoad()
         //collectionView.backgroundColor = UIColor.white

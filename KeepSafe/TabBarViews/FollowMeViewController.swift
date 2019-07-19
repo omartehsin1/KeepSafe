@@ -21,9 +21,14 @@ class FollowMeViewController: UIViewController {
     var myFriendCell = FriendCollectionViewCell()
     var friendsUIDArray = [String]()
     var followMeDB = FirebaseConstants.followMeDataBase
+    var selectedDB = FirebaseConstants.selectedDatabase
+    var currentState = "notSelected"
+    var friendUID = String()
     override func viewDidLoad() {
         friendsCollectionVC.delegate = self
         friendsCollectionVC.dataSource = self
+        friendsCollectionVC.allowsMultipleSelection = true
+        
         followBTN.isEnabled = false
         fetchFriends()
         super.viewDidLoad()
@@ -31,19 +36,20 @@ class FollowMeViewController: UIViewController {
     }
     
     @IBAction func followBTNPressed(_ sender: Any) {
+        Alert.showFollowConfirmationAlert(on: self)
         guard let myUID = Auth.auth().currentUser?.uid else {
             return
         }
         guard let myEmail = Auth.auth().currentUser?.email else {return}
-        friendDB.child(myUID).observe(.value) { (snapshot) in
+        selectedDB.child(myUID).observe(.value) { (snapshot) in
             for friendUID in snapshot.children.allObjects as! [DataSnapshot] {
                 if let dictionary = friendUID.value as? [String: AnyObject] {
-                    let uid = dictionary["UID"] as? String ?? ""
-                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                    let uid = dictionary["friendUID"] as? String ?? ""
+                    //let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
                     self.friendsUIDArray.append(uid)
                     
                     
-                    let followMeDictionary: NSDictionary = ["sender": myEmail, "FollowMeLink": "\(myEmail) has requested a follow, please click here", "toID": uid, "nameOfUser": nameOfUser]
+                    let followMeDictionary: NSDictionary = ["sender": myEmail, "FollowMeLink": "\(myEmail) has requested a follow, please click here", "friendUID": uid]
                     self.followMeDB.childByAutoId().setValue(followMeDictionary, withCompletionBlock: { (error, ref) in
                         if error != nil {
                             print(error)
@@ -56,7 +62,36 @@ class FollowMeViewController: UIViewController {
                 }
             }
         }
+
         
+    }
+    
+    @objc func followButtonPressed() {
+//        guard let myUID = Auth.auth().currentUser?.uid else {
+//            return
+//        }
+//        guard let myEmail = Auth.auth().currentUser?.email else {return}
+//        selectedDB.child(myUID).observe(.value) { (snapshot) in
+//            for friendUID in snapshot.children.allObjects as! [DataSnapshot] {
+//                if let dictionary = friendUID.value as? [String: AnyObject] {
+//                    let uid = dictionary["UID"] as? String ?? ""
+//                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+//                    self.friendsUIDArray.append(uid)
+//
+//
+//                    let followMeDictionary: NSDictionary = ["sender": myEmail, "FollowMeLink": "\(myEmail) has requested a follow, please click here", "toID": uid, "nameOfUser": nameOfUser]
+//                    self.followMeDB.childByAutoId().setValue(followMeDictionary, withCompletionBlock: { (error, ref) in
+//                        if error != nil {
+//                            print(error)
+//                        } else {
+//                            print("Follow request sent successfully")
+//                        }
+//                    })
+//
+//
+//                }
+//            }
+//        }
     }
     
     
@@ -109,11 +144,32 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
         return myFriendCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedUsers.append(myFriends[indexPath.row])
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.layer.borderWidth = 2.0
-        cell?.layer.borderColor = UIColor.gray.cgColor
+        let theSelectedUser = selectedUsers.append(myFriends[indexPath.row])
+        friendUID = myFriends[indexPath.row].userID
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        
+        myFriendCell = collectionView.cellForItem(at: indexPath) as! FriendCollectionViewCell
+        myFriendCell.layer.borderWidth = 2.0
+        myFriendCell.layer.borderColor = UIColor.gray.cgColor
+        //print(myFriendCell.friendNameLabel.text)
+        
         followBTN.isEnabled = true
+        let selectedDictionary: NSDictionary = ["requestType": "sent", "friendUID": friendUID]
+
+        if (currentState == "notSelected") {
+            selectedDB.child(myUID).setValue(selectedDictionary) { (error, ref) in
+                if error != nil {
+                    print(error!)
+                } else {
+                    self.currentState = "reqSent"
+                }
+            }
+        }
+//        if (currentState == "reqSent") {
+//            followBTN.addTarget(self, action: #selector(followButtonPressed), for: .touchUpInside)
+//
+//        }
+        
     }
     
     
