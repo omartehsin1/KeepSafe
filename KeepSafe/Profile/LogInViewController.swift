@@ -22,7 +22,27 @@ class LogInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
+        createToolBar()
 
+    }
+    func createToolBar() {
+        let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+        //let doneBtn: UIBarButtonItem = UIBarButtonItem(title: “Done”, style: .done, target: self, action: Selector(“doneButtonAction”))
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: nil, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        //setting toolbar as inputAccessoryView
+        
+        emailTextField.inputAccessoryView = toolbar
+        passwordTextField.inputAccessoryView = toolbar
+        
+        
+    }
+    
+    @objc func doneButtonAction() {
+        self.view.endEditing(true)
     }
     enum LogInError: Error {
         case incompleteForm

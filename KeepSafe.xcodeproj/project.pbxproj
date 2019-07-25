@@ -85,6 +85,7 @@
 		07CC04B62260F7A90072D1BC /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		07CC04B8226153230072D1BC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		07CC04BA226172A30072D1BC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
+		07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepSafe.entitlements; sourceTree = "<group>"; };
 		07E30B1E2225BE7500904A45 /* KeepSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E30B212225BE7500904A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E30B262225BE7500904A45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -232,6 +233,7 @@
 		07E30B202225BE7500904A45 /* KeepSafe */ = {
 			isa = PBXGroup;
 			children = (
+				07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */,
 				0704F61422DD3BAC00293718 /* TabBarViews */,
 				0704F53F22DBBA5700293718 /* Profile */,
 				07E30B212225BE7500904A45 /* AppDelegate.swift */,
@@ -354,6 +356,14 @@
 				TargetAttributes = {
 					07E30B1D2225BE7500904A45 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					07E30B342225BE7800904A45 = {
 						CreatedOnToolsVersion = 10.1;
@@ -419,6 +429,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PMSuperButton/PMSuperButton.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -438,6 +449,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMSuperButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -721,6 +733,7 @@
 			baseConfigurationReference = 6098995795134EAAF354BEF3 /* Pods-KeepSafe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeepSafe/KeepSafe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3CHBMWBLU9;
 				INFOPLIST_FILE = KeepSafe/Info.plist;
@@ -740,6 +753,7 @@
 			baseConfigurationReference = 3EC05CC27689D43FEB4E5457 /* Pods-KeepSafe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeepSafe/KeepSafe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3CHBMWBLU9;
 				INFOPLIST_FILE = KeepSafe/Info.plist;

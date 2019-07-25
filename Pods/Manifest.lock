@@ -17,6 +17,9 @@ PODS:
   - Firebase/Database (5.16.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (= 5.1.0)
+  - Firebase/Messaging (5.16.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (= 3.3.0)
   - Firebase/Storage (5.16.0):
     - Firebase/CoreOnly
     - FirebaseStorage (= 3.1.0)
@@ -29,6 +32,7 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
+  - FirebaseAnalyticsInterop (1.2.0)
   - FirebaseAuth (5.3.0):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
@@ -45,6 +49,13 @@ PODS:
     - FirebaseCore (~> 5.2)
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
+  - FirebaseMessaging (3.3.0):
+    - FirebaseAnalyticsInterop (~> 1.1)
+    - FirebaseCore (~> 5.2)
+    - FirebaseInstanceID (~> 3.4)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/Reachability (~> 5.2)
+    - Protobuf (~> 3.1)
   - FirebaseStorage (3.1.0):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
@@ -91,6 +102,7 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - PMSuperButton (2.2.0)
+  - Protobuf (3.7.0)
   - SVProgressHUD (2.2.5)
   - SwiftLocation (4.0.1)
   - SwiftyJSON (4.3.0)
@@ -103,6 +115,7 @@ DEPENDENCIES:
   - Firebase (~> 5.16.0)
   - Firebase/Auth
   - Firebase/Database
+  - Firebase/Messaging
   - Firebase/Storage
   - FlagPhoneNumber
   - GoogleMaps
@@ -120,11 +133,13 @@ SPEC REPOS:
     - EmptyDataSet-Swift
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
     - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseDatabase
     - FirebaseInstanceID
+    - FirebaseMessaging
     - FirebaseStorage
     - FlagPhoneNumber
     - GoogleAppMeasurement
@@ -136,6 +151,7 @@ SPEC REPOS:
     - libPhoneNumber-iOS
     - nanopb
     - PMSuperButton
+    - Protobuf
     - SVProgressHUD
     - SwiftLocation
     - SwiftyJSON
@@ -147,11 +163,13 @@ SPEC CHECKSUMS:
   EmptyDataSet-Swift: 1fa0b35f530a35f852ecb2b53564728b0c300aaf
   Firebase: 749a8ff4962f9d8c79dda1966de20f6f77583d67
   FirebaseAnalytics: d35d47c03c50c73c14a7fd31463c5775843e78a9
+  FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
   FirebaseAuth: c9b3ff063c223d2841d97240af547ce511bce19a
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: ea2d1816723ef21492b8e9113303e1350db5e08c
   FirebaseDatabase: 23acb0c53cd4d4070a427b60100b2e4aaa97c45d
   FirebaseInstanceID: 97ea7a5dca9afd72c79bfcdddb7a44aa1cbb42a1
+  FirebaseMessaging: acbd51fe1a172bf29abaaa6e93a60f98bbf8e4f9
   FirebaseStorage: 29075f874c2b3cf61e5221a62c4ceefc809e5412
   FlagPhoneNumber: 86194d414c7e3b2f38c16136c4f8a5d34e3ee8b7
   GoogleAppMeasurement: 621f3bc6211d5ba548debe01fafad30cf5ab6859
@@ -163,11 +181,12 @@ SPEC CHECKSUMS:
   libPhoneNumber-iOS: e444379ac18bbfbdefad571da735b2cd7e096caa
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PMSuperButton: 5e7b2eb79468dba1ced3fd00e47a7ce88a1fa664
+  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftLocation: f6e3abae66b071c4b84a5f323dda7687d4f0b333
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TextFieldEffects: 7d372f58aeaf9acd9626bbf962680aef926b085d
 
-PODFILE CHECKSUM: 517b5562908e3a928c099cd2381b310983e92369
+PODFILE CHECKSUM: 7feb08e90f2158c714527b483aa0acb19b486304
 
 COCOAPODS: 1.6.0

@@ -16,7 +16,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.isHidden = true
         
 //        if Auth.auth().currentUser != nil {
 //            //present(HomePageViewController(), animated: true, completion: nil)
@@ -26,6 +26,9 @@ class WelcomeViewController: UIViewController {
 //            print("Not Logged In")
 //        }
 
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
     }
     
 
