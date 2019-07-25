@@ -24,14 +24,31 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         createToolBar()
+        emailTextField.delegate = self
+        emailTextField.tag = 0
+        passwordTextField.delegate = self
+        passwordTextField.tag = 1
+        
+        //Listen for keyboard events
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: .keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: .keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: .keyboardWillChangeFrameNotification, object: nil)
 
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .keyboardWillChangeFrameNotification, object: nil)
     }
     func createToolBar() {
         let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
         let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
         //let doneBtn: UIBarButtonItem = UIBarButtonItem(title: “Done”, style: .done, target: self, action: Selector(“doneButtonAction”))
         let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: nil, action: #selector(doneButtonAction))
+
+        
         toolbar.setItems([flexSpace, doneBtn], animated: false)
+        
         toolbar.sizeToFit()
         //setting toolbar as inputAccessoryView
         
@@ -40,10 +57,24 @@ class LogInViewController: UIViewController {
         
         
     }
+    @objc func keyboardWillChange(notification: Notification) {
+        guard let keyboardRect = (notification.userInfo?[Notification.Name.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+            
+        }
+        if notification.name == Notification.Name.keyboardWillShowNotification ||
+            notification.name == Notification.Name.keyboardWillChangeFrameNotification {
+            
+            view.frame.origin.y = -keyboardRect.height + 100
+        } else {
+            view.frame.origin.y = 0
+        }
+    }
     
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }
+
     enum LogInError: Error {
         case incompleteForm
         case invalidEmail
@@ -96,4 +127,22 @@ class LogInViewController: UIViewController {
 }
 
 
+extension LogInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return false
+    }
+}
 
+extension Notification.Name {
+    static let keyboardWillShowNotification = UIResponder.keyboardWillShowNotification
+    static let keyboardWillHideNotification = UIResponder.keyboardWillHideNotification
+    static let keyboardWillChangeFrameNotification = UIResponder.keyboardWillChangeFrameNotification
+    static let keyboardFrameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
+    
+    
+}

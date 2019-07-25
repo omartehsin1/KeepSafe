@@ -57,19 +57,24 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
 
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        mapView.isMyLocationEnabled = true
         
         view = mapView
  
         
-        let currentLocation = CLLocationCoordinate2DMake(43.6789923, -79.3120105)
+        
+        locationManager.startUpdatingLocation()
         //let crimeLocation = CLLocationCoordinate2DMake(latitude, longitude)
         
         //let marker = GMSMarker(position: currentLocation)
         //marker.title = "Current Location"
-        userImage = UIImage(named: "defaultUser")
+        
         //marker.icon = resizeImage(image: userImage!, newWidth: 50)
         //marker.map = mapView
-        _ = markerCreater(location: currentLocation, title: "Current Location", image: "defaultUser")
+        
+//        let currentLocation = CLLocationCoordinate2DMake(43.6789923, -79.3120105)
+//        userImage = UIImage(named: "defaultUser")
+//        _ = markerCreater(location: currentLocation, title: "Current Location", image: "defaultUser")
 
 
         //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(buttonAction))
@@ -222,8 +227,14 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 
 extension LocationServicesViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {return}
-        coordinateLoc = locValue
+//        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {return}
+//        coordinateLoc = locValue
+        let location = locations.last
+        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
+        self.mapView.animate(to: camera)
+        self.mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+
+        self.locationManager.stopUpdatingLocation()
     }
 }
 

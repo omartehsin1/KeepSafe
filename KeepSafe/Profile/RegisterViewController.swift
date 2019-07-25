@@ -38,6 +38,46 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         defaultImage.isUserInteractionEnabled = true
         navigationController?.navigationBar.isHidden = false
         createToolBar()
+        
+        //Delegates:
+        emailTextField.delegate = self
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        phoneNumberTextField.delegate = self
+        
+        //Tags:
+        emailTextField.tag = 0
+        firstNameTextField.tag = 1
+        lastNameTextField.tag = 2
+        usernameTextField.tag = 3
+        passwordTextField.tag = 4
+        
+        
+        phoneNumberTextField.tag = 5
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: .keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: .keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: .keyboardWillChangeFrameNotification, object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .keyboardWillChangeFrameNotification, object: nil)
+    }
+    @objc func keyboardWillChange(notification: Notification) {
+        guard let keyboardRect = (notification.userInfo?[Notification.Name.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+            
+        }
+        if notification.name == Notification.Name.keyboardWillShowNotification ||
+            notification.name == Notification.Name.keyboardWillChangeFrameNotification {
+            
+            view.frame.origin.y = -keyboardRect.height + 100
+        } else {
+            view.frame.origin.y = 0
+        }
     }
     
     func createToolBar() {
@@ -45,6 +85,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
         //let doneBtn: UIBarButtonItem = UIBarButtonItem(title: “Done”, style: .done, target: self, action: Selector(“doneButtonAction”))
         let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: nil, action: #selector(doneButtonAction))
+        
+        
         toolbar.setItems([flexSpace, doneBtn], animated: false)
         toolbar.sizeToFit()
         //setting toolbar as inputAccessoryView
@@ -62,6 +104,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }
+
     // MARK: Image Picker
     
     @IBAction func imageTapped(_ sender: Any) {
@@ -188,4 +231,13 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
 
 }
 
-
+extension RegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return false
+    }
+}
