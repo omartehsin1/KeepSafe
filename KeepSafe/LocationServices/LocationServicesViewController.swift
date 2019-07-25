@@ -81,6 +81,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 
         createButton()
         notificationCenter()
+        createCameraButton()
         
 
 
@@ -137,7 +138,17 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         return newImage
     }
 
-    
+    func createCameraButton() {
+        let cameraButton = UIBarButtonItem(title: "Camera", style: .plain, target: self, action: #selector(openCamera))
+        self.navigationItem.rightBarButtonItem = cameraButton
+    }
+    @objc func openCamera() {
+        
+        var cameraVC = CameraViewController()
+        cameraVC = self.storyboard?.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
+        self.navigationController?.pushViewController(cameraVC, animated: true)
+        
+    }
     
     
     func createButton() {

@@ -451,7 +451,7 @@
         <!--Camera View Controller-->
         <scene sceneID="RQW-9b-ebk">
             <objects>
-                <viewController id="hIL-zZ-2bC" customClass="CameraViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" id="hIL-zZ-2bC" customClass="CameraViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ypl-Wo-Ir6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
