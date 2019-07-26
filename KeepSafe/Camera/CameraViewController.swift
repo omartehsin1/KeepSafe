@@ -8,19 +8,59 @@
 
 import UIKit
 import AVFoundation
+import MobileCoreServices
 
 
 class CameraViewController: UIViewController {
-//    let captureSession = AVCaptureSession()
-//    var previewLayer: CALayer!
-//    var captureDevice: AVCaptureDevice!
-    
+
     var session: AVCaptureSession?
     var stillImageOutput: AVCaptureStillImageOutput?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    
+    var pickerController = UIImagePickerController()
+    let videoFileName = "/video.mp4"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //prepareCamera()
+        startCamera()
+        //takeVideo()
+        createGalleryButton()
+        
+    }
+    func createGalleryButton() {
+    let galleryButton = UIBarButtonItem(title: "Gallery", style: .plain, target: self, action: #selector(openGallery))
+    self.navigationItem.rightBarButtonItem = galleryButton
+    }
+    
+    @objc func openGallery() {
+        pickerController.sourceType = UIImagePickerController.SourceType.photoLibrary
+        pickerController.mediaTypes = [kUTTypeMovie as String]
+        pickerController.delegate = self
+        
+        present(pickerController, animated: true, completion: nil)
+        
+    }
+    
+    func takeVideo() {
+        // 1 Check if project runs on a device with camera available
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            
+            // 2 Present UIImagePickerController to take video
+            pickerController.sourceType = .camera
+            pickerController.mediaTypes = [kUTTypeMovie as String]
+            pickerController.delegate = self
+            
+            present(pickerController, animated: true, completion: nil)
+        }
+        else {
+            print("Camera is not available")
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        videoPreviewLayer!.frame = view.bounds
+    }
+    func startCamera() {
         session = AVCaptureSession()
         session!.sessionPreset = AVCaptureSession.Preset.photo
         let backCamera =  AVCaptureDevice.default(for: AVMediaType.video)
@@ -47,49 +87,41 @@ class CameraViewController: UIViewController {
                 session!.startRunning()
             }
         }
-        
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        videoPreviewLayer!.frame = view.bounds
+    @objc func videoSaved(_ video: String, didFinishSavingWithError error: NSError!, context: UnsafeMutableRawPointer){
+        if let theError = error {
+            print("error saving the video = \(theError)")
+        } else {
+            DispatchQueue.main.async(execute: { () -> Void in
+            })
+        }
+    }
+
+}
+extension CameraViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // 1
+        if let selectedVideo:URL = (info[UIImagePickerController.InfoKey.mediaURL] as? URL) {
+            // Save video to the main photo album
+            let selectorToCall = #selector(self.videoSaved(_:didFinishSavingWithError:context:))
+            
+            // 2
+            UISaveVideoAtPathToSavedPhotosAlbum(selectedVideo.relativePath, self, selectorToCall, nil)
+            // Save the video to the app directory
+            let videoData = try? Data(contentsOf: selectedVideo)
+            let paths = NSSearchPathForDirectoriesInDomains(
+                FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+            let documentsDirectory: URL = URL(fileURLWithPath: paths[0])
+            let dataPath = documentsDirectory.appendingPathComponent(videoFileName)
+            try! videoData?.write(to: dataPath, options: [])
+        }
+        // 3
+        picker.dismiss(animated: true)
     }
 
     
-//    func prepareCamera() {
-//        captureSession.sessionPreset = AVCaptureSession.Preset.photo
-//
-//    let availableDevices = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInMicrophone], mediaType: AVMediaType.video, position: .back).devices
-//        captureDevice = availableDevices.first
-//        beginSession()
-//
-//    }
-//
-//    func beginSession() {
-//
-//        do {
-//            let captureDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
-//
-//            captureSession.addInput(captureDeviceInput)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
-//        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//        self.previewLayer = previewLayer
-//        self.view.layer.addSublayer(previewLayer)
-//        self.previewLayer.frame = self.view.layer.frame
-//        captureSession.startRunning()
-//
-//        let dataOutput = AVCaptureVideoDataOutput()
-//        dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as String): NSNumber(value: kCVPixelFormatType_32BGRA)]
-//        dataOutput.alwaysDiscardsLateVideoFrames = true
-//
-//        if captureSession.canAddOutput(dataOutput) {
-//            captureSession.addOutput(dataOutput)
-//        }
-//        captureSession.commitConfiguration()
-//
-//    }
+}
 
-
+extension CameraViewController: UINavigationControllerDelegate {
+    
 }
