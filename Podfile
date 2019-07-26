@@ -11,6 +11,7 @@ pod 'Firebase/Database'
 pod 'Firebase/Auth'
 pod 'Firebase/Storage'
 pod 'Firebase/Messaging'
+pod 'Firebase/Firestore'
 pod 'SVProgressHUD'
 pod 'ChameleonFramework'
 pod 'TextFieldEffects'
@@ -22,6 +23,7 @@ pod 'SwiftLocation', '~> 4.0'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Alamofire', '~> 4.5'
 pod "FlagPhoneNumber"
+pod 'CameraManager', '~> 4.4'
 
   target 'KeepSafeTests' do
     inherit! :search_paths

@@ -9,22 +9,32 @@
 import UIKit
 import AVFoundation
 import MobileCoreServices
+import CameraManager
 
 
 class CameraViewController: UIViewController {
-
-    var session: AVCaptureSession?
-    var stillImageOutput: AVCaptureStillImageOutput?
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var pickerController = UIImagePickerController()
     let videoFileName = "/video.mp4"
     
+    @IBOutlet var cameraView: UIView!
+    let cameraManager = CameraManager()
+    var myVideoURL : URL!
+    var recordButton = UIBarButtonItem()
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        startCamera()
+        //startCamera()
         //takeVideo()
         createGalleryButton()
+        createRecordButton()
+        
+        cameraManager.addPreviewLayerToView(cameraView)
+        //recordVideo()
+        
         
     }
     func createGalleryButton() {
@@ -41,6 +51,52 @@ class CameraViewController: UIViewController {
         
     }
     
+    func createRecordButton() {
+        let recordButton = UIButton(frame: CGRect(x: 150, y: 490, width: 107, height: 100))
+        //let SOSButton = UIButton()
+
+        recordButton.layer.cornerRadius = 50
+        recordButton.layer.masksToBounds = true
+
+        recordButton.backgroundColor = .orange
+        recordButton.setTitle("Record", for: .normal)
+        recordButton.addTarget(self, action: #selector(recordVideo), for: .touchUpInside)
+
+        //cameraView.addSubview(recordButton)
+        cameraView.bringSubviewToFront(recordButton)
+//        recordButton = UIBarButtonItem(title: "Record", style: .plain, target: self, action: #selector(recordVideo))
+//        self.navigationItem.rightBarButtonItem = recordButton
+        
+    }
+
+    @objc func recordVideo() {
+        print("Record button has been touched!")
+        switch cameraManager.cameraOutputMode {
+        case .videoOnly, .videoWithMic:
+            
+            recordButton.tintColor = .red
+            cameraManager.startRecordingVideo()
+        default:
+            cameraManager.stopVideoRecording { (videoURL, error) in
+//                if error != nil {
+//                    self.cameraManager.showErrorBlock("Error occured", "Cannot save video")
+//                }
+                guard let videoURL = videoURL else {
+                    return
+                }
+                do {
+                    try FileManager.default.copyItem(at: videoURL, to: self.myVideoURL)
+                }
+                catch {
+                    print(error)
+                    
+                }
+            }
+        }
+    }
+
+    
+    
     func takeVideo() {
         // 1 Check if project runs on a device with camera available
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -56,38 +112,7 @@ class CameraViewController: UIViewController {
             print("Camera is not available")
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        videoPreviewLayer!.frame = view.bounds
-    }
-    func startCamera() {
-        session = AVCaptureSession()
-        session!.sessionPreset = AVCaptureSession.Preset.photo
-        let backCamera =  AVCaptureDevice.default(for: AVMediaType.video)
-        var error: NSError?
-        var input: AVCaptureDeviceInput!
-        do {
-            input = try AVCaptureDeviceInput(device: backCamera!)
-        } catch let error1 as NSError {
-            error = error1
-            input = nil
-            print(error!.localizedDescription)
-        }
-        if error == nil && session!.canAddInput(input) {
-            session!.addInput(input)
-            stillImageOutput = AVCaptureStillImageOutput()
-            stillImageOutput?.outputSettings = [AVVideoCodecKey:  AVVideoCodecType.jpeg]
-            
-            if session!.canAddOutput(stillImageOutput!) {
-                session!.addOutput(stillImageOutput!)
-                videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session!)
-                videoPreviewLayer!.videoGravity =    AVLayerVideoGravity.resizeAspect
-                videoPreviewLayer!.connection?.videoOrientation =   AVCaptureVideoOrientation.portrait
-                view.layer.addSublayer(videoPreviewLayer!)
-                session!.startRunning()
-            }
-        }
-    }
+
     @objc func videoSaved(_ video: String, didFinishSavingWithError error: NSError!, context: UnsafeMutableRawPointer){
         if let theError = error {
             print("error saving the video = \(theError)")

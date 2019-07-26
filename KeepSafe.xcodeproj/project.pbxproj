@@ -31,6 +31,7 @@
 		07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B62260F7A90072D1BC /* HomePageViewController.swift */; };
 		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
 		07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04BA226172A30072D1BC /* MenuItems.swift */; };
+		07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */; };
 		07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B212225BE7500904A45 /* AppDelegate.swift */; };
 		07E30B272225BE7500904A45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B252225BE7500904A45 /* Main.storyboard */; };
 		07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B282225BE7500904A45 /* KeepSafe.xcdatamodeld */; };
@@ -86,6 +87,7 @@
 		07CC04B8226153230072D1BC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		07CC04BA226172A30072D1BC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepSafe.entitlements; sourceTree = "<group>"; };
+		07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		07E30B1E2225BE7500904A45 /* KeepSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E30B212225BE7500904A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E30B262225BE7500904A45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -210,6 +212,14 @@
 			path = LocationServices;
 			sourceTree = "<group>";
 		};
+		07DAE5D322EB658C00BBFA7D /* PushNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */,
+			);
+			path = PushNotifications;
+			sourceTree = "<group>";
+		};
 		07E30B152225BE7400904A45 = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +243,7 @@
 		07E30B202225BE7500904A45 /* KeepSafe */ = {
 			isa = PBXGroup;
 			children = (
+				07DAE5D322EB658C00BBFA7D /* PushNotifications */,
 				07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */,
 				0704F61422DD3BAC00293718 /* TabBarViews */,
 				0704F53F22DBBA5700293718 /* Profile */,
@@ -423,6 +434,8 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-KeepSafe/Pods-KeepSafe-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/CameraManager/CameraManager.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/EmptyDataSet-Swift/EmptyDataSet_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/FlagPhoneNumber/FlagPhoneNumber.framework",
@@ -434,6 +447,8 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -443,6 +458,8 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CameraManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmptyDataSet_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlagPhoneNumber.framework",
@@ -454,6 +471,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -538,6 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */,
 				07876579226260B9001DE728 /* ProfileItems.swift in Sources */,
 				07F4A2D522BA9A22001C2A1A /* FriendsChatViewController.swift in Sources */,
 				07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */,

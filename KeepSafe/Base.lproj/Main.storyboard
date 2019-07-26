@@ -458,6 +458,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="DEB-FN-v5Q"/>
                     </view>
+                    <connections>
+                        <outlet property="cameraView" destination="ypl-Wo-Ir6" id="d9C-pK-d0E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bo9-dd-q1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
