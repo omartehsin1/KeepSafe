@@ -81,7 +81,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 
         createButton()
         notificationCenter()
-        createCameraButton()
+        //createCameraButton()
         
 
 

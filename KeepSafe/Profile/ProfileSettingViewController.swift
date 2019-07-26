@@ -26,6 +26,8 @@ class ProfileSettingViewController: UIViewController, UINavigationControllerDele
         loadUserProfile()
         userImageView.isUserInteractionEnabled = true
         // Do any additional setup after loading the view.
+        let sender = PushNotificationSender()
+        sender.sendPushNotification(to: "e0Bu_gpOhvI:APA91bF7PqgR9NBsZAFCdrlPgOrGzJivLbdi9MWsqoWKOpKvcS6HKVluEzJx_S5epCLJU5VFgCZ12ZDGfVZmfQVfmVtWOm0RytdTbShlFnO9k1R3uT0dakFITROhaslA7Qk4Jkc4GIKF", title: "The message", body: "Sent from iPhone 6")
     }
     
     

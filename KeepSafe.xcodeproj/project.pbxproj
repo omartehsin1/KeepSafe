@@ -32,6 +32,7 @@
 		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
 		07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04BA226172A30072D1BC /* MenuItems.swift */; };
 		07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */; };
+		07DAE5D722EB73C800BBFA7D /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */; };
 		07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B212225BE7500904A45 /* AppDelegate.swift */; };
 		07E30B272225BE7500904A45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B252225BE7500904A45 /* Main.storyboard */; };
 		07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B282225BE7500904A45 /* KeepSafe.xcdatamodeld */; };
@@ -88,6 +89,7 @@
 		07CC04BA226172A30072D1BC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepSafe.entitlements; sourceTree = "<group>"; };
 		07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		07E30B1E2225BE7500904A45 /* KeepSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E30B212225BE7500904A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E30B262225BE7500904A45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */,
+				07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */,
 			);
 			path = PushNotifications;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */,
 				07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */,
 				0755E914227613D5002752E1 /* Alert.swift in Sources */,
+				07DAE5D722EB73C800BBFA7D /* PushNotificationSender.swift in Sources */,
 				0750E27722695B090038201E /* DetailViewController.swift in Sources */,
 				07C2CCF6228DBEA000758CE7 /* FriendsProfileViewController.swift in Sources */,
 				0750E268226670340038201E /* SpinnerViewController.swift in Sources */,

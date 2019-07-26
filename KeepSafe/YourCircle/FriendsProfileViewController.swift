@@ -21,6 +21,7 @@ class FriendsProfileViewController: UIViewController {
     var friendRequestDatabase = FirebaseConstants.friendRequestDatabase
     var friendDataBase = FirebaseConstants.friendDataBase
     var userDatabase = FirebaseConstants.userDatabase
+    var docRef: DocumentReference!
     
     
 
@@ -66,6 +67,16 @@ class FriendsProfileViewController: UIViewController {
                         } else {
                             //print("add friends")
                             self.currentState = "reqSent"
+                            let sender = PushNotificationSender()
+//                            sender.sendPushNotification(to: "token", title: "Notification title", body: "Notification body")
+                            let usersRef = Firestore.firestore().collection("users_table").document(otherUID)
+                            guard let theEmail = Auth.auth().currentUser?.email else {return}
+                            usersRef.getDocument(completion: { (docSnapshot, error) in
+                                guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+                                guard let myData = docSnapshot.data() else {return}
+                                guard let theToken = myData["fcmToken"] as? String else {return}
+                                sender.sendPushNotification(to: theToken, title: "Follow Request", body: "\(theEmail) would like to add you to their circle")
+                            })
                             
                             
                             //self.addfriendBTN.isEnabled = false
