@@ -115,19 +115,27 @@ class FriendsProfileViewController: UIViewController {
         }
         //----Unfriend----
         if (currentState == "unfriend") {
-            friendDataBase.child(myUID).child(otherUID).removeValue { (error, ref) in
-                if error != nil {
-                    print(error!)
-                } else {
-                    self.friendDataBase.child(otherUID).child(myUID).removeValue(completionBlock: { (error, ref) in
-                        self.currentState = "notFriends"
-                        self.addFriendBTN.setTitle("Add Friend", for: .normal)
-                        self.addFriendBTN.backgroundColor = UIColor.red
-                        self.privacyView.isHidden = false
-                        
-                    })
+            let unfriendAlert = UIAlertController(title: "Unfriend?", message: "Are you sure you want to unfriend \(self.nameOfUser)", preferredStyle: UIAlertController.Style.alert)
+            unfriendAlert.addAction(UIAlertAction(title: "Unfriend", style: .default, handler: { (UIAlertAction) in
+                self.friendDataBase.child(myUID).child(otherUID).removeValue { (error, ref) in
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        self.friendDataBase.child(otherUID).child(myUID).removeValue(completionBlock: { (error, ref) in
+                            self.currentState = "notFriends"
+                            self.addFriendBTN.setTitle("Add Friend", for: .normal)
+                            self.addFriendBTN.backgroundColor = UIColor.red
+                            self.privacyView.isHidden = false
+                            
+                        })
+                    }
                 }
-            }
+            }))
+            unfriendAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction) in
+                print("Friend request cancelled")
+            }))
+            self.present(unfriendAlert, animated: true)
+
         }
         
         //----Request Received state----
