@@ -251,6 +251,10 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         
         
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
     func createButton() {
         button.backgroundColor = UIColor.orange
         button.setTitle("Click Me", for: .normal)
@@ -288,7 +292,7 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         let timestamp = ServerValue.timestamp()
 
         let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID, "timestamp": timestamp]
-        
+
         messageDB.setValue(messageDictionary) {
             (error, ref) in
             if error != nil {
@@ -303,6 +307,17 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
                 
             }
         }
+        let sender = PushNotificationSender()
+        
+        let usersRef = Firestore.firestore().collection("users_table").document(toID)
+        guard let theEmail = Auth.auth().currentUser?.email else {return}
+        usersRef.getDocument(completion: { (docSnapshot, error) in
+            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+            guard let myData = docSnapshot.data() else {return}
+            guard let theToken = myData["fcmToken"] as? String else {return}
+            guard let theMessagebody = self.textField.text as? String else {return}
+            sender.sendPushNotification(to: theToken, title: "\(theEmail)", body: "\(theMessagebody)")
+        })
         
     }
     
@@ -314,5 +329,5 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
 
 
     
-    
+
 

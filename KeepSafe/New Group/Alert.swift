@@ -19,6 +19,10 @@ struct Alert {
         
     }
     
+    static func showUnfriendConfirmationAlert(on vc: UIViewController) {
+        showBasicAction(on: vc, with: "Unfriend User", message: "Are you sure you want to unfriend this user?")
+    }
+    
     static func showFollowConfirmationAlert(on vc: UIViewController) {
         showBasicAction(on: vc, with: "Follow Request", message: "Are you sure you want this user to follow you?")
     }

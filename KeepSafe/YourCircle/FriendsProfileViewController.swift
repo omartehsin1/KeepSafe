@@ -24,14 +24,13 @@ class FriendsProfileViewController: UIViewController {
     var docRef: DocumentReference!
     
     
+    
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     
     @IBOutlet weak var addFriendBTN: UIButton!
-    
-    
-    
+
     @IBOutlet weak var profileImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +39,10 @@ class FriendsProfileViewController: UIViewController {
         profileImageView.image = profileImage
         currentState = "notFriends"
         fetchUserProfile()
-        friendsOrNot()
         view.addSubview(privacyView)
         //blurEffect()
         createPrivacyView()
+        print("The current state is: \(currentState)")
     }
 
     
@@ -68,7 +67,7 @@ class FriendsProfileViewController: UIViewController {
                             //print("add friends")
                             self.currentState = "reqSent"
                             let sender = PushNotificationSender()
-//                            sender.sendPushNotification(to: "token", title: "Notification title", body: "Notification body")
+
                             let usersRef = Firestore.firestore().collection("users_table").document(otherUID)
                             guard let theEmail = Auth.auth().currentUser?.email else {return}
                             usersRef.getDocument(completion: { (docSnapshot, error) in
@@ -113,6 +112,22 @@ class FriendsProfileViewController: UIViewController {
                 }
             }
             
+        }
+        //----Unfriend----
+        if (currentState == "unfriend") {
+            friendDataBase.child(myUID).child(otherUID).removeValue { (error, ref) in
+                if error != nil {
+                    print(error!)
+                } else {
+                    self.friendDataBase.child(otherUID).child(myUID).removeValue(completionBlock: { (error, ref) in
+                        self.currentState = "notFriends"
+                        self.addFriendBTN.setTitle("Add Friend", for: .normal)
+                        self.addFriendBTN.backgroundColor = UIColor.red
+                        self.privacyView.isHidden = false
+                        
+                    })
+                }
+            }
         }
         
         //----Request Received state----
@@ -164,23 +179,10 @@ class FriendsProfileViewController: UIViewController {
                 }
             }
         }
-        if (currentState == "friends") {
-            privacyView.isHidden = true
-            friendDataBase.child(myUID).child(otherUID).removeValue { (error, ref) in
-                if error != nil {
-                    print(error!)
-                } else {
-                    self.friendDataBase.child(otherUID).child(myUID).removeValue(completionBlock: { (error, ref) in
-                        self.currentState = "notFriends"
-                        self.addFriendBTN.setTitle("Add Friend", for: .normal)
-                        self.addFriendBTN.backgroundColor = UIColor.red
-                        self.privacyView.isHidden = false
-                    })
-                }
-            }
-        }
         
     }
+
+    
     func friendsOrNot() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         friendDataBase.child(myUID).observe(.value) { (snapshot) in
@@ -193,8 +195,10 @@ class FriendsProfileViewController: UIViewController {
                 }
             }
         }
-        //currentState = "friends"
+
     }
+    
+
     
     
     func fetchUserProfile() {
@@ -220,6 +224,18 @@ class FriendsProfileViewController: UIViewController {
                 }
             }
         }
+        friendDataBase.child(myUID).observe(.value) { (snapshot) in
+            if(snapshot.hasChild(self.friendsUID)) {
+                let friends: String = snapshot.childSnapshot(forPath: self.friendsUID).childSnapshot(forPath: "currentState").value as! String
+                
+                if(friends == "friends") {
+                    self.currentState = "unfriend"
+                    self.privacyView.isHidden = true
+                    self.addFriendBTN.setTitle("Unfriend \(self.nameOfUser)?", for: .normal)
+                }
+            }
+        }
+
     }
 
     
