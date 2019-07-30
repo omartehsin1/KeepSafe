@@ -2,6 +2,7 @@ import UIKit
 import CoreData
 import Firebase
 import UserNotifications
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,12 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let myUID = Auth.auth().currentUser?.uid else { return false }
         let pushManager = PushNotificationManager(userID: myUID)
         pushManager.registerForPushNotifications()
-        
-        
+
+            
         let mainView = UIStoryboard(name: "Main", bundle: nil)
         
         if Auth.auth().currentUser != nil {
             let viewController : HomePageViewController = mainView.instantiateViewController(withIdentifier: "HomePage") as! HomePageViewController
+            
             self.window?.rootViewController = viewController
             self.window?.makeKeyAndVisible()
         }
@@ -29,8 +31,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //            self.window?.rootViewController = viewController
         //            self.window?.makeKeyAndVisible()
         //        }
+        //notificationFunc()
+        IQKeyboardManager.shared.enable = true
         return true
     }
+//    func notificationFunc() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(openMessages(_:)), name: NSNotification.Name.init(rawValue: "OpenMessage"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(openFriendRequest(_:)), name: NSNotification.Name.init(rawValue: "OpenFriendRequest"), object: nil)
+//    }
+//    @objc func openMessages(_ notification: Notification) {
+//    
+//        let mainView = UIStoryboard(name: "Main", bundle: nil)
+//        let friendChatViewController: FriendsChatViewController = mainView.instantiateViewController(withIdentifier: "FriendChatViewController") as! FriendsChatViewController
+//        let friendMessageVC : FriendMessageCollectionViewController = mainView.instantiateViewController(withIdentifier: "friendMessageCollectionViewController") as! FriendMessageCollectionViewController
+//        //self.window?.rootViewController = friendChatViewController
+//        //let rootViewController = self.window?.rootViewController as! UINavigationController
+//       self.window?.rootViewController = friendMessageVC //self.window?.rootViewController?.navigationController?.pushViewController(friendMessageVC, animated: true)
+//        //rootViewController.pushViewController(friendMessageVC, animated: true)
+//        
+//    }
+//    @objc func openFriendRequest(_ notification: Notification) {
+//        
+//    }
     
     
     
@@ -57,7 +79,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
-
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        print("deviceToken: \(tokenString)")
+    }
+    
     
     
     // MARK: - Core Data stack
@@ -104,4 +130,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 }
+
 

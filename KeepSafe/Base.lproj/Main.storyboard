@@ -446,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XlB-Qq-L6D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="900" y="2919"/>
+            <point key="canvasLocation" x="274" y="3101"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="RQW-9b-ebk">
@@ -464,7 +464,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bo9-dd-q1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1873" y="2919"/>
+            <point key="canvasLocation" x="1028" y="3100"/>
+        </scene>
+        <!--Follow Request View Controller-->
+        <scene sceneID="1R6-tD-ozQ">
+            <objects>
+                <viewController id="HMF-lh-TOm" customClass="FollowRequestViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9ka-1h-Y14">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BpN-CJ-dfs">
+                                <rect key="frame" x="0.0" y="64" width="375" height="534"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="JJX-Pr-Pkw"/>
+                    </view>
+                    <connections>
+                        <outlet property="followRequestTableView" destination="BpN-CJ-dfs" id="nSW-fv-tET"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7f1-3A-eGB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1941.5999999999999" y="3108.3958020989508"/>
         </scene>
         <!--Friends Profile View Controller-->
         <scene sceneID="Ux9-dK-FPL">
@@ -527,11 +552,12 @@
                         <outlet property="emailLabel" destination="tDO-dl-AZo" id="iLS-Ap-2Mv"/>
                         <outlet property="nameLabel" destination="ek3-nE-M3O" id="1aP-wk-lo7"/>
                         <outlet property="profileImageView" destination="AtE-F0-bZH" id="QP5-hb-XNL"/>
+                        <segue destination="jK0-T2-wxg" kind="show" identifier="messageFriend" id="Blo-OG-Kv2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9c-1U-BCY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3072.8000000000002" y="3110.1949025487261"/>
+            <point key="canvasLocation" x="2934" y="2388"/>
         </scene>
         <!--Friends Chat View Controller-->
         <scene sceneID="WEb-MT-gyw">
@@ -602,7 +628,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0IY-Hx-9ji" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="377" y="1612"/>
+            <point key="canvasLocation" x="-426" y="2463"/>
         </scene>
         <!--Your Circle View Controller-->
         <scene sceneID="sYU-i7-Gz2">
@@ -613,7 +639,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q1P-Wp-43k">
-                                <rect key="frame" x="0.0" y="82" width="375" height="585"/>
+                                <rect key="frame" x="0.0" y="115" width="375" height="552"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ikv-fH-qi4">
@@ -654,6 +680,14 @@
                                     <outlet property="delegate" destination="7xK-RI-8cn" id="7aP-hB-Bpl"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcu-K5-f71">
+                                <rect key="frame" x="16" y="77" width="359" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Follow Requests"/>
+                                <connections>
+                                    <action selector="followRequestBTNPressed:" destination="7xK-RI-8cn" eventType="touchUpInside" id="AUR-qh-LNy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="R8S-B8-K3l"/>
@@ -662,11 +696,12 @@
                         <outlet property="yourCircleCollectionView" destination="q1P-Wp-43k" id="GTK-Ld-xUM"/>
                         <segue destination="jwQ-GK-YAI" kind="presentation" identifier="showAddFriend" id="b4d-yi-1R7"/>
                         <segue destination="esR-ns-ZzS" kind="show" identifier="showFriend" id="Qr1-a7-ceQ"/>
+                        <segue destination="HMF-lh-TOm" kind="show" identifier="showFollowRequests" id="QO3-9f-zCz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C1J-Br-cIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2038" y="1612"/>
+            <point key="canvasLocation" x="2037.5999999999999" y="1611.5442278860571"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="E2U-jR-oPy">
@@ -969,7 +1004,7 @@
         <!--Location Services View Controller-->
         <scene sceneID="aMD-gG-5Ht">
             <objects>
-                <viewController id="CPs-RU-xDZ" customClass="LocationServicesViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="locationServiceVC" id="CPs-RU-xDZ" customClass="LocationServicesViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rMZ-mX-mSK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1162,6 +1197,7 @@
         <image name="radarImage" width="1025" height="1025"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Blo-OG-Kv2"/>
         <segue reference="Qr1-a7-ceQ"/>
     </inferredMetricsTieBreakers>
 </document>

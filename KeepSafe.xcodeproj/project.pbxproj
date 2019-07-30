@@ -26,6 +26,7 @@
 		0787657F2262A628001DE728 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787657E2262A628001DE728 /* Message.swift */; };
 		0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787658722665D78001DE728 /* LocationServicesViewController.swift */; };
 		07B543502281F62100ED8989 /* CrimeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */; };
+		07BA0FBB22F0CDB400576B54 /* FollowRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA0FBA22F0CDB400576B54 /* FollowRequestViewController.swift */; };
 		07C2CCF6228DBEA000758CE7 /* FriendsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C2CCF5228DBEA000758CE7 /* FriendsProfileViewController.swift */; };
 		07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */; };
 		07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B62260F7A90072D1BC /* HomePageViewController.swift */; };
@@ -62,6 +63,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		07DAE5E722EE5EDA00BBFA7D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0704F53D22CE7D8800293718 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		0704F61222DBDFA500293718 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
@@ -82,6 +96,7 @@
 		0787657E2262A628001DE728 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		0787658722665D78001DE728 /* LocationServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesViewController.swift; sourceTree = "<group>"; };
 		07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrimeFilterViewController.swift; sourceTree = "<group>"; };
+		07BA0FBA22F0CDB400576B54 /* FollowRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequestViewController.swift; sourceTree = "<group>"; };
 		07C2CCF5228DBEA000758CE7 /* FriendsProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsProfileViewController.swift; sourceTree = "<group>"; };
 		07CC04B4225FF9950072D1BC /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		07CC04B62260F7A90072D1BC /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +183,7 @@
 				07C2CCF5228DBEA000758CE7 /* FriendsProfileViewController.swift */,
 				0750E27622695B090038201E /* DetailViewController.swift */,
 				077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */,
+				07BA0FBA22F0CDB400576B54 /* FollowRequestViewController.swift */,
 			);
 			path = YourCircle;
 			sourceTree = "<group>";
@@ -329,6 +345,7 @@
 				07E30B1C2225BE7500904A45 /* Resources */,
 				0E810E49EBE8B000B1020DF1 /* [CP] Embed Pods Frameworks */,
 				452DA0046E8A2FF311E962A7 /* [CP] Copy Pods Resources */,
+				07DAE5E722EE5EDA00BBFA7D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -364,7 +381,7 @@
 		07E30B162225BE7400904A45 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Omar Tehsin";
 				TargetAttributes = {
@@ -444,6 +461,7 @@
 				"${BUILT_PRODUCTS_DIR}/FlagPhoneNumber/FlagPhoneNumber.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PMSuperButton/PMSuperButton.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -453,7 +471,6 @@
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -468,6 +485,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlagPhoneNumber.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMSuperButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -477,7 +495,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */,
+				07BA0FBB22F0CDB400576B54 /* FollowRequestViewController.swift in Sources */,
 				07876579226260B9001DE728 /* ProfileItems.swift in Sources */,
 				07F4A2D522BA9A22001C2A1A /* FriendsChatViewController.swift in Sources */,
 				07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */,

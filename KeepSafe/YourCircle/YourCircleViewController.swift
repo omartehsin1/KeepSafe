@@ -46,6 +46,9 @@ class YourCircleViewController: UIViewController, EmptyDataSetSource, EmptyDataS
         performSegue(withIdentifier: "showAddFriend", sender: self)
         
     }
+    @IBAction func followRequestBTNPressed(_ sender: Any) {
+        performSegue(withIdentifier: "showFollowRequests", sender: self)
+    }
     
     
     func imageForEmptySet() -> UIImage?{

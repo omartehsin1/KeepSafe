@@ -29,6 +29,7 @@ class HomePageViewController: UIViewController{
         //createTabBarController()
 
         NotificationCenter.default.addObserver(self, selector: #selector(toggleSideMenu), name: NSNotification.Name("ToggleSideMenu"), object: nil)
+        //navigationController?.setNavigationBarHidden(true, animated: false)
 
 
 

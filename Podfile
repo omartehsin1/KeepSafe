@@ -6,7 +6,7 @@ target 'KeepSafe' do
   use_frameworks!
 
   # Pods for KeepSafe
-pod 'Firebase', '~>5.16.0'
+pod 'Firebase'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
 pod 'Firebase/Storage'
@@ -24,6 +24,7 @@ pod 'SwiftyJSON', '~> 4.0'
 pod 'Alamofire', '~> 4.5'
 pod "FlagPhoneNumber"
 pod 'CameraManager', '~> 4.4'
+pod 'IQKeyboardManagerSwift'
 
   target 'KeepSafeTests' do
     inherit! :search_paths

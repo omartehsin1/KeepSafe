@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import EmptyDataSet_Swift
+import UserNotifications
+
 
 
 
@@ -39,6 +41,8 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         createTextView()
         createButton()
         button.addTarget(self, action: #selector(sendPressed), for: .touchUpInside)
+        
+        print("The recepient is: \(recepient)")
         
         
 
@@ -96,27 +100,29 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     
     
     func retrieveChat() {
-        //var messagesDictionary = [String: Message]()
         
-        
-        messageDB.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let message = Message()
-                message.fromID = dictionary["fromID"] as? String
-                message.messageBody = dictionary["messageBody"] as? String ?? ""
-                message.recepient = dictionary["recepient"] as? String ?? ""
-                message.sender = dictionary["sender"] as? String ?? ""
-                message.timestamp = dictionary["timestamp"] as? Double
-                message.toID = dictionary["toID"] as? String ?? ""
-                
-                self.messagesArray.append(message)
-                
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+        if let uid = Auth.auth().currentUser?.uid {
+            Database.database().reference().child("users").child(uid).child("Messages").observe(.childAdded) { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    let message = Message()
+                    message.fromID = dictionary["fromID"] as? String
+                    message.messageBody = dictionary["messageBody"] as? String ?? ""
+                    message.recepient = dictionary["recepient"] as? String ?? ""
+                    message.sender = dictionary["sender"] as? String ?? ""
+                    message.timestamp = dictionary["timestamp"] as? Double
+                    message.toID = dictionary["toID"] as? String ?? ""
+                    print(dictionary)
+                    self.messagesArray.append(message)
+                    
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    
                 }
-                
+
             }
         }
+
         SOSDatabase.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
@@ -150,6 +156,7 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
     }
+    
     
 }
 
@@ -255,6 +262,7 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         self.view.endEditing(true)
         return false
     }
+    
     func createButton() {
         button.backgroundColor = UIColor.orange
         button.setTitle("Click Me", for: .normal)
@@ -286,48 +294,59 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     }
     @objc func sendPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-//        let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
 
-        let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
+        let messageDatabase = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
+        let friendsMessageDB = Database.database().reference().child("users").child(toID).child("Messages").childByAutoId()
+        //let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
         let timestamp = ServerValue.timestamp()
+        guard let messageBody = textField.text else {return}
 
-        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID, "timestamp": timestamp]
-
-        messageDB.setValue(messageDictionary) {
-            (error, ref) in
+        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": messageBody, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
+        messageDatabase.setValue(messageDictionary) { (error, ref) in
             if error != nil {
-                print(error!)
-            }
-            else {
-                print("Message Saved Successfully!")
+                print(error)
+            } else {
+                print("Message saved successfully")
             }
             
-            DispatchQueue.main.async {
-                self.textField.text = ""
-                
+            friendsMessageDB.setValue(messageDictionary) { (error, ref) in
+                if error != nil {
+                    print(error)
+                } else {
+                    print("Message saved successfully")
             }
+
         }
+            
+            
+
         let sender = PushNotificationSender()
         
-        let usersRef = Firestore.firestore().collection("users_table").document(toID)
+        let usersRef = Firestore.firestore().collection("users_table").document(self.toID)
         guard let theEmail = Auth.auth().currentUser?.email else {return}
         usersRef.getDocument(completion: { (docSnapshot, error) in
             guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
             guard let myData = docSnapshot.data() else {return}
             guard let theToken = myData["fcmToken"] as? String else {return}
-            guard let theMessagebody = self.textField.text as? String else {return}
-            sender.sendPushNotification(to: theToken, title: "\(theEmail)", body: "\(theMessagebody)")
+            guard let theMessagebody = self.textField.text else {return}
+            //print("the message body is: \(messageBody)")
+            sender.sendPushNotification(to: theToken, title: "\(theEmail)", body: "\(String(describing: messageBody))", vc: "friendMessageCollectionViewController")
         })
+        DispatchQueue.main.async {
+                self.textField.text = ""
+                
+            }
         
     }
     
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = ""
-    }
+
 }
 
 
-    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
+    }
 
 
+}

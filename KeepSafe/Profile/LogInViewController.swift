@@ -69,6 +69,7 @@ class LogInViewController: UIViewController {
         } else {
             view.frame.origin.y = 0
         }
+        
     }
     
     @objc func doneButtonAction() {

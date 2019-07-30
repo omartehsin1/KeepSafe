@@ -137,13 +137,109 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KeepSafe/PushNotifications/PushNotificationManager.swift"
-            timestampString = "585879461.990008"
+            filePath = "KeepSafe/YourCircle/FriendsProfileViewController.swift"
+            timestampString = "586213107.191186"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "addFriendBTNPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KeepSafe/Profile/ProfileSettingViewController.swift"
+            timestampString = "586069824.448241"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "printToken(notification:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KeepSafe/PushNotifications/PushNotificationSender.swift"
+            timestampString = "586205840.242354"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "sendPushNotification(to:title:body:vc:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KeepSafe.PushNotificationSender.sendPushNotification(to: Swift.String, title: Swift.String, body: Swift.String) -&gt; ()"
+                  moduleName = "KeepSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Omar/Desktop/Coding/Projects/KeepSafe/KeepSafe/PushNotifications/PushNotificationSender.swift"
+                  timestampString = "586068820.8311239"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "2412">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in KeepSafe.PushNotificationSender.sendPushNotification(to: Swift.String, title: Swift.String, body: Swift.String) -&gt; ()"
+                  moduleName = "KeepSafe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Omar/Desktop/Coding/Projects/KeepSafe/KeepSafe/PushNotifications/PushNotificationSender.swift"
+                  timestampString = "586068820.839035"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "273">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KeepSafe/PushNotifications/PushNotificationManager.swift"
+            timestampString = "586214269.8515559"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "updateFirestorePushTokenIfNeeded()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KeepSafe/MessageVC/FriendMessageCollectionViewController.swift"
+            timestampString = "586139975.6587"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "sendPressed()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

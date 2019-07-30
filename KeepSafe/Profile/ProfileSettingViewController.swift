@@ -25,10 +25,26 @@ class ProfileSettingViewController: UIViewController, UINavigationControllerDele
         phoneNumberTextField.delegate = self
         loadUserProfile()
         userImageView.isUserInteractionEnabled = true
+        //let theToken
         // Do any additional setup after loading the view.
 //        let sender = PushNotificationSender()
-//        sender.sendPushNotification(to: "eXO-LopNvIo:APA91bGiISenFJwUohEReBCsEZjM47QqyGOO3JysP_b_urKUsLpTevcg_ufmfBvdD3z_Rh25pa5qgrukn3mJNjgUetV2xPnXdM_hGg7S9h7Ee8Zu1G1ns1-JTVshL8MTGpGjLE9Qtawz", title: "The message", body: "Sent from iPhone 6")
-        print(Auth.auth().currentUser?.displayName)
+//        sender.sendPushNotification(to: result.token, title: "The message", body: "Sent from iPhone 6")
+//
+        
+//        InstanceID.instanceID().instanceID { (result, error) in
+//            if let error = error {
+//                print("Error fetching remote instance ID: \(error)")
+//            } else if let result = result {
+//                print("Remote instance ID token: \(result.token)")
+//                //self.instanceIDTokenMessage.text  = "Remote InstanceID token: \(result.token)"
+//
+//            }
+//        }
+        
+
+    }
+    @objc func printToken(notification: Notification) {
+        print("notification value is: \(String(describing: notification.userInfo))")
     }
     
     

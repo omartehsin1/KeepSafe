@@ -17,6 +17,8 @@
 #import "Firestore/Source/Local/FSTLocalSerializer.h"
 
 #include <cinttypes>
+#include <utility>
+#include <vector>
 
 #import "FIRTimestamp.h"
 #import "Firestore/Protos/objc/firestore/local/MaybeDocument.pbobjc.h"
@@ -26,18 +28,20 @@
 #import "Firestore/Source/Core/FSTQuery.h"
 #import "Firestore/Source/Local/FSTQueryData.h"
 #import "Firestore/Source/Model/FSTDocument.h"
-#import "Firestore/Source/Model/FSTFieldValue.h"
 #import "Firestore/Source/Model/FSTMutationBatch.h"
 #import "Firestore/Source/Remote/FSTSerializerBeta.h"
 
 #include "Firestore/core/include/firebase/firestore/timestamp.h"
+#include "Firestore/core/src/firebase/firestore/model/document.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
 #include "Firestore/core/src/firebase/firestore/model/snapshot_version.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 
 using firebase::Timestamp;
 using firebase::firestore::model::DocumentKey;
+using firebase::firestore::model::DocumentState;
 using firebase::firestore::model::ListenSequenceNumber;
+using firebase::firestore::model::ObjectValue;
 using firebase::firestore::model::SnapshotVersion;
 using firebase::firestore::model::TargetId;
 
@@ -122,14 +126,14 @@ using firebase::firestore::model::TargetId;
           withCommittedMutations:(BOOL)committedMutations {
   FSTSerializerBeta *remoteSerializer = self.remoteSerializer;
 
-  FSTObjectValue *data = [remoteSerializer decodedFields:document.fields];
+  ObjectValue data = [remoteSerializer decodedFields:document.fields];
   DocumentKey key = [remoteSerializer decodedDocumentKey:document.name];
   SnapshotVersion version = [remoteSerializer decodedVersion:document.updateTime];
-  return [FSTDocument documentWithData:data
-                                   key:key
+  return [FSTDocument documentWithData:std::move(data)
+                                   key:std::move(key)
                                version:version
-                                 state:committedMutations ? FSTDocumentStateCommittedMutations
-                                                          : FSTDocumentStateSynced];
+                                 state:committedMutations ? DocumentState::kCommittedMutations
+                                                          : DocumentState::kSynced];
 }
 
 /** Encodes a NoDocument value to the equivalent proto. */
@@ -178,11 +182,14 @@ using firebase::firestore::model::TargetId;
 
   FSTPBWriteBatch *proto = [FSTPBWriteBatch message];
   proto.batchId = batch.batchID;
-  proto.localWriteTime = [remoteSerializer
-      encodedTimestamp:Timestamp{batch.localWriteTime.seconds, batch.localWriteTime.nanoseconds}];
+  proto.localWriteTime = [remoteSerializer encodedTimestamp:batch.localWriteTime];
 
+  NSMutableArray<GCFSWrite *> *baseWrites = proto.baseWritesArray;
+  for (FSTMutation *baseMutation : [batch baseMutations]) {
+    [baseWrites addObject:[remoteSerializer encodedMutation:baseMutation]];
+  }
   NSMutableArray<GCFSWrite *> *writes = proto.writesArray;
-  for (FSTMutation *mutation in batch.mutations) {
+  for (FSTMutation *mutation : [batch mutations]) {
     [writes addObject:[remoteSerializer encodedMutation:mutation]];
   }
   return proto;
@@ -192,18 +199,22 @@ using firebase::firestore::model::TargetId;
   FSTSerializerBeta *remoteSerializer = self.remoteSerializer;
 
   int batchID = batch.batchId;
-  NSMutableArray<FSTMutation *> *mutations = [NSMutableArray array];
+
+  std::vector<FSTMutation *> baseMutations;
+  for (GCFSWrite *write in batch.baseWritesArray) {
+    baseMutations.push_back([remoteSerializer decodedMutation:write]);
+  }
+  std::vector<FSTMutation *> mutations;
   for (GCFSWrite *write in batch.writesArray) {
-    [mutations addObject:[remoteSerializer decodedMutation:write]];
+    mutations.push_back([remoteSerializer decodedMutation:write]);
   }
 
   Timestamp localWriteTime = [remoteSerializer decodedTimestamp:batch.localWriteTime];
 
-  return [[FSTMutationBatch alloc]
-      initWithBatchID:batchID
-       localWriteTime:[FIRTimestamp timestampWithSeconds:localWriteTime.seconds()
-                                             nanoseconds:localWriteTime.nanoseconds()]
-            mutations:mutations];
+  return [[FSTMutationBatch alloc] initWithBatchID:batchID
+                                    localWriteTime:localWriteTime
+                                     baseMutations:std::move(baseMutations)
+                                         mutations:std::move(mutations)];
 }
 
 - (FSTPBTarget *)encodedQueryData:(FSTQueryData *)queryData {

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "85AA56FFE4B7939BF41E57AB3267E0D8"
+               BlueprintIdentifier = "6600BB9D264169E22D05A9001A157AFF"
                BuildableName = "FlagPhoneNumber.bundle"
                BlueprintName = "FlagPhoneNumber-FlagPhoneNumber"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "85AA56FFE4B7939BF41E57AB3267E0D8"
+            BlueprintIdentifier = "6600BB9D264169E22D05A9001A157AFF"
             BuildableName = "FlagPhoneNumber.bundle"
             BlueprintName = "FlagPhoneNumber-FlagPhoneNumber"
             ReferencedContainer = "container:Pods.xcodeproj">

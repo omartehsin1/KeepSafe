@@ -22,9 +22,7 @@ class FriendsProfileViewController: UIViewController {
     var friendDataBase = FirebaseConstants.friendDataBase
     var userDatabase = FirebaseConstants.userDatabase
     var docRef: DocumentReference!
-    
-    
-    
+
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -42,7 +40,8 @@ class FriendsProfileViewController: UIViewController {
         view.addSubview(privacyView)
         //blurEffect()
         createPrivacyView()
-        print("The current state is: \(currentState)")
+       // print("The current state is: \(currentState)")
+
     }
 
     
@@ -66,6 +65,17 @@ class FriendsProfileViewController: UIViewController {
                         } else {
                             //print("add friends")
                             self.currentState = "reqSent"
+                            
+                            
+                            InstanceID.instanceID().instanceID { (result, error) in
+                                if let error = error {
+                                    print("Error fetching remote instance ID: \(error)")
+                                } else if let result = result {
+                                    print("Remote instance ID token: \(result.token)")
+                                    //self.instanceIDTokenMessage.text  = "Remote InstanceID token: \(result.token)"
+                                }
+                            }
+                            
                             let sender = PushNotificationSender()
 
                             let usersRef = Firestore.firestore().collection("users_table").document(otherUID)
@@ -74,7 +84,7 @@ class FriendsProfileViewController: UIViewController {
                                 guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
                                 guard let myData = docSnapshot.data() else {return}
                                 guard let theToken = myData["fcmToken"] as? String else {return}
-                                sender.sendPushNotification(to: theToken, title: "Follow Request", body: "\(theEmail) would like to add you to their circle")
+                                sender.sendPushNotification(to: theToken, title: "Follow Request", body: "\(theEmail) would like to add you to their circle", vc: "friendProfile")
                             })
                             
                             
@@ -153,6 +163,7 @@ class FriendsProfileViewController: UIViewController {
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     
                     myName = dictionary["nameOfUser"] as? String ?? ""
+                    //myEmail = dictionary["email"] as? String ?? ""
                     myImageURL = dictionary["profileImageURL"] as? String ?? ""
                     //theUsers.append(theUser)
                 }
@@ -252,8 +263,8 @@ class FriendsProfileViewController: UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "friendMessageCollectionViewController")
 //        //self.present(controller, animated: true, completion: nil)
 
-        self.navigationController?.pushViewController(controller, animated: true)
-        //performSegue(withIdentifier: "messageFriend", sender: self)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        performSegue(withIdentifier: "messageFriend", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "messageFriend" {
