@@ -25,25 +25,40 @@ class MessageCell: BaseCell {
     var message: Message? {
         
         didSet {
-            nameLabel.text = message?.recepient
+            
+            guard let myUID = Auth.auth().currentUser?.uid else { return }
+            let ref = Database.database().reference().child("users")
+            if (message?.fromID != myUID) {
+                nameLabel.text = message?.sender
+                if let fromID = message?.fromID {
+                    ref.child(fromID).observeSingleEvent(of: .value) { (snapshot) in
+                        if let dictionary = snapshot.value as? [String: AnyObject] {
+                            
+                            if let profileImageURL = dictionary["profileImageURL"] as? String {
+                                self.profileImageView.loadImageUsingCache(urlString: profileImageURL)
+                            }
+                        }
+                    }
+                }
+            } else {
+                nameLabel.text = message?.recepient
+                if let toID = message?.toID {
+                    ref.child(toID).observeSingleEvent(of: .value) { (snapshot) in
+                        if let dictionary = snapshot.value as? [String: AnyObject] {
+                            
+                            if let profileImageURL = dictionary["profileImageURL"] as? String {
+                                self.profileImageView.loadImageUsingCache(urlString: profileImageURL)
+                            }
+                        }
+                    }
+                }
+            }
+            
             
             messageLabel.text = message?.messageBody
             
             //SOSMessageLabel.text = message?.SOSMessage
-            
-            if let toID = message?.toID {
-                print(toID)
-                let ref = Database.database().reference().child("users").child(toID)
-                ref.observeSingleEvent(of: .value) { (snapshot) in
-                    if let dictionary = snapshot.value as? [String: AnyObject] {
-                        
-                        if let profileImageURL = dictionary["profileImageURL"] as? String {
-                            self.profileImageView.loadImageUsingCache(urlString: profileImageURL)
-                        }
-                    }
-                }
-                
-            }
+
             
 //            if let seconds = message?.timestamp?.doubleValue {
 //                let timestampDate = NSDate(timeIntervalSince1970: seconds)

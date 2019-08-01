@@ -12,8 +12,6 @@ import EmptyDataSet_Swift
 import UserNotifications
 
 
-
-
 class FriendMessageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, EmptyDataSetSource, EmptyDataSetDelegate {
     
     
@@ -42,10 +40,8 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         createButton()
         button.addTarget(self, action: #selector(sendPressed), for: .touchUpInside)
         
-        print("The recepient is: \(recepient)")
         
         
-
     }
     
     
@@ -57,37 +53,54 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatCell
-        
+         let myUID = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference().child("users")
         //let message = messagesArray[indexPath.row]
         cell.messageTextView.text = messagesArray[indexPath.row].messageBody
-        navigationItem.title = messagesArray[indexPath.row].recepient
+        
+        if (messagesArray[indexPath.row].fromID != myUID!) {
+            navigationItem.title = messagesArray[indexPath.row].sender
+        } else {
+            navigationItem.title = messagesArray[indexPath.row].recepient
+        }
+        
         
         
         
         if let messageText = messagesArray[indexPath.item].messageBody {
             //, profileImageName = messagesArray[indexPath.item].profileimage(or we)
-            cell.profileImageView.image = UIImage(named: "defaultUser")
+            //cell.profileImageView.image = UIImage(named: "defaultUser")
             let size = CGSize(width: 250, height: 1000)
             let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
             let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)], context: nil)
             
             if messagesArray[indexPath.row].sender == Auth.auth().currentUser?.email {
-                cell.messageTextView.frame = CGRect(x:48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
-                cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
-                cell.textBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
-                cell.messageTextView.textColor = UIColor.black
-                cell.profileImageView.isHidden = false
-            }
-            
-            else {
                 cell.messageTextView.frame = CGRect(x:view.frame.width - estimatedFrame.width - 16 - 16, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
                 cell.textBubbleView.frame = CGRect(x: view.frame.width - estimatedFrame.width - 16 - 8 - 16, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
                 cell.textBubbleView.backgroundColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
                 cell.messageTextView.textColor = UIColor.white
                 cell.profileImageView.isHidden = true
             }
-
-           
+                
+            else {
+                cell.messageTextView.frame = CGRect(x:48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+                cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+                cell.textBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+                cell.messageTextView.textColor = UIColor.black
+                ref.child(messagesArray[indexPath.row].fromID!).observeSingleEvent(of: .value) { (snapshot) in
+                    if let dictionary = snapshot.value as? [String: AnyObject] {
+                        if let profileImageURL = dictionary["profileImageURL"] as? String {
+                            cell.profileImageView.isHidden = false
+                            cell.profileImageView.loadImageUsingCache(urlString: profileImageURL)
+                        }
+                    }
+                }
+                
+                
+                
+            }
+            
+            
         }
         
         
@@ -100,35 +113,32 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     
     
     func retrieveChat() {
+        //var messagesDictionary = [String: Message]()
         
-        if let uid = Auth.auth().currentUser?.uid {
-            Database.database().reference().child("users").child(uid).child("Messages").observe(.childAdded) { (snapshot) in
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    let message = Message()
-                    message.fromID = dictionary["fromID"] as? String
-                    message.messageBody = dictionary["messageBody"] as? String ?? ""
-                    message.recepient = dictionary["recepient"] as? String ?? ""
-                    message.sender = dictionary["sender"] as? String ?? ""
-                    message.timestamp = dictionary["timestamp"] as? Double
-                    message.toID = dictionary["toID"] as? String ?? ""
-                    print(dictionary)
-                    self.messagesArray.append(message)
-                    
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                    
+        
+        messageDB.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.fromID = dictionary["fromID"] as? String
+                message.messageBody = dictionary["messageBody"] as? String ?? ""
+                message.recepient = dictionary["recepient"] as? String ?? ""
+                message.sender = dictionary["sender"] as? String ?? ""
+                message.timestamp = dictionary["timestamp"] as? Double
+                message.toID = dictionary["toID"] as? String ?? ""
+                
+                self.messagesArray.append(message)
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
                 }
-
+                
             }
         }
-
         SOSDatabase.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
                 message.messageBody = dictionary["SOSMessage"] as? String ?? ""
                 message.toID = dictionary["toID"] as? String ?? ""
-                message.recepient = dictionary["nameOfUser"] as? String ?? ""
                 
                 self.messagesArray.append(message)
                 
@@ -157,11 +167,10 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         return UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
     }
     
-    
 }
 
 class ChatCell: BaseCell {
-
+    
     let messageTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 16)
@@ -199,7 +208,7 @@ class ChatCell: BaseCell {
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-
+    
     
     
     override func setupViews() {
@@ -209,10 +218,10 @@ class ChatCell: BaseCell {
         addSubview(profileImageView)
         addConstraintsWithFormat(format: "H:|-8-[v0(30)]", views: profileImageView)
         addConstraintsWithFormat(format: "V:[v0(30)]|", views: profileImageView)
- 
+        
         
     }
-
+    
 }
 
 extension FriendMessageCollectionViewController {
@@ -258,11 +267,6 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
         
         
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
-    
     func createButton() {
         button.backgroundColor = UIColor.orange
         button.setTitle("Click Me", for: .normal)
@@ -294,59 +298,45 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     }
     @objc func sendPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-
-        let messageDatabase = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
-        let friendsMessageDB = Database.database().reference().child("users").child(toID).child("Messages").childByAutoId()
-        //let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
-        let timestamp = ServerValue.timestamp()
+        //        let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
+        let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
         guard let messageBody = textField.text else {return}
-
-        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": messageBody, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
-        messageDatabase.setValue(messageDictionary) { (error, ref) in
-            if error != nil {
-                print(error)
-            } else {
-                print("Message saved successfully")
-            }
-            
-            friendsMessageDB.setValue(messageDictionary) { (error, ref) in
-                if error != nil {
-                    print(error)
-                } else {
-                    print("Message saved successfully")
-            }
-
-        }
-            
-            
-
-        let sender = PushNotificationSender()
         
-        let usersRef = Firestore.firestore().collection("users_table").document(self.toID)
-        guard let theEmail = Auth.auth().currentUser?.email else {return}
-        usersRef.getDocument(completion: { (docSnapshot, error) in
-            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
-            guard let myData = docSnapshot.data() else {return}
-            guard let theToken = myData["fcmToken"] as? String else {return}
-            guard let theMessagebody = self.textField.text else {return}
-            //print("the message body is: \(messageBody)")
-            sender.sendPushNotification(to: theToken, title: "\(theEmail)", body: "\(String(describing: messageBody))", vc: "friendMessageCollectionViewController")
-        })
-        DispatchQueue.main.async {
+        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
+        
+        messageDB.setValue(messageDictionary) {
+            (error, ref) in
+            if error != nil {
+                print(error!)
+            }
+            else {
+                print("Message Saved Successfully!")
+            }
+            let sender = PushNotificationSender()
+            
+            let usersRef = Firestore.firestore().collection("users_table").document(self.toID)
+            guard let theEmail = Auth.auth().currentUser?.email else {return}
+            
+            usersRef.getDocument(completion: { (docSnapshot, error) in
+                guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+                guard let myData = docSnapshot.data() else {return}
+                guard let theToken = myData["fcmToken"] as? String else {return}
+                guard let theMessagebody = self.textField.text else {return}
+                print("the token is: \(theToken)")
+                sender.sendPushNotification(to: theToken, title: "\(theEmail)", body: "\(String(describing: messageBody))", vc: "friendMessageCollectionViewController")
+            })
+            
+            DispatchQueue.main.async {
                 self.textField.text = ""
                 
             }
+        }
         
     }
     
     
-
-}
-
-
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.text = ""
     }
-
-
 }
+

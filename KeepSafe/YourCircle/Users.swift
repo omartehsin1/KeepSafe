@@ -15,5 +15,8 @@ class Users: NSDictionary {
     var email: String?
     var profileImageURL: String?
     var userID: String!
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
 
 }

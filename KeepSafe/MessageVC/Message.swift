@@ -6,7 +6,9 @@
 //  Copyright © 2019 Omar Tehsin. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import Firebase
+
 
 class Message: NSObject {
     var fromID: String?
@@ -18,5 +20,7 @@ class Message: NSObject {
     var toID: String?
     var SOSMessage: String?
     
-    
+//    func chatPartnerID() -> String? {
+//        return fromID == Auth.auth().currentUser?.uid ? toID : fromID
+//    }
 }
