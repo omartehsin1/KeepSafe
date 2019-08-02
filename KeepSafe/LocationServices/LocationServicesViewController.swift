@@ -36,7 +36,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
-        
+        createFriendMarker()
         
 
         if CLLocationManager.locationServicesEnabled() {
@@ -315,7 +315,7 @@ extension LocationServicesViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 guard let theFriendFollowUID = dictionary["friendUID"] as? String else {return}
                 friendFollowUID = theFriendFollowUID
-                let liveLocationDB = FirebaseConstants.trackMeDatabase.child(myUID).child(friendFollowUID)
+                let liveLocationDB = FirebaseConstants.trackMeDatabase.child(friendFollowUID).child(myUID)
                 liveLocationDB.setValue(liveLocationDictionary) { (error, ref) in
                     if error != nil {
                         print(error!)
@@ -326,17 +326,23 @@ extension LocationServicesViewController {
                 
             }
         }
-        createFriendMarker()
+        
     }
 
     
     func createFriendMarker() {
 
-//        guard let myUID = Auth.auth().currentUser?.uid else {return}
-//
-//        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
-//            print(snapshot.key)
-//        }
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+
+        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                guard let latitude = dictionary["latitude"] as? Double else {return}
+                guard let longitude = dictionary["longitude"] as? Double else {return}
+                let friendsLocation = CLLocationCoordinate2DMake(latitude, longitude)
+                self.userImage = UIImage(named: "defaultUser")
+                _ = self.markerCreater(location: friendsLocation, title: "Friend is here", image: "defaultUser")
+            }
+        }
     }
 
 }
