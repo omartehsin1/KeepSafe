@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import UserNotifications
 
+
 class FollowMeViewController: UIViewController {
 
     @IBOutlet weak var friendsCollectionVC: UICollectionView!
@@ -25,6 +26,7 @@ class FollowMeViewController: UIViewController {
     var selectedDB = FirebaseConstants.selectedDatabase
     var currentState = "notSelected"
     var friendUID = String()
+    
     override func viewDidLoad() {
         friendsCollectionVC.delegate = self
         friendsCollectionVC.dataSource = self
@@ -47,35 +49,18 @@ class FollowMeViewController: UIViewController {
             guard let theToken = myData["fcmToken"] as? String else {return}
             sender.sendPushNotification(to: theToken, title: "Follow Them", body: "\(theEmail) would like to share their live location with you", vc: "HomePage")
         }
-//        Alert.showFollowConfirmationAlert(on: self)
-//        guard let myUID = Auth.auth().currentUser?.uid else {
-//            return
-//        }
-//        guard let myEmail = Auth.auth().currentUser?.email else {return}
-//        selectedDB.child(myUID).observe(.value) { (snapshot) in
-//            for friendUID in snapshot.children.allObjects as! [DataSnapshot] {
-//                if let dictionary = friendUID.value as? [String: AnyObject] {
-//                    let uid = dictionary["friendUID"] as? String ?? ""
-//                    //let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
-//                    self.friendsUIDArray.append(uid)
-//
-//
-//                    let followMeDictionary: NSDictionary = ["sender": myEmail, "FollowMeLink": "\(myEmail) has requested a follow, please click here", "friendUID": uid]
-//                    self.followMeDB.childByAutoId().setValue(followMeDictionary, withCompletionBlock: { (error, ref) in
-//                        if error != nil {
-//                            print(error)
-//                        } else {
-//                            print("Follow request sent successfully")
-//                        }
-//                    })
-//
-//
-//                }
-//            }
-//        }
+        tabBarController?.selectedIndex = 0
+        NotificationCenter.default.post(name: NSNotification.Name("StartLiveLocation"), object: nil)
 
+        //NotificationCenter.default.addObserver(self, selector: #selector(sendUID), name: NSNotification.Name("SendUID"), object: nil)
+//        Alert.showFollowConfirmationAlert(on: self)
         
     }
+    
+//    @objc func sendUID() {
+//        guard let myUID = Auth.auth().currentUser?.uid else {return}
+//
+//    }
     
     @objc func followButtonPressed() {
         

@@ -13,9 +13,6 @@ import Firebase
 import Alamofire
 import SwiftyJSON
 
-
-
-
 class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
     var locationManager = CLLocationManager()
@@ -31,10 +28,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var friendsUIDArray = [String]()
     var sideMenuOpen = false
     var coordinateLoc: CLLocationCoordinate2D!
-
-    
-    
-
+    var theLocations : CLLocation?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +58,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         
         
         locationManager.startUpdatingLocation()
+        
         //let crimeLocation = CLLocationCoordinate2DMake(latitude, longitude)
         
         //let marker = GMSMarker(position: currentLocation)
@@ -85,6 +80,10 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         
 
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("The map is here!")
+        
     }
     
     @IBAction func logoutBtnPressed(_ sender: Any) {
@@ -240,6 +239,7 @@ extension LocationServicesViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {return}
 //        coordinateLoc = locValue
+        theLocations = locations.last
         let location = locations.last
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
         self.mapView.animate(to: camera)
@@ -268,12 +268,15 @@ extension LocationServicesViewController: PassCoordinatesBack {
 }
 
 extension LocationServicesViewController {
+
+    
     func notificationCenter(){
         NotificationCenter.default.addObserver(self, selector: #selector(showProfile), name: NSNotification.Name("ShowProfile"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showMessages), name: NSNotification.Name("ShowMessages"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showYourCircle), name: NSNotification.Name("ShowYourCircle"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
 
     }
     
@@ -298,6 +301,43 @@ extension LocationServicesViewController {
 //        performSegue(withIdentifier: "ShowPlaces", sender: nil)
 //        
 //    }
+ 
+    @objc func startLiveLocation() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        guard let latitude = theLocations?.coordinate.latitude else {return}
+        guard let longitude = theLocations?.coordinate.longitude else {return}
+        var friendFollowUID : String!
+        let timestamp = ServerValue.timestamp()
+        
+        let liveLocationDictionary :NSDictionary = ["latitude": latitude, "longitude": longitude, "timestamp": timestamp]
+        
+        FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                guard let theFriendFollowUID = dictionary["friendUID"] as? String else {return}
+                friendFollowUID = theFriendFollowUID
+                let liveLocationDB = FirebaseConstants.trackMeDatabase.child(myUID).child(friendFollowUID)
+                liveLocationDB.setValue(liveLocationDictionary) { (error, ref) in
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        print("Location saved successfully")
+                    }
+                }
+                
+            }
+        }
+        createFriendMarker()
+    }
+
+    
+    func createFriendMarker() {
+
+//        guard let myUID = Auth.auth().currentUser?.uid else {return}
+//
+//        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+//            print(snapshot.key)
+//        }
+    }
 
 }
 

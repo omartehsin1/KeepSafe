@@ -85,28 +85,15 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
             appDelegate.window?.rootViewController = friendNavi
             appDelegate.window?.makeKeyAndVisible()
             friendNavi.pushViewController(friendMessageViewController, animated: true)
-        } else if userInformationString == "HomePage" {
+        }
+        
+        else if userInformationString == "HomePage" {
             let homePageVC : HomePageViewController = mainView.instantiateViewController(withIdentifier: "HomePage") as! HomePageViewController
             appDelegate.window?.rootViewController = homePageVC
             appDelegate.window?.makeKeyAndVisible()
+            //Alert.showFollowConfirmationAlert(on: homePageVC)
         }
-//        if let friendMessageVC = theUserInform["vc"] as? String {
-//
-//            let homepageVC : HomePageViewController = mainView.instantiateViewController(withIdentifier: "HomePage") as! HomePageViewController
-//
-//            let friendMessageViewController = mainView.instantiateViewController(withIdentifier: friendMessageVC) as! FriendMessageCollectionViewController
-//            let friendNavi = UINavigationController(rootViewController: homepageVC)
-//            appDelegate.window?.rootViewController = friendNavi
-//            appDelegate.window?.makeKeyAndVisible()
-//            friendNavi.pushViewController(friendMessageViewController, animated: true)
-//            print(friendMessageVC)
-//    
-//        }
-//        if let homePage = theUserInform["vc"] as? String {
-//            let homePageVC : HomePageViewController = mainView.instantiateViewController(withIdentifier: homePage) as! HomePageViewController
-//            appDelegate.window?.rootViewController = homePageVC
-//            appDelegate.window?.makeKeyAndVisible()
-//        }
+
         completionHandler()
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
