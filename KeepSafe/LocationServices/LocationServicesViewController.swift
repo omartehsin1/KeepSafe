@@ -29,14 +29,16 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var sideMenuOpen = false
     var coordinateLoc: CLLocationCoordinate2D!
     var theLocations : CLLocation?
+    var profileImageURL: String = "defaultUser"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        createFriendMarker()
         //createTabBarController()
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
-        createFriendMarker()
+        
         
 
         if CLLocationManager.locationServicesEnabled() {
@@ -54,9 +56,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         mapView.isMyLocationEnabled = true
         
         view = mapView
- 
-        
-        
+
         locationManager.startUpdatingLocation()
         
         //let crimeLocation = CLLocationCoordinate2DMake(latitude, longitude)
@@ -76,15 +76,15 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 
         createButton()
         notificationCenter()
+        
         //createCameraButton()
+        //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
+        
         
 
 
     }
-    override func viewWillAppear(_ animated: Bool) {
-        print("The map is here!")
-        
-    }
+
     
     @IBAction func logoutBtnPressed(_ sender: Any) {
         do {
@@ -102,7 +102,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
     
-    
+
     
     
     func createSearchBar() {
@@ -196,34 +196,12 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
                 
             }
 
-//
-//            for friendsUID in self.friendsUIDArray {
-//                print(friendsUID)
-//
-//
-//            }
-            
-            
-//            let messageCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "FriendChatViewController") as! FriendsChatViewController
-//
-//            messageCollectionVC.friendsUID = self.friendsUIDArray
-//            self.navigationController?.pushViewController(messageCollectionVC, animated: true)
 
         }
-        
-        
-        
-        
-        
-        
+
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.destination is FriendMessageCollectionViewController {
-//            let messageController = segue.destination as? FriendMessageCollectionViewController
-//            messageController?.friendsUID = friendsUIDArray
-//        }
-//    }
+
     @objc func buttonAction() {
         //performSegue(withIdentifier: "showCrimeFilter", sender: self)
         let crimeVC = storyboard?.instantiateViewController(withIdentifier: "CrimeFilter") as! CrimeFilterViewController
@@ -237,8 +215,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 
 extension LocationServicesViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {return}
-//        coordinateLoc = locValue
         theLocations = locations.last
         let location = locations.last
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
@@ -274,6 +250,7 @@ extension LocationServicesViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showProfile), name: NSNotification.Name("ShowProfile"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showMessages), name: NSNotification.Name("ShowMessages"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showYourCircle), name: NSNotification.Name("ShowYourCircle"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(confirmTrackingAlert), name: NSNotification.Name("ConfirmTrackingAlert"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
@@ -301,7 +278,28 @@ extension LocationServicesViewController {
 //        performSegue(withIdentifier: "ShowPlaces", sender: nil)
 //        
 //    }
- 
+    
+    @objc func confirmTrackingAlert() {
+        let alertController = UIAlertController(title: "Track Location ", message: "User wants to share their location", preferredStyle: UIAlertController.Style.alert)
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+//            print("Cancel Pressed")
+//        }
+//        alertController.addAction(okAction)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
+
+            //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
+            //NotificationCenter.default.addObserver(self, selector: #selector(self.startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
+
+
+            
+            
+        }))
+        
+
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+
     @objc func startLiveLocation() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         guard let latitude = theLocations?.coordinate.latitude else {return}
@@ -327,13 +325,14 @@ extension LocationServicesViewController {
             }
         }
         
+        
     }
 
     
     func createFriendMarker() {
-
+        //FIND A WAY TO GET THAT SPEICIFC USERS IMAGE
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-
+        
         FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 guard let latitude = dictionary["latitude"] as? Double else {return}
@@ -344,6 +343,8 @@ extension LocationServicesViewController {
             }
         }
     }
+    
+
 
 }
 

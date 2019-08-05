@@ -52,44 +52,8 @@ class FollowMeViewController: UIViewController {
         tabBarController?.selectedIndex = 0
         NotificationCenter.default.post(name: NSNotification.Name("StartLiveLocation"), object: nil)
 
-        //NotificationCenter.default.addObserver(self, selector: #selector(sendUID), name: NSNotification.Name("SendUID"), object: nil)
-//        Alert.showFollowConfirmationAlert(on: self)
-        
     }
     
-//    @objc func sendUID() {
-//        guard let myUID = Auth.auth().currentUser?.uid else {return}
-//
-//    }
-    
-    @objc func followButtonPressed() {
-        
-//        guard let myUID = Auth.auth().currentUser?.uid else {
-//            return
-//        }
-//        guard let myEmail = Auth.auth().currentUser?.email else {return}
-//        selectedDB.child(myUID).observe(.value) { (snapshot) in
-//            for friendUID in snapshot.children.allObjects as! [DataSnapshot] {
-//                if let dictionary = friendUID.value as? [String: AnyObject] {
-//                    let uid = dictionary["UID"] as? String ?? ""
-//                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
-//                    self.friendsUIDArray.append(uid)
-//
-//
-//                    let followMeDictionary: NSDictionary = ["sender": myEmail, "FollowMeLink": "\(myEmail) has requested a follow, please click here", "toID": uid, "nameOfUser": nameOfUser]
-//                    self.followMeDB.childByAutoId().setValue(followMeDictionary, withCompletionBlock: { (error, ref) in
-//                        if error != nil {
-//                            print(error)
-//                        } else {
-//                            print("Follow request sent successfully")
-//                        }
-//                    })
-//
-//
-//                }
-//            }
-//        }
-    }
     
     
     func fetchFriends() {
@@ -138,23 +102,25 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
         if let profileImageURL = myFriendsCircle.profileImageURL {
             myFriendCell.friendImageView.loadImageUsingCache(urlString: profileImageURL)
         }
+        
         return myFriendCell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let theSelectedUser = selectedUsers.append(myFriends[indexPath.row])
+        //let theSelectedUser = selectedUsers.append(myFriends[indexPath.row])
         friendUID = myFriends[indexPath.row].userID
+        
+        let selectedIndexPath = collectionView.indexPathsForSelectedItems
+        print(selectedIndexPath)
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         
         myFriendCell = collectionView.cellForItem(at: indexPath) as! FriendCollectionViewCell
         myFriendCell.layer.borderWidth = 2.0
         myFriendCell.layer.borderColor = UIColor.gray.cgColor
-        print(myFriendCell.friendNameLabel.text!)
-        //print(myFriendCell.friendNameLabel.text)
         
         followBTN.isEnabled = true
         let selectedDictionary: NSDictionary = ["requestType": "sent", "friendUID": friendUID]
         
-        if (currentState == "notSelected") {
+        if myFriendCell.isSelected == true {
             selectedDB.child(myUID).setValue(selectedDictionary) { (error, ref) in
                 if error != nil {
                     print(error!)
@@ -163,11 +129,29 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             }
         }
+        
+//        if (currentState == "notSelected") {
+//            selectedDB.child(myUID).setValue(selectedDictionary) { (error, ref) in
+//                if error != nil {
+//                    print(error!)
+//                } else {
+//                    self.currentState = "reqSent"
+//                }
+//            }
+//        }
 //        if (currentState == "reqSent") {
 //            followBTN.addTarget(self, action: #selector(followButtonPressed), for: .touchUpInside)
 //
 //        }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        friendUID = myFriends[indexPath.row].userID
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        myFriendCell = collectionView.cellForItem(at: indexPath) as! FriendCollectionViewCell
+        myFriendCell.layer.borderWidth = 0
+        myFriendCell.layer.borderColor = nil
     }
     
     
