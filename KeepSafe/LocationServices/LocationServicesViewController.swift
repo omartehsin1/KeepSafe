@@ -31,6 +31,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var theLocations : CLLocation?
     var profileImageURL: String = "defaultUser"
     let myCircleTrackingView = UIView()
+    
     let cellId = "cellId"
     var users = [Users]()
     
@@ -38,13 +39,23 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
-        collection.backgroundColor = UIColor.gray
+        collection.backgroundColor = UIColor.white
+        collection.alpha = 0.7
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.isScrollEnabled = true
         
         return collection
     }()
     
+    let stopButton: UIButton = {
+       let theButton = UIButton(frame: CGRect(x: 5, y: 5, width: 70, height: 70))
+        theButton.backgroundColor = UIColor.green
+        theButton.setTitle("Stop", for: .normal)
+        theButton.layer.cornerRadius = 35
+        theButton.layer.masksToBounds = true
+        theButton.addTarget(self, action: #selector(stopPressed), for: .touchUpInside)
+        return theButton
+    }()
     
 
     override func viewDidLoad() {
@@ -96,14 +107,16 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         newCollection.register(CustomTrackingCell.self, forCellWithReuseIdentifier: cellId)
         
         //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
-        
-        
-
-
     }
     override func viewWillAppear(_ animated: Bool) {
         createFriendMarker()
         myCircleTrackingViewBar()
+    }
+    @objc func stopPressed() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        FirebaseConstants.selectedDatabase.child(myUID).removeValue()
+        FirebaseConstants.trackMeDatabase.child(myUID).removeValue()
+        newCollection.reloadData()
     }
     
     func myCircleTrackingViewBar() {
@@ -111,10 +124,9 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         guard let navY = navigationController?.navigationBar.frame.height else {return}
         
         myCircleTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
-        myCircleTrackingView.backgroundColor = UIColor.white
-        myCircleTrackingView.alpha = 0.7
-        
+        myCircleTrackingView.backgroundColor = UIColor.clear
         myCircleTrackingView.addSubview(newCollection)
+        myCircleTrackingView.addSubview(stopButton)
         view.addSubview(myCircleTrackingView)
         
         setUpCollection()
@@ -122,10 +134,15 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func setUpCollection() {
-        newCollection.centerXAnchor.constraint(equalTo: myCircleTrackingView.centerXAnchor).isActive = true
+        newCollection.centerXAnchor.constraint(equalTo: myCircleTrackingView.centerXAnchor, constant: 80).isActive = true
         newCollection.centerYAnchor.constraint(equalTo: myCircleTrackingView.centerYAnchor).isActive = true
         newCollection.heightAnchor.constraint(equalToConstant: myCircleTrackingView.frame.height).isActive = true
         newCollection.widthAnchor.constraint(equalToConstant: myCircleTrackingView.frame.width).isActive = true
+        
+        stopButton.centerXAnchor.constraint(equalTo: myCircleTrackingView.centerXAnchor).isActive = true
+        stopButton.centerYAnchor.constraint(equalTo: myCircleTrackingView.centerYAnchor).isActive = true
+        stopButton.heightAnchor.constraint(equalToConstant: myCircleTrackingView.frame.height).isActive = true
+        stopButton.widthAnchor.constraint(equalToConstant: myCircleTrackingView.frame.width).isActive = true
     }
 
     
@@ -453,7 +470,7 @@ extension LocationServicesViewController: UICollectionViewDataSource, UICollecti
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 70, height: 100)
+        return CGSize(width: 100, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -491,19 +508,26 @@ class CustomTrackingCell: UICollectionViewCell {
         return label
         
     }()
+    
+//    let button: UIButton = {
+//        let stopButton = UIButton()
+//        stopButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return stopButton
+//    }()
     func setUpView() {
         addSubview(imageView)
         addSubview(textLabel)
         
         imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         
         textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5).isActive = true
-        textLabel.heightAnchor.constraint(equalToConstant: 7).isActive = true
-        textLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        textLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        textLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
     
