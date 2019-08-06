@@ -51,6 +51,8 @@ class FollowMeViewController: UIViewController {
         }
         tabBarController?.selectedIndex = 0
         NotificationCenter.default.post(name: NSNotification.Name("StartLiveLocation"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("ShowTrackingView"), object: nil)
+        
 
     }
     
@@ -84,9 +86,16 @@ class FollowMeViewController: UIViewController {
         
         
     }
+    func bannerForTracking() {
+        let locationServiceVC = LocationServicesViewController()
+        if currentState == "reqSent" {
+            locationServiceVC.myCircleTrackingView.isHidden = false
+        }
+    }
 
 
 }
+
 
 extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -130,19 +139,19 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
             }
         }
         
-//        if (currentState == "notSelected") {
-//            selectedDB.child(myUID).setValue(selectedDictionary) { (error, ref) in
-//                if error != nil {
-//                    print(error!)
-//                } else {
-//                    self.currentState = "reqSent"
-//                }
-//            }
-//        }
-//        if (currentState == "reqSent") {
-//            followBTN.addTarget(self, action: #selector(followButtonPressed), for: .touchUpInside)
-//
-//        }
+        //        if (currentState == "notSelected") {
+        //            selectedDB.child(myUID).setValue(selectedDictionary) { (error, ref) in
+        //                if error != nil {
+        //                    print(error!)
+        //                } else {
+        //                    self.currentState = "reqSent"
+        //                }
+        //            }
+        //        }
+        //        if (currentState == "reqSent") {
+        //            followBTN.addTarget(self, action: #selector(followButtonPressed), for: .touchUpInside)
+        //
+        //        }
         
     }
     
@@ -152,11 +161,8 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
         myFriendCell = collectionView.cellForItem(at: indexPath) as! FriendCollectionViewCell
         myFriendCell.layer.borderWidth = 0
         myFriendCell.layer.borderColor = nil
+        
     }
     
     
 }
-
-
-
-

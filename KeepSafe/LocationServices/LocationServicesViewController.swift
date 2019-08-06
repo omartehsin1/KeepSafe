@@ -30,10 +30,25 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var coordinateLoc: CLLocationCoordinate2D!
     var theLocations : CLLocation?
     var profileImageURL: String = "defaultUser"
+    let myCircleTrackingView = UIView()
+    let cellId = "cellId"
+    var users = [Users]()
+    
+    let newCollection: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
+        collection.backgroundColor = UIColor.gray
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.isScrollEnabled = true
+        
+        return collection
+    }()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        createFriendMarker()
         //createTabBarController()
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
@@ -58,6 +73,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         view = mapView
 
         locationManager.startUpdatingLocation()
+        //myCircleTrackingView.isHidden = true
         
         //let crimeLocation = CLLocationCoordinate2DMake(latitude, longitude)
         
@@ -72,17 +88,44 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 //        _ = markerCreater(location: currentLocation, title: "Current Location", image: "defaultUser")
 
 
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(buttonAction))
-
         createButton()
         notificationCenter()
         
-        //createCameraButton()
+        newCollection.delegate = self
+        newCollection.dataSource = self
+        newCollection.register(CustomTrackingCell.self, forCellWithReuseIdentifier: cellId)
+        
         //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
         
         
 
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        createFriendMarker()
+        myCircleTrackingViewBar()
+    }
+    
+    func myCircleTrackingViewBar() {
+        
+        guard let navY = navigationController?.navigationBar.frame.height else {return}
+        
+        myCircleTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
+        myCircleTrackingView.backgroundColor = UIColor.white
+        myCircleTrackingView.alpha = 0.7
+        
+        myCircleTrackingView.addSubview(newCollection)
+        view.addSubview(myCircleTrackingView)
+        
+        setUpCollection()
+        fetchFollower()
+    }
+    
+    func setUpCollection() {
+        newCollection.centerXAnchor.constraint(equalTo: myCircleTrackingView.centerXAnchor).isActive = true
+        newCollection.centerYAnchor.constraint(equalTo: myCircleTrackingView.centerYAnchor).isActive = true
+        newCollection.heightAnchor.constraint(equalToConstant: myCircleTrackingView.frame.height).isActive = true
+        newCollection.widthAnchor.constraint(equalToConstant: myCircleTrackingView.frame.width).isActive = true
     }
 
     
@@ -103,16 +146,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     }
     
 
-    
-    
-    func createSearchBar() {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
-        searchBar.frame = CGRect(x: 0, y: 64, width: (navigationController?.view.bounds.size.width)!, height: 44)
-        searchBar.barStyle = .default
-        searchBar.isTranslucent = false
-        view.addSubview(searchBar)
-    }
     
     func markerCreater(location: CLLocationCoordinate2D, title: String, image: String) -> GMSMarker {
         let marker = GMSMarker(position: location)
@@ -151,10 +184,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
     
     func createButton() {
-        //        let button = UIButton(frame: CGRect(x: 313, y: 584, width: 100, height: 50))
-        //        button.backgroundColor = .blue
-        //        button.setTitle("Query Data", for: .normal)
-        //        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
         
         let SOSButton = UIButton(frame: CGRect(x: 150, y: 490, width: 107, height: 100))
@@ -251,6 +280,7 @@ extension LocationServicesViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showMessages), name: NSNotification.Name("ShowMessages"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showYourCircle), name: NSNotification.Name("ShowYourCircle"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(confirmTrackingAlert), name: NSNotification.Name("ConfirmTrackingAlert"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showTrackingView), name: NSNotification.Name("ShowTrackingView"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
@@ -278,6 +308,17 @@ extension LocationServicesViewController {
 //        performSegue(withIdentifier: "ShowPlaces", sender: nil)
 //        
 //    }
+    
+    @objc func showTrackingView() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        //if selected database child key is myUID, show who's following me
+        FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
+            if myUID == snapshot.key {
+                self.myCircleTrackingView.isHidden = false
+            }
+        }
+        
+    }
     
     @objc func confirmTrackingAlert() {
         let alertController = UIAlertController(title: "Track Location ", message: "User wants to share their location", preferredStyle: UIAlertController.Style.alert)
@@ -313,8 +354,23 @@ extension LocationServicesViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 guard let theFriendFollowUID = dictionary["friendUID"] as? String else {return}
                 friendFollowUID = theFriendFollowUID
-                let liveLocationDB = FirebaseConstants.trackMeDatabase.child(friendFollowUID).child(myUID)
+                let liveLocationDB = FirebaseConstants.trackingDatabase.child(friendFollowUID).child(myUID)
                 liveLocationDB.setValue(liveLocationDictionary) { (error, ref) in
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        print("Location saved successfully")
+                    }
+                }
+                
+            }
+        }
+        FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                guard let theFriendFollowUID = dictionary["friendUID"] as? String else {return}
+                friendFollowUID = theFriendFollowUID
+                let trackMeDB = FirebaseConstants.trackMeDatabase.child(myUID).child(friendFollowUID)
+                trackMeDB.setValue(liveLocationDictionary) { (error, ref) in
                     if error != nil {
                         print(error!)
                     } else {
@@ -332,8 +388,14 @@ extension LocationServicesViewController {
     func createFriendMarker() {
         //FIND A WAY TO GET THAT SPEICIFC USERS IMAGE
         guard let myUID = Auth.auth().currentUser?.uid else {return}
+        var friendImageString: String!
+
         
-        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+        //let friendsImageView = UIImageView()
+        //friendsImage.loadImageUsingCache(urlString: friendImageString!)
+        //let friendsImage = friendsImageView.loadImageUsingCache(urlString: friendImageString)
+        
+        FirebaseConstants.trackingDatabase.child(myUID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 guard let latitude = dictionary["latitude"] as? Double else {return}
                 guard let longitude = dictionary["longitude"] as? Double else {return}
@@ -344,8 +406,108 @@ extension LocationServicesViewController {
         }
     }
     
+    func fetchFollower() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        
+        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+            let theUID = snapshot.key
+            self.searchByUID(uid: theUID)
+        }
+    }
+    
+    func searchByUID(uid: String) {
+        FirebaseConstants.userDatabase.child(uid).observe(.value) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                print(dictionary)
+                let user = Users()
+                user.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                user.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
+                print(dictionary)
+                self.users.append(user)
+                
+                DispatchQueue.main.async {
+                    self.newCollection.reloadData()
+                }
+            }
+        }
+    }
+    
+    
 
 
 }
 
+extension LocationServicesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.users.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = newCollection.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CustomTrackingCell
+        let user = users[indexPath.row]
+        cell.textLabel.text = user.nameOfUser
+        if let profileImageURL = user.profileImageURL {
+            cell.imageView.loadImageUsingCache(urlString: profileImageURL)
+        }
+        //cell.backgroundColor = .white
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 70, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+    }
+    
+    
+}
 
+
+class CustomTrackingCell: UICollectionViewCell {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpView()
+    }
+    
+    let imageView: UIImageView = {
+       let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = UIView.ContentMode.scaleAspectFill
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 25
+        image.backgroundColor = UIColor.gray
+        return image
+        
+    }()
+    
+    let textLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = NSTextAlignment.center
+        label.textColor = UIColor.black
+        label.text = "New Person"
+
+        return label
+        
+    }()
+    func setUpView() {
+        addSubview(imageView)
+        addSubview(textLabel)
+        
+        imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5).isActive = true
+        textLabel.heightAnchor.constraint(equalToConstant: 7).isActive = true
+        textLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
