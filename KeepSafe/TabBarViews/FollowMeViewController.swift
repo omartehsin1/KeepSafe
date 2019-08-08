@@ -53,6 +53,7 @@ class FollowMeViewController: UIViewController {
         NotificationCenter.default.post(name: NSNotification.Name("StartLiveLocation"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name("ShowTrackingView"), object: nil)
         
+        
 
     }
     

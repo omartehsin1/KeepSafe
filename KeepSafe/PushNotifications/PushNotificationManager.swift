@@ -89,7 +89,7 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         
         else if userInformationString == "HomePage" {
             let homePageVC : HomePageViewController = mainView.instantiateViewController(withIdentifier: "HomePage") as! HomePageViewController
-            //NotificationCenter.default.post(name: NSNotification.Name("ConfirmTrackingAlert"), object: nil)
+            
             appDelegate.window?.rootViewController = homePageVC
             appDelegate.window?.makeKeyAndVisible()
             
