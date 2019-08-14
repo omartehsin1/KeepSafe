@@ -14,6 +14,10 @@
 		0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */; };
 		0704F61C22E1053900293718 /* FirebaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61B22E1053900293718 /* FirebaseClass.swift */; };
 		0713C9E922F8E731005D49C9 /* LocationTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713C9E822F8E731005D49C9 /* LocationTrackingView.swift */; };
+		071460CC22FE289600274BCA /* GuardianView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 071460CB22FE289600274BCA /* GuardianView.xib */; };
+		071460CD22FE289600274BCA /* GuardianView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 071460CB22FE289600274BCA /* GuardianView.xib */; };
+		071460CF22FE2B2600274BCA /* GuardianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071460CE22FE2B2600274BCA /* GuardianView.swift */; };
+		071460D022FE2B2600274BCA /* GuardianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071460CE22FE2B2600274BCA /* GuardianView.swift */; };
 		0750E268226670340038201E /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E267226670340038201E /* SpinnerViewController.swift */; };
 		0750E26B226672C50038201E /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26A226672C50038201E /* AddFriendViewController.swift */; };
 		0750E26D2266AA660038201E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E26C2266AA660038201E /* Users.swift */; };
@@ -21,6 +25,8 @@
 		0750E27722695B090038201E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750E27622695B090038201E /* DetailViewController.swift */; };
 		0755E914227613D5002752E1 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E913227613D5002752E1 /* Alert.swift */; };
 		0755E91922765E20002752E1 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755E91822765E20002752E1 /* ImageExtension.swift */; };
+		075C172723049A26005EF700 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C172623049A26005EF700 /* TrackingView.swift */; };
+		075C172923049A38005EF700 /* Trackingview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075C172823049A38005EF700 /* Trackingview.xib */; };
 		077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */; };
 		07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876576226260AB001DE728 /* ProfileTableViewCell.swift */; };
 		07876579226260B9001DE728 /* ProfileItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876578226260B9001DE728 /* ProfileItems.swift */; };
@@ -85,6 +91,8 @@
 		0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
 		0704F61B22E1053900293718 /* FirebaseClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClass.swift; sourceTree = "<group>"; };
 		0713C9E822F8E731005D49C9 /* LocationTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTrackingView.swift; sourceTree = "<group>"; };
+		071460CB22FE289600274BCA /* GuardianView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianView.xib; sourceTree = "<group>"; };
+		071460CE22FE2B2600274BCA /* GuardianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianView.swift; sourceTree = "<group>"; };
 		0750E267226670340038201E /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		0750E26A226672C50038201E /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		0750E26C2266AA660038201E /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
@@ -92,6 +100,8 @@
 		0750E27622695B090038201E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0755E913227613D5002752E1 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		0755E91822765E20002752E1 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		075C172623049A26005EF700 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
+		075C172823049A38005EF700 /* Trackingview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Trackingview.xib; sourceTree = "<group>"; };
 		077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		07876576226260AB001DE728 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		07876578226260B9001DE728 /* ProfileItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItems.swift; sourceTree = "<group>"; };
@@ -229,6 +239,10 @@
 				0787658722665D78001DE728 /* LocationServicesViewController.swift */,
 				0713C9E822F8E731005D49C9 /* LocationTrackingView.swift */,
 				07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */,
+				071460CE22FE2B2600274BCA /* GuardianView.swift */,
+				075C172623049A26005EF700 /* TrackingView.swift */,
+				075C172823049A38005EF700 /* Trackingview.xib */,
+				071460CB22FE289600274BCA /* GuardianView.xib */,
 			);
 			path = LocationServices;
 			sourceTree = "<group>";
@@ -430,8 +444,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				07E30B2F2225BE7700904A45 /* LaunchScreen.storyboard in Resources */,
+				075C172923049A38005EF700 /* Trackingview.xib in Resources */,
 				07E30B472225C4B800904A45 /* GoogleService-Info.plist in Resources */,
 				07E30B2C2225BE7700904A45 /* Assets.xcassets in Resources */,
+				071460CC22FE289600274BCA /* GuardianView.xib in Resources */,
 				07E30B272225BE7500904A45 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07E30B452225C0B300904A45 /* GoogleService-Info.plist in Resources */,
+				071460CD22FE289600274BCA /* GuardianView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,8 +628,10 @@
 				0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */,
 				07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */,
 				0713C9E922F8E731005D49C9 /* LocationTrackingView.swift in Sources */,
+				075C172723049A26005EF700 /* TrackingView.swift in Sources */,
 				07B543502281F62100ED8989 /* CrimeFilterViewController.swift in Sources */,
 				0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */,
+				071460CF22FE2B2600274BCA /* GuardianView.swift in Sources */,
 				07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */,
 				07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */,
 				0755E91922765E20002752E1 /* ImageExtension.swift in Sources */,
@@ -625,6 +644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07E30B3A2225BE7800904A45 /* KeepSafeTests.swift in Sources */,
+				071460D022FE2B2600274BCA /* GuardianView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

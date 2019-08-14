@@ -30,49 +30,8 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var coordinateLoc: CLLocationCoordinate2D!
     var theLocations : CLLocation?
     var profileImageURL: String = "defaultUser"
-    let myCircleTrackingView = UIView()
-    let guardianTrackingView = UIView()
-    
-    
-    let cellId = "cellId"
-    var users = [Users]()
-    
-    let newCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
-        collection.backgroundColor = UIColor.white
-        collection.alpha = 0.7
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.isScrollEnabled = true
-        
-        return collection
-    }()
-    
-    let stopButton: UIButton = {
-       let theButton = UIButton(frame: CGRect(x: 5, y: 5, width: 70, height: 70))
-        theButton.backgroundColor = UIColor.green
-        theButton.setTitle("Stop", for: .normal)
-        theButton.layer.cornerRadius = 35
-        theButton.layer.masksToBounds = true
-        theButton.addTarget(self, action: #selector(stopPressed), for: .touchUpInside)
-        return theButton
-    }()
-    let wolfNameLabel: UILabel = {
-       let theNameLabel = UILabel(frame: CGRect(x: 30, y: 10, width: 50, height: 50))
-        theNameLabel.textAlignment = NSTextAlignment.center
-        theNameLabel.text = "I'm a test"
-        theNameLabel.textColor = UIColor.green
-        return theNameLabel
-    }()
-    let theWolfLocationLabel: UILabel = {
-        let theLocationLabel = UILabel(frame: CGRect(x: 10, y: 10, width: 40, height: 40))
-        theLocationLabel.textAlignment = NSTextAlignment.left
-        theLocationLabel.text = "Location Text label"
-        theLocationLabel.textColor = UIColor.cyan
-        theLocationLabel.translatesAutoresizingMaskIntoConstraints = false
-        return theLocationLabel
-    }()
+    let myCircleTrackingView = TrackingView()
+    let guardianTrackingView = GuardianView()
     
 
     override func viewDidLoad() {
@@ -81,9 +40,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
-        
-        
-
+    
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -107,11 +64,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 
         createButton()
         notificationCenter()
-        
-        newCollection.delegate = self
-        newCollection.dataSource = self
-        newCollection.register(CustomTrackingCell.self, forCellWithReuseIdentifier: cellId)
-        
+
         //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -119,25 +72,15 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         myCircleTrackingViewBar()
         guardianTrackingViewBar()
     }
-    @objc func stopPressed() {
-        guard let myUID = Auth.auth().currentUser?.uid else {return}
-        FirebaseConstants.selectedDatabase.child(myUID).removeValue()
-        FirebaseConstants.trackMeDatabase.child(myUID).removeValue()
-        newCollection.reloadData()
-    }
     
     func myCircleTrackingViewBar() {
         
         guard let navY = navigationController?.navigationBar.frame.height else {return}
         
         myCircleTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
-        myCircleTrackingView.backgroundColor = UIColor.clear
-        myCircleTrackingView.addSubview(newCollection)
-        myCircleTrackingView.addSubview(stopButton)
+        myCircleTrackingView.backgroundColor = UIColor.white
+        myCircleTrackingView.alpha = 0.7
         view.addSubview(myCircleTrackingView)
-        
-        setUpCollection()
-        fetchFollower()
     }
     
     func guardianTrackingViewBar() {
@@ -145,21 +88,9 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         guardianTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
         guardianTrackingView.backgroundColor = UIColor.white
         guardianTrackingView.alpha = 0.7
-        guardianTrackingView.addSubview(theWolfLocationLabel)
         view.addSubview(guardianTrackingView)
     }
     
-    func setUpCollection() {
-        newCollection.centerXAnchor.constraint(equalTo: myCircleTrackingView.centerXAnchor, constant: 80).isActive = true
-        newCollection.centerYAnchor.constraint(equalTo: myCircleTrackingView.centerYAnchor).isActive = true
-        newCollection.heightAnchor.constraint(equalToConstant: myCircleTrackingView.frame.height).isActive = true
-        newCollection.widthAnchor.constraint(equalToConstant: myCircleTrackingView.frame.width).isActive = true
-        
-        stopButton.centerXAnchor.constraint(equalTo: myCircleTrackingView.centerXAnchor).isActive = true
-        stopButton.centerYAnchor.constraint(equalTo: myCircleTrackingView.centerYAnchor).isActive = true
-        stopButton.heightAnchor.constraint(equalToConstant: myCircleTrackingView.frame.height).isActive = true
-        stopButton.widthAnchor.constraint(equalToConstant: myCircleTrackingView.frame.width).isActive = true
-    }
 
     
     @IBAction func logoutBtnPressed(_ sender: Any) {
@@ -236,7 +167,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     }
     @objc func anotherButtonPressed() {
         NotificationCenter.default.post(name: NSNotification.Name("ShowGuardianView"), object: nil)
-        printGeoCodeLocation()
+        wolfReverseGeocode()
         
     }
     @objc func sosPressed() {
@@ -353,7 +284,6 @@ extension LocationServicesViewController {
     
     @objc func showTrackingView() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-        //if selected database child key is myUID, show who's following me
         FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
             if myUID == snapshot.key {
                     self.myCircleTrackingView.isHidden = false
@@ -390,11 +320,12 @@ extension LocationServicesViewController {
 //            print("Cancel Pressed")
 //        }
 //        alertController.addAction(okAction)
+        
         alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
-
-            //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
-            //NotificationCenter.default.addObserver(self, selector: #selector(self.startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
-  
+//
+//            //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
+//            NotificationCenter.default.addObserver(self, selector: #selector(self.startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
+//  
         }))
         
 
@@ -464,138 +395,35 @@ extension LocationServicesViewController {
             }
         }
     }
-    func printGeoCodeLocation() {
+    func wolfReverseGeocode() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         let geocoder = GMSGeocoder()
-//        print("Hello there!")
         FirebaseConstants.trackingDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+            FirebaseConstants.userDatabase.child(snapshot.key).observe(.value, with: { (snap) in
+                if let dictionary = snap.value as? [String: AnyObject] {
+                    guard let wolfName = dictionary["nameOfUser"] as? String else {return}
+                    guard let wolfImage = dictionary["profileImageURL"] as? String else {return}
+                    
+                    self.guardianTrackingView.nameLabel.text = wolfName
+                    self.guardianTrackingView.userImageView.loadImageUsingCache(urlString: wolfImage)
+                    
+                }
+            })
+            
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 guard let latitude = dictionary["latitude"] as? Double else {return}
                 guard let longitude = dictionary["longitude"] as? Double else {return}
                 let friendsLocation = CLLocationCoordinate2DMake(latitude, longitude)
-                print("dictionar is: \(dictionary)")
                 
                 geocoder.reverseGeocodeCoordinate(friendsLocation, completionHandler: { (response, error) in
                     if let address = response?.firstResult() {
                         guard let lines = address.lines else {return}
                         let completeAdress = lines.joined(separator: " ")
-                        print(completeAdress)
-                        self.theWolfLocationLabel.text = completeAdress
+                        self.guardianTrackingView.locationLabel.text = completeAdress
                     }
                 })
             }
         }
     }
-    
-    func fetchFollower() {
-        guard let myUID = Auth.auth().currentUser?.uid else {return}
-        
-        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
-            let theUID = snapshot.key
-            self.searchByUID(uid: theUID)
-        }
-    }
-    
-    func searchByUID(uid: String) {
-        FirebaseConstants.userDatabase.child(uid).observe(.value) { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                print(dictionary)
-                let user = Users()
-                user.nameOfUser = dictionary["nameOfUser"] as? String ?? ""
-                user.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
-                print(dictionary)
-                self.users.append(user)
-                
-                DispatchQueue.main.async {
-                    self.newCollection.reloadData()
-                }
-            }
-        }
-    }
-    
-    
 
-
-}
-
-extension LocationServicesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.users.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = newCollection.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CustomTrackingCell
-        let user = users[indexPath.row]
-        cell.textLabel.text = user.nameOfUser
-        if let profileImageURL = user.profileImageURL {
-            cell.imageView.loadImageUsingCache(urlString: profileImageURL)
-        }
-        //cell.backgroundColor = .white
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-    }
-    
-    
-}
-
-
-class CustomTrackingCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpView()
-    }
-    
-    let imageView: UIImageView = {
-       let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = UIView.ContentMode.scaleAspectFill
-        image.clipsToBounds = true
-        image.layer.cornerRadius = 25
-        image.backgroundColor = UIColor.gray
-        return image
-        
-    }()
-    
-    let textLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = NSTextAlignment.center
-        label.textColor = UIColor.black
-        label.text = "New Person"
-
-        return label
-        
-    }()
-    
-//    let button: UIButton = {
-//        let stopButton = UIButton()
-//        stopButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//        return stopButton
-//    }()
-    func setUpView() {
-        addSubview(imageView)
-        addSubview(textLabel)
-        
-        imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        
-        textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5).isActive = true
-        textLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        textLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
-    }
-    
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

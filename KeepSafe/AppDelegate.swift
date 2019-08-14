@@ -26,33 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = viewController
             self.window?.makeKeyAndVisible()
         }
-        //        else {
-        //            let viewController : WelcomeViewController = mainView.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-        //            self.window?.rootViewController = viewController
-        //            self.window?.makeKeyAndVisible()
-        //        }
-        //notificationFunc()
+
         IQKeyboardManager.shared.enable = true
         return true
     }
-//    func notificationFunc() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(openMessages(_:)), name: NSNotification.Name.init(rawValue: "OpenMessage"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(openFriendRequest(_:)), name: NSNotification.Name.init(rawValue: "OpenFriendRequest"), object: nil)
-//    }
-//    @objc func openMessages(_ notification: Notification) {
-//    
-//        let mainView = UIStoryboard(name: "Main", bundle: nil)
-//        let friendChatViewController: FriendsChatViewController = mainView.instantiateViewController(withIdentifier: "FriendChatViewController") as! FriendsChatViewController
-//        let friendMessageVC : FriendMessageCollectionViewController = mainView.instantiateViewController(withIdentifier: "friendMessageCollectionViewController") as! FriendMessageCollectionViewController
-//        //self.window?.rootViewController = friendChatViewController
-//        //let rootViewController = self.window?.rootViewController as! UINavigationController
-//       self.window?.rootViewController = friendMessageVC //self.window?.rootViewController?.navigationController?.pushViewController(friendMessageVC, animated: true)
-//        //rootViewController.pushViewController(friendMessageVC, animated: true)
-//        
-//    }
-//    @objc func openFriendRequest(_ notification: Notification) {
-//        
-//    }
+
     
     
     
