@@ -32,6 +32,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var profileImageURL: String = "defaultUser"
     let myCircleTrackingView = TrackingView()
     let guardianTrackingView = GuardianView()
+    var friendsUID : String?
     
 
     override func viewDidLoad() {
@@ -73,13 +74,12 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         guardianTrackingViewBar()
     }
     
+    
     func myCircleTrackingViewBar() {
         
         guard let navY = navigationController?.navigationBar.frame.height else {return}
         
         myCircleTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
-        myCircleTrackingView.backgroundColor = UIColor.white
-        myCircleTrackingView.alpha = 0.7
         view.addSubview(myCircleTrackingView)
     }
     
@@ -108,8 +108,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     @IBAction func sideMenuBtnTapped(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name("ToggleSideMenu"), object: nil)
     }
-    
-
     
     func markerCreater(location: CLLocationCoordinate2D, title: String, image: String) -> GMSMarker {
         let marker = GMSMarker(position: location)
@@ -154,22 +152,9 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         SOSButton.backgroundColor = .orange
         SOSButton.setTitle("SOS", for: .normal)
         SOSButton.addTarget(self, action: #selector(sosPressed), for: .touchUpInside)
-        
-        let anotherButton = UIButton(frame: CGRect(x: 100, y: 400, width: 50, height: 50))
-        anotherButton.layer.cornerRadius = 25
-        anotherButton.layer.masksToBounds = true
-        anotherButton.backgroundColor = .blue
-        anotherButton.setTitle("Guardian", for: .normal)
-        anotherButton.addTarget(self, action: #selector(anotherButtonPressed), for: .touchUpInside)
-
         self.view.addSubview(SOSButton)
-        self.view.addSubview(anotherButton)
     }
-    @objc func anotherButtonPressed() {
-        NotificationCenter.default.post(name: NSNotification.Name("ShowGuardianView"), object: nil)
-        wolfReverseGeocode()
-        
-    }
+
     @objc func sosPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         guard let myEmail = Auth.auth().currentUser?.email else {return}
@@ -234,19 +219,11 @@ extension LocationServicesViewController: PassCoordinatesBack {
         }
         for crimeCoordinates in coordinates {
             _ = self.markerCreater(location: crimeCoordinates, title: theDate, image: kindofCrime)
-
-
         }
-        
-        
     }
-
-    
 }
 
 extension LocationServicesViewController {
-
-    
     func notificationCenter(){
         NotificationCenter.default.addObserver(self, selector: #selector(showProfile), name: NSNotification.Name("ShowProfile"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showMessages), name: NSNotification.Name("ShowMessages"), object: nil)
@@ -256,7 +233,6 @@ extension LocationServicesViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(showGuardianView), name: NSNotification.Name("ShowGuardianView"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
 
     }
     
@@ -300,88 +276,81 @@ extension LocationServicesViewController {
                 print("error!")
                 
             } else {
-                print(snapshot)
-                print("myUID: \(myUID)")
-                print("snapshot.key: \(snapshot.key)")
                 self.guardianTrackingView.isHidden = false
             }
-//            for uid in snapshot.children {
-//                let uidKey = uid as! DataSnapshot
-//                print("uidKey is: \(uidKey.key)")
-//
-//            }
-            
         }
     }
+
     
     @objc func confirmTrackingAlert() {
         let alertController = UIAlertController(title: "Track Location ", message: "User wants to share their location", preferredStyle: UIAlertController.Style.alert)
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-//            print("Cancel Pressed")
-//        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            print("Cancel Pressed")
+        }
 //        alertController.addAction(okAction)
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        guard let latitude = theLocations?.coordinate.latitude else {return}
+        guard let longitude = theLocations?.coordinate.longitude else {return}
+        //var friendFollowUID : String!
+        let timestamp = ServerValue.timestamp()
         
-        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
-//
-//            //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
-//            NotificationCenter.default.addObserver(self, selector: #selector(self.startLiveLocation), name: NSNotification.Name("StartLiveLocation"), object: nil)
-//  
-        }))
-        
+        let liveLocationDictionary :NSDictionary = ["latitude": latitude, "longitude": longitude, "timestamp": timestamp]
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { (action) in
+            
+            FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    print("dictionary is: \(dictionary)")
+                    guard let theFriendFollowUID = dictionary["myUID"] as? String else {return}
+                    //friendFollowUID = theFriendFollowUID
+                    let liveLocationDB = FirebaseConstants.trackingDatabase.child(theFriendFollowUID).child(myUID)
+                    liveLocationDB.setValue(liveLocationDictionary) { (error, ref) in
+                        if error != nil {
+                            print(error!)
+                        } else {
+                            print("Location saved successfully")
+                        }
+                    }
+                    
+                }
+            }
+            FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    print("dictionary is: \(dictionary)")
+                    guard let theFriendFollowUID = dictionary["myUID"] as? String else {return}
+                    //friendFollowUID = theFriendFollowUID
+                    let trackMeDB = FirebaseConstants.trackMeDatabase.child(myUID).child(theFriendFollowUID)
+                    trackMeDB.setValue(liveLocationDictionary) { (error, ref) in
+                        if error != nil {
+                            print(error!)
+                        } else {
+                            print("Location saved successfully")
+                        }
+                    }
+                    
+                }
+            }
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: NSNotification.Name("ShowGuardianView"), object: nil)
+            }
+            
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
 
         self.present(alertController, animated: true, completion: nil)
     }
     
-
-    @objc func startLiveLocation() {
-        guard let myUID = Auth.auth().currentUser?.uid else {return}
-        guard let latitude = theLocations?.coordinate.latitude else {return}
-        guard let longitude = theLocations?.coordinate.longitude else {return}
-        var friendFollowUID : String!
-        let timestamp = ServerValue.timestamp()
-        
-        let liveLocationDictionary :NSDictionary = ["latitude": latitude, "longitude": longitude, "timestamp": timestamp]
-        
-        FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                guard let theFriendFollowUID = dictionary["friendUID"] as? String else {return}
-                friendFollowUID = theFriendFollowUID
-                let liveLocationDB = FirebaseConstants.trackingDatabase.child(friendFollowUID).child(myUID)
-                liveLocationDB.setValue(liveLocationDictionary) { (error, ref) in
-                    if error != nil {
-                        print(error!)
-                    } else {
-                        print("Location saved successfully")
-                    }
-                }
-                
-            }
-        }
-        FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                guard let theFriendFollowUID = dictionary["friendUID"] as? String else {return}
-                friendFollowUID = theFriendFollowUID
-                let trackMeDB = FirebaseConstants.trackMeDatabase.child(myUID).child(friendFollowUID)
-                trackMeDB.setValue(liveLocationDictionary) { (error, ref) in
-                    if error != nil {
-                        print(error!)
-                    } else {
-                        print("Location saved successfully")
-                    }
-                }
-                
-            }
-        }
-        
-        
-    }
 
     
     func createFriendMarker() {
         //FIND A WAY TO GET THAT SPEICIFC USERS IMAGE
         guard let myUID = Auth.auth().currentUser?.uid else {return}
 
-        FirebaseConstants.trackingDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 guard let latitude = dictionary["latitude"] as? Double else {return}
                 guard let longitude = dictionary["longitude"] as? Double else {return}
@@ -395,35 +364,7 @@ extension LocationServicesViewController {
             }
         }
     }
-    func wolfReverseGeocode() {
-        guard let myUID = Auth.auth().currentUser?.uid else {return}
-        let geocoder = GMSGeocoder()
-        FirebaseConstants.trackingDatabase.child(myUID).observe(.childAdded) { (snapshot) in
-            FirebaseConstants.userDatabase.child(snapshot.key).observe(.value, with: { (snap) in
-                if let dictionary = snap.value as? [String: AnyObject] {
-                    guard let wolfName = dictionary["nameOfUser"] as? String else {return}
-                    guard let wolfImage = dictionary["profileImageURL"] as? String else {return}
-                    
-                    self.guardianTrackingView.nameLabel.text = wolfName
-                    self.guardianTrackingView.userImageView.loadImageUsingCache(urlString: wolfImage)
-                    
-                }
-            })
-            
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                guard let latitude = dictionary["latitude"] as? Double else {return}
-                guard let longitude = dictionary["longitude"] as? Double else {return}
-                let friendsLocation = CLLocationCoordinate2DMake(latitude, longitude)
-                
-                geocoder.reverseGeocodeCoordinate(friendsLocation, completionHandler: { (response, error) in
-                    if let address = response?.firstResult() {
-                        guard let lines = address.lines else {return}
-                        let completeAdress = lines.joined(separator: " ")
-                        self.guardianTrackingView.locationLabel.text = completeAdress
-                    }
-                })
-            }
-        }
-    }
+
 
 }
+

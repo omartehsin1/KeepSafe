@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import GoogleMaps
+import GooglePlaces
 
 class GuardianView: UIView {
     @IBOutlet var contentView: UIView!
@@ -15,11 +19,15 @@ class GuardianView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var turnOffButton: UIButton!
+    var users = [Users]()
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
+        GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
+        GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
+        fetchWolf()
         
     }
     required init?(coder aDecoder: NSCoder) {
@@ -32,5 +40,37 @@ class GuardianView: UIView {
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
+    func fetchWolf() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        let geocoder = GMSGeocoder()
+        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+            
+            FirebaseConstants.userDatabase.child(snapshot.key).observe(.value, with: { (snap) in
+                if let dictionary = snap.value as? [String: AnyObject] {
+                    guard let wolfName = dictionary["nameOfUser"] as? String else {return}
+                    guard let wolfImage = dictionary["profileImageURL"] as? String else {return}
+
+                    self.nameLabel.text = wolfName
+                    self.userImageView.loadImageUsingCache(urlString: wolfImage)
+
+                }
+            })
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                guard let latitude = dictionary["latitude"] as? Double else {return}
+                guard let longitude = dictionary["longitude"] as? Double else {return}
+                let friendsLocation = CLLocationCoordinate2DMake(latitude, longitude)
+                
+                geocoder.reverseGeocodeCoordinate(friendsLocation, completionHandler: { (response, error) in
+                    if let address = response?.firstResult() {
+                        guard let lines = address.lines else {return}
+                        let completeAdress = lines.joined(separator: " ")
+                        self.locationLabel.text = completeAdress
+                    }
+                })
+            }
+        }
+    }
+    
 
 }

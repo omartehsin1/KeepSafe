@@ -42,9 +42,10 @@ class TrackingView: UIView {
     }
     func fetchFollower() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-        FirebaseConstants.trackMeDatabase.child(myUID).observe(.childAdded) { (snapshot) in
+        FirebaseConstants.trackingDatabase.child(myUID).observe(.childAdded) { (snapshot) in
             let theUID = snapshot.key
             self.searchByUID(uid: theUID)
+            self.friendCollectionView.reloadData()
         }
     }
     
@@ -67,8 +68,9 @@ class TrackingView: UIView {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         FirebaseConstants.selectedDatabase.child(myUID).removeValue()
         FirebaseConstants.trackMeDatabase.child(myUID).removeValue()
-        
+        contentView.isHidden = true
         friendCollectionView.reloadData()
+        //fetchFollower()
     }
     
 }

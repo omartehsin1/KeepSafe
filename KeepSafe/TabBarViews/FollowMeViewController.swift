@@ -40,6 +40,7 @@ class FollowMeViewController: UIViewController {
     
     @IBAction func followBTNPressed(_ sender: Any) {
         let sender = PushNotificationSender()
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
         
         let usersRef = Firestore.firestore().collection("users_table").document(friendUID)
         guard let theEmail = Auth.auth().currentUser?.email else {return}
@@ -50,14 +51,10 @@ class FollowMeViewController: UIViewController {
             sender.sendPushNotification(to: theToken, title: "Follow Them", body: "\(theEmail) would like to share their live location with you", vc: "HomePage")
         }
         tabBarController?.selectedIndex = 0
-        NotificationCenter.default.post(name: NSNotification.Name("StartLiveLocation"), object: nil)
+//        NotificationCenter.default.post(name: NSNotification.Name("StartLiveLocation"), object: nil)
+        //NotificationCenter.default.post(name: NSNotification.Name("ConfirmTrackingAlert"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name("ShowTrackingView"), object: nil)
-        
-        
-
     }
-    
-    
     
     func fetchFriends() {
 
@@ -120,7 +117,7 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
         friendUID = myFriends[indexPath.row].userID
         
         let selectedIndexPath = collectionView.indexPathsForSelectedItems
-        print(selectedIndexPath)
+        
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         
         myFriendCell = collectionView.cellForItem(at: indexPath) as! FriendCollectionViewCell
@@ -128,10 +125,10 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
         myFriendCell.layer.borderColor = UIColor.gray.cgColor
         
         followBTN.isEnabled = true
-        let selectedDictionary: NSDictionary = ["requestType": "sent", "friendUID": friendUID]
+        let selectedDictionary: NSDictionary = ["requestType": "sent", "myUID": myUID]
         
         if myFriendCell.isSelected == true {
-            selectedDB.child(myUID).setValue(selectedDictionary) { (error, ref) in
+            selectedDB.child(friendUID).setValue(selectedDictionary) { (error, ref) in
                 if error != nil {
                     print(error!)
                 } else {
@@ -139,20 +136,6 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             }
         }
-        
-        //        if (currentState == "notSelected") {
-        //            selectedDB.child(myUID).setValue(selectedDictionary) { (error, ref) in
-        //                if error != nil {
-        //                    print(error!)
-        //                } else {
-        //                    self.currentState = "reqSent"
-        //                }
-        //            }
-        //        }
-        //        if (currentState == "reqSent") {
-        //            followBTN.addTarget(self, action: #selector(followButtonPressed), for: .touchUpInside)
-        //
-        //        }
         
     }
     
