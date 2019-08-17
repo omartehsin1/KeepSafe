@@ -23,17 +23,11 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var latitude : CLLocationDegrees?
     var longitude : CLLocationDegrees?
     var crimeLocation = [CLLocationCoordinate2D]()
-    var friendDataBase = FirebaseConstants.friendDataBase
-    var SOSDatabase = FirebaseConstants.SOSDatabase
-    var friendsUIDArray = [String]()
     var sideMenuOpen = false
     var coordinateLoc: CLLocationCoordinate2D!
     var theLocations : CLLocation?
-    var profileImageURL: String = "defaultUser"
     let myCircleTrackingView = TrackingView()
     let guardianTrackingView = GuardianView()
-    var friendsUID : String?
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +55,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         myCircleTrackingView.isHidden = true
         guardianTrackingView.isHidden = true
 
-        createButton()
         notificationCenter()
 
         //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
@@ -82,8 +75,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     func guardianTrackingViewBar() {
         guard let navY = navigationController?.navigationBar.frame.height else {return}
         guardianTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
-        //guardianTrackingView.backgroundColor = UIColor.white
-        //guardianTrackingView.alpha = 0.7
         view.addSubview(guardianTrackingView)
     }
     @IBAction func logoutBtnPressed(_ sender: Any) {
@@ -135,43 +126,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         cameraVC = self.storyboard?.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
         self.navigationController?.pushViewController(cameraVC, animated: true)
     }
-    
-    func createButton() {
-        let SOSButton = UIButton(frame: CGRect(x: 150, y: 490, width: 107, height: 100))
-        SOSButton.layer.cornerRadius = 50
-        SOSButton.layer.masksToBounds = true
-        SOSButton.backgroundColor = .orange
-        SOSButton.setTitle("SOS", for: .normal)
-        SOSButton.addTarget(self, action: #selector(sosPressed), for: .touchUpInside)
-        self.view.addSubview(SOSButton)
-    }
 
-    @objc func sosPressed() {
-        guard let myUID = Auth.auth().currentUser?.uid else {return}
-        guard let myEmail = Auth.auth().currentUser?.email else {return}
-
-        friendDataBase.child(myUID).observe(.value) { (snapshot) in
-            for friendsUID in snapshot.children.allObjects as! [DataSnapshot] {
-                if let dictionary = friendsUID.value as? [String: AnyObject] {
-                    
-                    let uid = dictionary["UID"] as? String ?? ""
-                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
-                    self.friendsUIDArray.append(uid)
-                    
-                    
-                    //self.tappedSOSButtonDelegate.didTapSOSButton(friendID: self.friendsUIDArray)
-                    let SOSMessageDictionary: NSDictionary = ["sender": myEmail, "SOSMessage": "SOS PLEASE HELP!", "toID": uid, "nameOfUser": nameOfUser]
-                    self.SOSDatabase.childByAutoId().setValue(SOSMessageDictionary, withCompletionBlock: { (error, ref) in
-                        if error != nil {
-                            print(error)
-                        } else {
-                            print("SOS Sent Successfull \(uid)")
-                        }
-                    })
-                }
-            }
-        }
-    }
     @objc func buttonAction() {
         //performSegue(withIdentifier: "showCrimeFilter", sender: self)
         let crimeVC = storyboard?.instantiateViewController(withIdentifier: "CrimeFilter") as! CrimeFilterViewController

@@ -103,8 +103,6 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
             
         }
         
-        
-        
         //cell.message = message
         
         

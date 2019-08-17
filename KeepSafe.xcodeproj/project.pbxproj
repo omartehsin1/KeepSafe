@@ -39,6 +39,7 @@
 		07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B62260F7A90072D1BC /* HomePageViewController.swift */; };
 		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
 		07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04BA226172A30072D1BC /* MenuItems.swift */; };
+		07D468152308714D00C70A0D /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468142308714C00C70A0D /* CustomTabBarViewController.swift */; };
 		07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */; };
 		07DAE5D722EB73C800BBFA7D /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */; };
 		07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B212225BE7500904A45 /* AppDelegate.swift */; };
@@ -114,6 +115,7 @@
 		07CC04B62260F7A90072D1BC /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		07CC04B8226153230072D1BC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		07CC04BA226172A30072D1BC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
+		07D468142308714C00C70A0D /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
 		07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepSafe.entitlements; sourceTree = "<group>"; };
 		07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				0704F61522DD3BF800293718 /* FollowMeViewController.swift */,
 				0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */,
 				0704F61722DD3C1A00293718 /* CheckInViewController.swift */,
+				07D468142308714C00C70A0D /* CustomTabBarViewController.swift */,
 			);
 			path = TabBarViews;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				0750E26F226775340038201E /* YourCircleViewController.swift in Sources */,
 				0750E26D2266AA660038201E /* Users.swift in Sources */,
 				0704F61C22E1053900293718 /* FirebaseClass.swift in Sources */,
+				07D468152308714D00C70A0D /* CustomTabBarViewController.swift in Sources */,
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
 				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
 				0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */,

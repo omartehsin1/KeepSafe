@@ -1147,6 +1147,22 @@
             </objects>
             <point key="canvasLocation" x="3589" y="509"/>
         </scene>
+        <!--Crime-->
+        <scene sceneID="zUa-3O-dg8">
+            <objects>
+                <viewController id="DUD-yd-vQv" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HDN-bj-YPS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="eoV-5G-q93"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Crime" image="Robbery" id="zzU-FM-YrL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="val-Fd-vbW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4436" y="517"/>
+        </scene>
         <!--Map-->
         <scene sceneID="rn6-JM-qas">
             <objects>
@@ -1166,10 +1182,10 @@
             </objects>
             <point key="canvasLocation" x="800.79999999999995" y="484.40779610194909"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Custom Tab Bar View Controller-->
         <scene sceneID="xb3-dn-H8A">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="4ne-8V-qRx" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="4ne-8V-qRx" customClass="CustomTabBarViewController" customModule="KeepSafe" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FSw-yI-bLv">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1180,6 +1196,7 @@
                         <segue destination="rlC-T5-X2d" kind="relationship" relationship="viewControllers" id="Iue-5g-p5d"/>
                         <segue destination="L7b-Ih-odG" kind="relationship" relationship="viewControllers" id="Sa2-WP-WuH"/>
                         <segue destination="YvC-2G-rqt" kind="relationship" relationship="viewControllers" id="Wi8-dL-vcn"/>
+                        <segue destination="DUD-yd-vQv" kind="relationship" relationship="viewControllers" id="T0d-vm-V8s"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F5A-eO-l8q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1188,6 +1205,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Robbery" width="30" height="30"/>
         <image name="checkIn" width="30" height="30"/>
         <image name="defaultUser" width="300" height="300"/>
         <image name="follow" width="30" height="30"/>
