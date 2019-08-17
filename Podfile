@@ -25,6 +25,7 @@ pod 'Alamofire', '~> 4.5'
 pod "FlagPhoneNumber"
 pod 'CameraManager', '~> 4.4'
 pod 'IQKeyboardManagerSwift'
+pod 'MessageKit'
 
   target 'KeepSafeTests' do
     inherit! :search_paths

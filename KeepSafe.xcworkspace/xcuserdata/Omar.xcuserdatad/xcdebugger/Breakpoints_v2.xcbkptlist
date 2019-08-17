@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/LocationServices/LocationServicesViewController.swift"
-            timestampString = "587758178.046461"
+            timestampString = "587758509.612515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
             landmarkName = "alertWolf()"
             landmarkType = "7">
          </BreakpointContent>

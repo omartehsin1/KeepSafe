@@ -64,9 +64,6 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
             navigationItem.title = messagesArray[indexPath.row].recepient
         }
         
-        
-        
-        
         if let messageText = messagesArray[indexPath.item].messageBody {
             //, profileImageName = messagesArray[indexPath.item].profileimage(or we)
             //cell.profileImageView.image = UIImage(named: "defaultUser")
@@ -95,25 +92,14 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
                         }
                     }
                 }
-                
-                
-                
             }
-            
-            
         }
         
         //cell.message = message
-        
-        
         return cell
     }
-    
-    
     func retrieveChat() {
         //var messagesDictionary = [String: Message]()
-        
-        
         messageDB.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let message = Message()
