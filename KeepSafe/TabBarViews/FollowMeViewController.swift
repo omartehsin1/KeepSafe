@@ -37,6 +37,7 @@ class FollowMeViewController: UIViewController {
         super.viewDidLoad()
 
     }
+
     
     @IBAction func followBTNPressed(_ sender: Any) {
         let sender = PushNotificationSender()
@@ -79,10 +80,22 @@ class FollowMeViewController: UIViewController {
 
             }
         }
-        
-        
-        
-        
+    }
+    func alertWolf() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        FirebaseConstants.trackMeDatabase.child(myUID).observe(.value) { (snapshot) in
+            print("Snapshot key is: \(snapshot.key)")
+//            print("Snapshot key is: \(snapshot.key)")
+//            if myUID == snapshot.key {
+//                let alertController = UIAlertController(title: "Accepted", message: "User has accepted your Follow Me Request", preferredStyle: UIAlertController.Style.alert)
+//                let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { (action) in
+//                    print("Ok")
+//                }
+//                alertController.addAction(okAction)
+//                self.present(alertController, animated: true, completion: nil)
+//            }
+
+        }
     }
     func bannerForTracking() {
         let locationServiceVC = LocationServicesViewController()
@@ -90,11 +103,7 @@ class FollowMeViewController: UIViewController {
             locationServiceVC.myCircleTrackingView.isHidden = false
         }
     }
-
-
 }
-
-
 extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return myFriends.count
@@ -136,7 +145,6 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             }
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -147,6 +155,4 @@ extension FollowMeViewController: UICollectionViewDelegate, UICollectionViewData
         myFriendCell.layer.borderColor = nil
         
     }
-    
-    
 }

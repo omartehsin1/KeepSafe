@@ -19,6 +19,9 @@ struct Alert {
         
     }
     
+    static func showTrackingConfirmation(on vc: UIViewController) {
+        showBasicAction(on: vc, with: "Accepted", message: "User has accepted your Follow Me Request")
+    }
     
     static func showUnfriendConfirmationAlert(on vc: UIViewController) {
         showBasicAction(on: vc, with: "Unfriend User", message: "Are you sure you want to unfriend this user?")

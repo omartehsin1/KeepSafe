@@ -37,7 +37,6 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //createTabBarController()
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -49,8 +48,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         }
 
         GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
-        GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
-        
+    GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
         
         let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
 
@@ -76,9 +74,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
     
     func myCircleTrackingViewBar() {
-        
         guard let navY = navigationController?.navigationBar.frame.height else {return}
-        
         myCircleTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
         view.addSubview(myCircleTrackingView)
     }
@@ -86,13 +82,10 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     func guardianTrackingViewBar() {
         guard let navY = navigationController?.navigationBar.frame.height else {return}
         guardianTrackingView.frame = CGRect(x: 0, y: navY, width: UIScreen.main.bounds.width, height: 100)
-        guardianTrackingView.backgroundColor = UIColor.white
-        guardianTrackingView.alpha = 0.7
+        //guardianTrackingView.backgroundColor = UIColor.white
+        //guardianTrackingView.alpha = 0.7
         view.addSubview(guardianTrackingView)
     }
-    
-
-    
     @IBAction func logoutBtnPressed(_ sender: Any) {
         do {
             try Auth.auth().signOut()
@@ -136,14 +129,12 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         let cameraButton = UIBarButtonItem(title: "Camera", style: .plain, target: self, action: #selector(openCamera))
         self.navigationItem.rightBarButtonItem = cameraButton
     }
+    
     @objc func openCamera() {
-        
         var cameraVC = CameraViewController()
         cameraVC = self.storyboard?.instantiateViewController(withIdentifier: "CameraViewController") as! CameraViewController
         self.navigationController?.pushViewController(cameraVC, animated: true)
-        
     }
-    
     
     func createButton() {
         let SOSButton = UIButton(frame: CGRect(x: 150, y: 490, width: 107, height: 100))
@@ -177,17 +168,10 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
                             print("SOS Sent Successfull \(uid)")
                         }
                     })
-                    
                 }
-                
             }
-
-
         }
-
     }
-    
-
     @objc func buttonAction() {
         //performSegue(withIdentifier: "showCrimeFilter", sender: self)
         let crimeVC = storyboard?.instantiateViewController(withIdentifier: "CrimeFilter") as! CrimeFilterViewController
@@ -231,6 +215,9 @@ extension LocationServicesViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(confirmTrackingAlert), name: NSNotification.Name("ConfirmTrackingAlert"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showTrackingView), name: NSNotification.Name("ShowTrackingView"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showGuardianView), name: NSNotification.Name("ShowGuardianView"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(alertWolf), name: NSNotification.Name(rawValue: "AlertWolf"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(confirmStopFollowingMe), name: NSNotification.Name(rawValue: "ConfirmStopFollowingMe"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(confirmStopTracking), name: NSNotification.Name(rawValue: "ConfirmStopTracking"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
 
@@ -260,9 +247,29 @@ extension LocationServicesViewController {
     
     @objc func showTrackingView() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
-        FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
+        FirebaseConstants.trackingDatabase.child(myUID).observe(.value) { (snapshot) in
+//            if let dictionary = snapshot.value as? [String : AnyObject] {
+//                print(dictionary)
+//                guard let status = dictionary["status"] as? String else {return}
+//                print(status)
+//                if status == "tracking" {
+//                    self.myCircleTrackingView.isHidden = false
+//                    Alert.showTrackingConfirmation(on: self)
+//                }
+//            }
             if myUID == snapshot.key {
-                    self.myCircleTrackingView.isHidden = false
+                //print(snapshot.key)
+                self.myCircleTrackingView.isHidden = false
+                //Alert.showTrackingConfirmation(on: self)
+//                if let dictionary = snapshot.value as? [String: AnyObject] {
+//                    print("the dictionary is: \(dictionary)")
+//                    guard let status = dictionary["status"] as? String else {return}
+//                    print(status)
+//                    if status == "tracking" {
+//                        self.myCircleTrackingView.isHidden = false
+//                        Alert.showTrackingConfirmation(on: self)
+//                    }
+//                }
             }
         }
         
@@ -285,18 +292,17 @@ extension LocationServicesViewController {
     @objc func confirmTrackingAlert() {
         let alertController = UIAlertController(title: "Track Location ", message: "User wants to share their location", preferredStyle: UIAlertController.Style.alert)
         
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             print("Cancel Pressed")
         }
-//        alertController.addAction(okAction)
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         guard let latitude = theLocations?.coordinate.latitude else {return}
         guard let longitude = theLocations?.coordinate.longitude else {return}
-        //var friendFollowUID : String!
+        
         let timestamp = ServerValue.timestamp()
         
         let liveLocationDictionary :NSDictionary = ["latitude": latitude, "longitude": longitude, "timestamp": timestamp]
+        
         let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { (action) in
             
             FirebaseConstants.selectedDatabase.child(myUID).observe(.value) { (snapshot) in
@@ -304,9 +310,9 @@ extension LocationServicesViewController {
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     print("dictionary is: \(dictionary)")
                     guard let theFriendFollowUID = dictionary["myUID"] as? String else {return}
-                    //friendFollowUID = theFriendFollowUID
+                    let otherLiveLocation :NSDictionary = ["latitude": latitude, "longitude": longitude, "timestamp": timestamp, "status": "tracking"]
                     let liveLocationDB = FirebaseConstants.trackingDatabase.child(theFriendFollowUID).child(myUID)
-                    liveLocationDB.setValue(liveLocationDictionary) { (error, ref) in
+                    liveLocationDB.setValue(otherLiveLocation) { (error, ref) in
                         if error != nil {
                             print(error!)
                         } else {
@@ -330,13 +336,13 @@ extension LocationServicesViewController {
                             print("Location saved successfully")
                         }
                     }
-                    
                 }
             }
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: NSNotification.Name("ShowGuardianView"), object: nil)
-            }
-            
+        }
+            //NotificationCenter.default.post(name: NSNotification.Name("AlertWolf"), object: nil)
+            //FirebaseConstants.selectedDatabase.child(myUID).removeValue()
         }
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
@@ -344,8 +350,53 @@ extension LocationServicesViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-
-    
+    @objc func alertWolf() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        print(myUID)
+        FirebaseConstants.trackMeDatabase.child(myUID).observe(.value) { (snapshot) in
+            if myUID == snapshot.key {
+                let alertController = UIAlertController(title: "Accepted", message: "User has accepted your Follow Me Request", preferredStyle: UIAlertController.Style.alert)
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { (action) in
+                    print("Ok")
+                }
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    @objc func confirmStopFollowingMe() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        let alertController = UIAlertController(title: "Stop Following?", message: "Are you sure you want the guardian to stop following you?", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+            //FirebaseConstants.selectedDatabase.child(myUID).removeValue()
+            FirebaseConstants.trackingDatabase.child(myUID).removeValue()
+            self.myCircleTrackingView.contentView.isHidden = true
+            self.myCircleTrackingView.friendCollectionView.reloadData()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            print("cancel")
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    @objc func confirmStopTracking() {
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        let alertController = UIAlertController(title: "Stop Following?", message: "Are you sure you want to stop following this user?", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+            //FirebaseConstants.selectedDatabase.child(myUID).removeValue()
+            FirebaseConstants.trackMeDatabase.child(myUID).removeValue()
+            self.guardianTrackingView.contentView.isHidden = true
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            print("cancel")
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     func createFriendMarker() {
         //FIND A WAY TO GET THAT SPEICIFC USERS IMAGE
         guard let myUID = Auth.auth().currentUser?.uid else {return}
@@ -360,11 +411,8 @@ extension LocationServicesViewController {
                 DispatchQueue.main.async {
                     _ = self.markerCreater(location: friendsLocation, title: "Friend is here", image: "defaultUser")
                 }
-                
             }
         }
     }
-
-
 }
 

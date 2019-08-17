@@ -34,6 +34,21 @@ class GuardianView: UIView {
         super.init(coder: aDecoder)
         commonInit()
     }
+    
+    @IBAction func offBTNPressed(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ConfirmStopTracking"), object: nil)
+//        guard let myUID = Auth.auth().currentUser?.uid else {return}
+//        let alertController = UIAlertController(title: "Stop Following?", message: "Are you sure you want to stop following this user?", preferredStyle: UIAlertController.Style.alert)
+//        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+//            FirebaseConstants.trackMeDatabase.child(myUID).removeValue()
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+//            print("Cancel")
+//        }
+//        alertController.addAction(okAction)
+//        alertController.addAction(cancelAction)
+    }
+    
     private func commonInit() {
         Bundle.main.loadNibNamed("GuardianView", owner: self, options: nil)
         addSubview(contentView)

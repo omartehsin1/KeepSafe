@@ -65,12 +65,20 @@ class TrackingView: UIView {
     }
 
     @IBAction func stopBtnPressed(_ sender: Any) {
-        guard let myUID = Auth.auth().currentUser?.uid else {return}
-        FirebaseConstants.selectedDatabase.child(myUID).removeValue()
-        FirebaseConstants.trackMeDatabase.child(myUID).removeValue()
-        contentView.isHidden = true
-        friendCollectionView.reloadData()
-        //fetchFollower()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ConfirmStopFollowingMe"), object: nil)
+//        guard let myUID = Auth.auth().currentUser?.uid else {return}
+//        let alertController = UIAlertController(title: "Stop Following?", message: "Are you sure you want the guardian to stop following you?", preferredStyle: UIAlertController.Style.alert)
+//        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+//            FirebaseConstants.selectedDatabase.child(myUID).removeValue()
+//            FirebaseConstants.trackingDatabase.child(myUID).removeValue()
+//            self.contentView.isHidden = true
+//            self.friendCollectionView.reloadData()
+//        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+//            print("Cancel")
+//        }
+//        alertController.addAction(okAction)
+//        alertController.addAction(cancelAction)
     }
     
 }
