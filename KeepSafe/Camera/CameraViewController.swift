@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import MobileCoreServices
 import CameraManager
+import Photos
 
 
 class CameraViewController: UIViewController {
@@ -18,24 +19,25 @@ class CameraViewController: UIViewController {
     let videoFileName = "/video.mp4"
     
     @IBOutlet var cameraView: UIView!
+    let theButton = UIButton()
     let cameraManager = CameraManager()
-    var myVideoURL : URL!
-    var recordButton = UIBarButtonItem()
-    
-    
+    var myVideoURL : URL?
+    @IBOutlet weak var recordButton: KSRecordButton!
+    var isRecording = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //startCamera()
-        //takeVideo()
-        createGalleryButton()
-        createRecordButton()
-        
+        //createGalleryButton()
+        createDoneButton()
+        //createRecordButton()
         cameraManager.addPreviewLayerToView(cameraView)
-        //recordVideo()
         
-        
+ 
+    }
+    func createDoneButton() {
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneItemFunc))
+        self.navigationItem.rightBarButtonItem = doneButton
     }
     func createGalleryButton() {
     let galleryButton = UIBarButtonItem(title: "Gallery", style: .plain, target: self, action: #selector(openGallery))
@@ -51,48 +53,46 @@ class CameraViewController: UIViewController {
         
     }
     
-    func createRecordButton() {
-        let recordButton = UIButton(frame: CGRect(x: 150, y: 490, width: 107, height: 100))
-        //let SOSButton = UIButton()
+//    func createRecordButton() {
+//        var recordButton = UIButton(frame: CGRect(x: 239, y: 650, width: 107, height: 100))
+//
+//        recordButton.layer.cornerRadius = 50
+//        recordButton.layer.masksToBounds = true
+//
+//        recordButton.backgroundColor = .orange
+//        recordButton.setTitle("Record", for: .normal)
+//        recordButton.addTarget(self, action: #selector(recordVideo), for: .touchUpInside)
+//
+//    }
 
-        recordButton.layer.cornerRadius = 50
-        recordButton.layer.masksToBounds = true
-
-        recordButton.backgroundColor = .orange
-        recordButton.setTitle("Record", for: .normal)
-        recordButton.addTarget(self, action: #selector(recordVideo), for: .touchUpInside)
-
-        //cameraView.addSubview(recordButton)
-        cameraView.bringSubviewToFront(recordButton)
-//        recordButton = UIBarButtonItem(title: "Record", style: .plain, target: self, action: #selector(recordVideo))
-//        self.navigationItem.rightBarButtonItem = recordButton
-        
-    }
-
-    @objc func recordVideo() {
-        print("Record button has been touched!")
-        switch cameraManager.cameraOutputMode {
-        case .videoOnly, .videoWithMic:
-            
-            recordButton.tintColor = .red
-            cameraManager.startRecordingVideo()
-        default:
-            cameraManager.stopVideoRecording { (videoURL, error) in
-//                if error != nil {
-//                    self.cameraManager.showErrorBlock("Error occured", "Cannot save video")
+//    @objc func recordVideo() {
+//        print("Record button has been touched!")
+//        switch cameraManager.cameraOutputMode {
+//        case .videoOnly, .videoWithMic:
+//
+//            recordButton.tintColor = .red
+//            cameraManager.startRecordingVideo()
+//        default:
+//            cameraManager.stopVideoRecording { (videoURL, error) in
+////                if error != nil {
+////                    self.cameraManager.showErrorBlock("Error occured", "Cannot save video")
+////                }
+//                guard let videoURL = videoURL else {
+//                    return
 //                }
-                guard let videoURL = videoURL else {
-                    return
-                }
-                do {
-                    try FileManager.default.copyItem(at: videoURL, to: self.myVideoURL)
-                }
-                catch {
-                    print(error)
-                    
-                }
-            }
-        }
+//                do {
+//                    try FileManager.default.copyItem(at: videoURL, to: self.myVideoURL)
+//                }
+//                catch {
+//                    print(error)
+//
+//                }
+//            }
+//        }
+//    }
+    @objc func doneItemFunc() {
+        //completion save to cloud
+        dismiss(animated: true, completion: nil)
     }
 
     
@@ -121,7 +121,42 @@ class CameraViewController: UIViewController {
             })
         }
     }
+    
+    @IBAction func recordButtonPressed(_ sender: Any) {
+        
+        
+        isRecording = !isRecording
+        
+        if isRecording {
+            if(cameraManager.cameraOutputMode == .stillImage) {
+                print("Camera output is stillImage, switching to videWithMic")
+                cameraManager.cameraOutputMode = CameraOutputMode.videoWithMic
+            }
+            cameraManager.startRecordingVideo()
+            print(cameraManager.cameraOutputMode)
+        }
+        
+        else {
+            
+            cameraManager.stopVideoRecording { (videoURL, recordError) in
+                print("it is not recording")
+                print(self.isRecording)
+                guard let videoURL = videoURL else {
+                    print("videoURL not working")
+                    return
+                }
+                print("videourl: \(videoURL)")
+                if (self.cameraManager.cameraOutputMode == .videoWithMic) {
+                    self.cameraManager.cameraOutputMode = CameraOutputMode.stillImage
+                }
+            }
 
+        }
+        
+    }
+    
+
+    
 }
 extension CameraViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

@@ -40,6 +40,10 @@
 		07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04B8226153230072D1BC /* MenuTableViewCell.swift */; };
 		07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC04BA226172A30072D1BC /* MenuItems.swift */; };
 		07D468152308714D00C70A0D /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468142308714C00C70A0D /* CustomTabBarViewController.swift */; };
+		07D4683D2308A36600C70A0D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4683C2308A36600C70A0D /* ChatViewController.swift */; };
+		07D4683F2308A6A300C70A0D /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4683E2308A6A300C70A0D /* ChatUser.swift */; };
+		07D468412308A6DB00C70A0D /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468402308A6DB00C70A0D /* ChatMessage.swift */; };
+		07D468432308BABF00C70A0D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468422308BABF00C70A0D /* Extensions.swift */; };
 		07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */; };
 		07DAE5D722EB73C800BBFA7D /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */; };
 		07E30B222225BE7500904A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B212225BE7500904A45 /* AppDelegate.swift */; };
@@ -52,6 +56,7 @@
 		07E30B472225C4B800904A45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07E30B462225C4B800904A45 /* GoogleService-Info.plist */; };
 		07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4C2225D8BE00904A45 /* LogInViewController.swift */; };
 		07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */; };
+		07F19DD92314980200F15D55 /* KSRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F19DD82314980200F15D55 /* KSRecordButton.swift */; };
 		07F4A2D522BA9A22001C2A1A /* FriendsChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D422BA9A22001C2A1A /* FriendsChatViewController.swift */; };
 		07F4A2D722BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */; };
 		07F4A2DA22C27CC7001C2A1A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D922C27CC7001C2A1A /* MessageCell.swift */; };
@@ -116,6 +121,10 @@
 		07CC04B8226153230072D1BC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		07CC04BA226172A30072D1BC /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		07D468142308714C00C70A0D /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
+		07D4683C2308A36600C70A0D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		07D4683E2308A6A300C70A0D /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
+		07D468402308A6DB00C70A0D /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		07D468422308BABF00C70A0D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepSafe.entitlements; sourceTree = "<group>"; };
 		07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
@@ -133,6 +142,7 @@
 		07E30B462225C4B800904A45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07E30B4C2225D8BE00904A45 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		07F19DD82314980200F15D55 /* KSRecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSRecordButton.swift; sourceTree = "<group>"; };
 		07F4A2D422BA9A22001C2A1A /* FriendsChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsChatViewController.swift; sourceTree = "<group>"; };
 		07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMessageCollectionViewController.swift; sourceTree = "<group>"; };
 		07F4A2D922C27CC7001C2A1A /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -210,6 +220,8 @@
 				0704F61B22E1053900293718 /* FirebaseClass.swift */,
 				0750E267226670340038201E /* SpinnerViewController.swift */,
 				0755E91822765E20002752E1 /* ImageExtension.swift */,
+				07D468422308BABF00C70A0D /* Extensions.swift */,
+				07F19DD82314980200F15D55 /* KSRecordButton.swift */,
 			);
 			name = HelperFunctions;
 			path = "New Group";
@@ -232,6 +244,9 @@
 				07F4A2D422BA9A22001C2A1A /* FriendsChatViewController.swift */,
 				0787657E2262A628001DE728 /* Message.swift */,
 				07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */,
+				07D4683C2308A36600C70A0D /* ChatViewController.swift */,
+				07D4683E2308A6A300C70A0D /* ChatUser.swift */,
+				07D468402308A6DB00C70A0D /* ChatMessage.swift */,
 			);
 			path = MessageVC;
 			sourceTree = "<group>";
@@ -604,6 +619,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07F19DD92314980200F15D55 /* KSRecordButton.swift in Sources */,
+				07D4683F2308A6A300C70A0D /* ChatUser.swift in Sources */,
 				07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */,
 				07BA0FBB22F0CDB400576B54 /* FollowRequestViewController.swift in Sources */,
 				07876579226260B9001DE728 /* ProfileItems.swift in Sources */,
@@ -634,6 +651,7 @@
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
 				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
 				0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */,
+				07D468432308BABF00C70A0D /* Extensions.swift in Sources */,
 				07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */,
 				0713C9E922F8E731005D49C9 /* LocationTrackingView.swift in Sources */,
 				075C172723049A26005EF700 /* TrackingView.swift in Sources */,
@@ -641,6 +659,8 @@
 				0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */,
 				071460CF22FE2B2600274BCA /* GuardianView.swift in Sources */,
 				07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */,
+				07D4683D2308A36600C70A0D /* ChatViewController.swift in Sources */,
+				07D468412308A6DB00C70A0D /* ChatMessage.swift in Sources */,
 				07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */,
 				0755E91922765E20002752E1 /* ImageExtension.swift in Sources */,
 				0787657F2262A628001DE728 /* Message.swift in Sources */,

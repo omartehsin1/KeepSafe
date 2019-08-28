@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/PushNotifications/PushNotificationManager.swift"
-            timestampString = "587518265.231694"
+            timestampString = "587849743.2691489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "updateFirestorePushTokenIfNeeded()"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/LocationServices/LocationServicesViewController.swift"
-            timestampString = "587758509.612515"
+            timestampString = "588555937.741046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "alertWolf()"
             landmarkType = "7">
          </BreakpointContent>

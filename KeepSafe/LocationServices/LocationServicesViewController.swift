@@ -44,18 +44,19 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
     GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
         
-        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
-
-        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        mapView.isMyLocationEnabled = true
-        
-        view = mapView
+//        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
+//
+//        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//        mapView.isMyLocationEnabled = true
+//        
+//        view = mapView
 
         locationManager.startUpdatingLocation()
         myCircleTrackingView.isHidden = true
         guardianTrackingView.isHidden = true
 
         notificationCenter()
+        //createCameraButton()
 
         //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
     }
@@ -137,14 +138,14 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
 
 }
-
+//contactus@torontohydro.com power reliability vulnerability
 extension LocationServicesViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         theLocations = locations.last
         let location = locations.last
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
-        self.mapView.animate(to: camera)
-        self.mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        //self.mapView.animate(to: camera)
+        //self.mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
 
         self.locationManager.stopUpdatingLocation()
     }
