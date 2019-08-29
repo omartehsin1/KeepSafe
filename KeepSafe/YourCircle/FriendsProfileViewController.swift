@@ -268,10 +268,12 @@ class FriendsProfileViewController: UIViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "messageFriend" {
-            let friendChatMessage = segue.destination as! FriendMessageCollectionViewController
-            
-            friendChatMessage.recepient = nameOfUser
-            friendChatMessage.toID = friendsUID
+            let chatViewController = segue.destination as! ChatViewController
+            //let friendChatMessage = segue.destination as! FriendMessageCollectionViewController
+            chatViewController.recepient = nameOfUser
+            chatViewController.friendsUID = friendsUID
+            //friendChatMessage.recepient = nameOfUser
+            //friendChatMessage.toID = friendsUID
 
         }
     }

@@ -39,9 +39,6 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         createTextView()
         createButton()
         button.addTarget(self, action: #selector(sendPressed), for: .touchUpInside)
-        
-        
-        
     }
     
     
@@ -324,3 +321,13 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     }
 }
 
+/*
+ var senderid = String()
+ var displayName = String()
+ if let id = Auth.auth().currentUser?.uid, let name = Auth.auth().currentUser?.email {
+ senderid = id
+ displayName = name
+ }
+ 
+ return Sender(id: senderid, displayName: displayName)
+ */

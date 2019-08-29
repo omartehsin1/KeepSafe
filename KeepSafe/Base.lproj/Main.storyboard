@@ -524,7 +524,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6bV-QQ-sBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2593" y="3206"/>
+            <point key="canvasLocation" x="2933" y="3116"/>
         </scene>
         <!--Friends Profile View Controller-->
         <scene sceneID="Ux9-dK-FPL">
@@ -587,7 +587,7 @@
                         <outlet property="emailLabel" destination="tDO-dl-AZo" id="iLS-Ap-2Mv"/>
                         <outlet property="nameLabel" destination="ek3-nE-M3O" id="1aP-wk-lo7"/>
                         <outlet property="profileImageView" destination="AtE-F0-bZH" id="QP5-hb-XNL"/>
-                        <segue destination="jK0-T2-wxg" kind="show" identifier="messageFriend" id="Blo-OG-Kv2"/>
+                        <segue destination="7xn-ur-fBL" kind="show" identifier="messageFriend" id="7Py-yE-9Mg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M9c-1U-BCY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -727,9 +727,6 @@
                                 <rect key="frame" x="298" y="77" width="33" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Chat"/>
-                                <connections>
-                                    <segue destination="7xn-ur-fBL" kind="show" id="F9Y-Qq-wax"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1278,7 +1275,6 @@
         <image name="radarImage" width="1025" height="1025"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Blo-OG-Kv2"/>
         <segue reference="Qr1-a7-ceQ"/>
     </inferredMetricsTieBreakers>
 </document>
