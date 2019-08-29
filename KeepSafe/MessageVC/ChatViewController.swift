@@ -24,7 +24,7 @@ class ChatViewController: MessagesViewController {
     var friendsUID = String()
     var senderid = String()
     var displayName = String()
-    var toID = String()
+    //var toID = String()
     let timestamp = ServerValue.timestamp()
     
     override func viewDidLoad() {
@@ -38,15 +38,18 @@ class ChatViewController: MessagesViewController {
         navigationItem.title = recepient
         //messagesCollectionView.messageCellDelegate = self
         let timestamp = ServerValue.timestamp()
+        //messagesCollectionView.reloadData()
         retreieveChat()
 
     }
     func retreieveChat() {
-        messageDataBase.queryOrderedByKey().observe(.childAdded) { (snapshot) in
+        
+        
+        messageDataBase.queryOrdered(byChild: "toID").queryEqual(toValue: friendsUID).observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 print(dictionary)
-                //messages.messageTopLabel.text = dictionary["sender"] as? String ?? ""
-                //messages.messageLabel.text = dictionary["messageBody"] as? String ?? ""
+                //                messages.messageTopLabel.text = dictionary["sender"] as? String ?? ""
+                //                messages.messageLabel.text = dictionary["messageBody"] as? String ?? ""
                 let theSender = dictionary["sender"] as? String ?? ""
                 let message = dictionary["messageBody"] as? String ?? ""
                 
@@ -58,15 +61,19 @@ class ChatViewController: MessagesViewController {
                 
             }
         }
-//        messageDataBase.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
-//            if let dictionary = snapshot.value as? [String: AnyObject] {
-//                let messages = TextMessageCell()
-//                let sender = MessageContentCell()
-//                messages.messageTopLabel.text = dictionary["sender"] as? String ?? ""
-//                messages.messageLabel.text = dictionary["messageBody"] as? String ?? ""
-//
-//            }
-//        }
+        SOSDatabase.queryOrdered(byChild: "toID").queryEqual(toValue: friendsUID).observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let toID = dictionary["toID"] as? String ?? ""
+                let message = dictionary["SOSMessage"] as? String ?? ""
+                let sosMessage = ChatMessage(member: self.member, text: message, messageId: "dunno")
+                self.theMessages.append(sosMessage)
+                
+                DispatchQueue.main.async {
+                    self.messagesCollectionView.reloadData()
+                }
+            }
+        }
+
     }
 }
 extension ChatViewController: MessagesDataSource {
@@ -94,25 +101,23 @@ extension ChatViewController: MessagesDataSource {
             attributes: [.font: UIFont.systemFont(ofSize: 12)])
     }
 }
-//extension ChatViewController: MessagesLayoutDelegate {
-//    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-//        return 0
-//    }
-//}
-//
-//extension ChatViewController: MessagesDisplayDelegate {
-//    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-//        let message = theMessages[indexPath.section]
-//        let color = message.member.color
-//        avatarView.backgroundColor = color
-//    }
-//}
+
 
 extension ChatViewController: MessagesLayoutDelegate, MessagesDisplayDelegate{
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         avatarView.isHidden = true
-        
-        
+    }
+    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return isFromCurrentSender(message: message) ? .white : .darkText
+    }
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return isFromCurrentSender(message: message)
+            ? UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+            : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+    }
+    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
+        return .bubbleTail(corner, .curved)
     }
 }
 
@@ -144,6 +149,19 @@ extension ChatViewController: MessageInputBarDelegate {
                 print("Message Saved Successfully!")
             }
         }
+        
+//        let sender = PushNotificationSender()
+//        let usersRef = Firestore.firestore().collection("users_table").document(self.friendsUID)
+//        guard let theEmail = Auth.auth().currentUser?.email else {return}
+//        
+//        usersRef.getDocument { (docSnapshot, error) in
+//            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+//            guard let myData = docSnapshot.data() else {return}
+//            guard let theToken = myData["fcmToken"] as? String else {return}
+//            sender.sendPushNotification(to: theToken, title: "\(theEmail)", body: message, vc: "chatViewController")
+//        }
+        
+        
     }
 
 

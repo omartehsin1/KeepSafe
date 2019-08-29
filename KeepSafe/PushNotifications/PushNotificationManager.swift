@@ -75,14 +75,14 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
         var userInformationString = theUserInform["vc"] as? String
         
-        if userInformationString == "friendMessageCollectionViewController" {
+        if userInformationString == "chatViewController" {
             let homepageVC : HomePageViewController = mainView.instantiateViewController(withIdentifier: "HomePage") as! HomePageViewController
             
-            let friendMessageViewController = mainView.instantiateViewController(withIdentifier: "friendMessageCollectionViewController") as! FriendMessageCollectionViewController
+            let chatViewController = mainView.instantiateViewController(withIdentifier: "chatViewController") as! ChatViewController
             let friendNavi = UINavigationController(rootViewController: homepageVC)
             appDelegate.window?.rootViewController = friendNavi
             appDelegate.window?.makeKeyAndVisible()
-            friendNavi.pushViewController(friendMessageViewController, animated: true)
+            friendNavi.pushViewController(chatViewController, animated: true)
         }
         
         else if userInformationString == "HomePage" {
