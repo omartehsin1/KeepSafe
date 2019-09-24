@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/LocationServices/CrimeFilterViewController.swift"
-            timestampString = "586740784.1173871"
+            timestampString = "591052035.501278"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/YourCircle/FriendsProfileViewController.swift"
-            timestampString = "588792007.632499"
+            timestampString = "590967016.383803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/PushNotifications/PushNotificationSender.swift"
-            timestampString = "586900490.503635"
+            timestampString = "590622222.4849139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"
@@ -218,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/PushNotifications/PushNotificationManager.swift"
-            timestampString = "588792007.632692"
+            timestampString = "588805134.8110321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
@@ -234,12 +234,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KeepSafe/LocationServices/LocationServicesViewController.swift"
-            timestampString = "588555937.741046"
+            timestampString = "591059033.1672601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "alertWolf()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KeepSafe/YourCircle/SearchLocationModalViewController.swift"
+            timestampString = "591059033.167349"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "searchPlaceFromGoogle(place:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

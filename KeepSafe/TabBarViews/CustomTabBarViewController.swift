@@ -35,26 +35,26 @@ class CustomTabBarViewController: UITabBarController {
         
     }
     @objc func sosPressed() {
-//        guard let myUID = Auth.auth().currentUser?.uid else {return}
-//        guard let myEmail = Auth.auth().currentUser?.email else {return}
-//        friendDataBase.child(myUID).observe(.value) { (snapshot) in
-//            for friendsUID in snapshot.children.allObjects as! [DataSnapshot] {
-//                if let dictionary = friendsUID.value as? [String: AnyObject] {
-//                    let uid = dictionary["UID"] as? String ?? ""
-//                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
-//                    self.friendsUIDArray.append(uid)
-//                    //self.tappedSOSButtonDelegate.didTapSOSButton(friendID: self.friendsUIDArray)
-//                    let SOSMessageDictionary: NSDictionary = ["sender": myEmail, "SOSMessage": "SOS PLEASE HELP!", "toID": uid, "nameOfUser": nameOfUser]
-//                    self.SOSDatabase.childByAutoId().setValue(SOSMessageDictionary, withCompletionBlock: { (error, ref) in
-//                        if error != nil {
-//                            print(error)
-//                        } else {
-//                            print("SOS Sent Successfull \(uid)")
-//                        }
-//                    })
-//                }
-//            }
-//        }
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        guard let myEmail = Auth.auth().currentUser?.email else {return}
+        friendDataBase.child(myUID).observe(.value) { (snapshot) in
+            for friendsUID in snapshot.children.allObjects as! [DataSnapshot] {
+                if let dictionary = friendsUID.value as? [String: AnyObject] {
+                    let uid = dictionary["UID"] as? String ?? ""
+                    let nameOfUser = dictionary["nameOfUser"] as? String ?? ""
+                    self.friendsUIDArray.append(uid)
+                    //self.tappedSOSButtonDelegate.didTapSOSButton(friendID: self.friendsUIDArray)
+                    let SOSMessageDictionary: NSDictionary = ["sender": myEmail, "SOSMessage": "SOS PLEASE HELP!", "toID": uid, "nameOfUser": nameOfUser]
+                    self.SOSDatabase.childByAutoId().setValue(SOSMessageDictionary, withCompletionBlock: { (error, ref) in
+                        if error != nil {
+                            print(error)
+                        } else {
+                            print("SOS Sent Successfull \(uid)")
+                        }
+                    })
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {

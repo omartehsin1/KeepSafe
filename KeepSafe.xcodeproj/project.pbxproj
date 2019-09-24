@@ -13,7 +13,6 @@
 		0704F61822DD3C1A00293718 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61722DD3C1A00293718 /* CheckInViewController.swift */; };
 		0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */; };
 		0704F61C22E1053900293718 /* FirebaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0704F61B22E1053900293718 /* FirebaseClass.swift */; };
-		0713C9E922F8E731005D49C9 /* LocationTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0713C9E822F8E731005D49C9 /* LocationTrackingView.swift */; };
 		071460CC22FE289600274BCA /* GuardianView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 071460CB22FE289600274BCA /* GuardianView.xib */; };
 		071460CD22FE289600274BCA /* GuardianView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 071460CB22FE289600274BCA /* GuardianView.xib */; };
 		071460CF22FE2B2600274BCA /* GuardianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071460CE22FE2B2600274BCA /* GuardianView.swift */; };
@@ -28,6 +27,10 @@
 		075C172723049A26005EF700 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C172623049A26005EF700 /* TrackingView.swift */; };
 		075C172923049A38005EF700 /* Trackingview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075C172823049A38005EF700 /* Trackingview.xib */; };
 		077E81C1226A56FA0069D6A9 /* CircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */; };
+		078223F22332C5D200EAEBB7 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078223F12332C5D200EAEBB7 /* ChatMessage.swift */; };
+		078223F7233950C800EAEBB7 /* YourPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078223F6233950C800EAEBB7 /* YourPlacesViewController.swift */; };
+		078223F92339717A00EAEBB7 /* SearchLocationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078223F82339717A00EAEBB7 /* SearchLocationModalViewController.swift */; };
+		078223FB233AB17000EAEBB7 /* LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078223FA233AB16F00EAEBB7 /* LocationData.swift */; };
 		07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876576226260AB001DE728 /* ProfileTableViewCell.swift */; };
 		07876579226260B9001DE728 /* ProfileItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07876578226260B9001DE728 /* ProfileItems.swift */; };
 		0787657F2262A628001DE728 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0787657E2262A628001DE728 /* Message.swift */; };
@@ -42,7 +45,7 @@
 		07D468152308714D00C70A0D /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468142308714C00C70A0D /* CustomTabBarViewController.swift */; };
 		07D4683D2308A36600C70A0D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4683C2308A36600C70A0D /* ChatViewController.swift */; };
 		07D4683F2308A6A300C70A0D /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4683E2308A6A300C70A0D /* ChatUser.swift */; };
-		07D468412308A6DB00C70A0D /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468402308A6DB00C70A0D /* ChatMessage.swift */; };
+		07D468412308A6DB00C70A0D /* ChatsMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468402308A6DB00C70A0D /* ChatsMessages.swift */; };
 		07D468432308BABF00C70A0D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D468422308BABF00C70A0D /* Extensions.swift */; };
 		07DAE5D522EB65AA00BBFA7D /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */; };
 		07DAE5D722EB73C800BBFA7D /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAE5D622EB73C800BBFA7D /* PushNotificationSender.swift */; };
@@ -57,6 +60,8 @@
 		07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4C2225D8BE00904A45 /* LogInViewController.swift */; };
 		07E30B4F2225E3D000904A45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */; };
 		07F19DD92314980200F15D55 /* KSRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F19DD82314980200F15D55 /* KSRecordButton.swift */; };
+		07F19E082318677300F15D55 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F19E072318677300F15D55 /* AppSettings.swift */; };
+		07F19E0A2318688B00F15D55 /* TheMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F19E092318688B00F15D55 /* TheMessage.swift */; };
 		07F4A2D522BA9A22001C2A1A /* FriendsChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D422BA9A22001C2A1A /* FriendsChatViewController.swift */; };
 		07F4A2D722BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */; };
 		07F4A2DA22C27CC7001C2A1A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4A2D922C27CC7001C2A1A /* MessageCell.swift */; };
@@ -96,7 +101,6 @@
 		0704F61722DD3C1A00293718 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
 		0704F61922E0E5A700293718 /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
 		0704F61B22E1053900293718 /* FirebaseClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClass.swift; sourceTree = "<group>"; };
-		0713C9E822F8E731005D49C9 /* LocationTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTrackingView.swift; sourceTree = "<group>"; };
 		071460CB22FE289600274BCA /* GuardianView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianView.xib; sourceTree = "<group>"; };
 		071460CE22FE2B2600274BCA /* GuardianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianView.swift; sourceTree = "<group>"; };
 		0750E267226670340038201E /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,10 @@
 		075C172623049A26005EF700 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
 		075C172823049A38005EF700 /* Trackingview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Trackingview.xib; sourceTree = "<group>"; };
 		077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCollectionViewCell.swift; sourceTree = "<group>"; };
+		078223F12332C5D200EAEBB7 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		078223F6233950C800EAEBB7 /* YourPlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourPlacesViewController.swift; sourceTree = "<group>"; };
+		078223F82339717A00EAEBB7 /* SearchLocationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationModalViewController.swift; sourceTree = "<group>"; };
+		078223FA233AB16F00EAEBB7 /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
 		07876576226260AB001DE728 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		07876578226260B9001DE728 /* ProfileItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItems.swift; sourceTree = "<group>"; };
 		0787657E2262A628001DE728 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -123,7 +131,7 @@
 		07D468142308714C00C70A0D /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
 		07D4683C2308A36600C70A0D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		07D4683E2308A6A300C70A0D /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
-		07D468402308A6DB00C70A0D /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		07D468402308A6DB00C70A0D /* ChatsMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsMessages.swift; sourceTree = "<group>"; };
 		07D468422308BABF00C70A0D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepSafe.entitlements; sourceTree = "<group>"; };
 		07DAE5D422EB65AA00BBFA7D /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
@@ -143,6 +151,8 @@
 		07E30B4C2225D8BE00904A45 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		07E30B4E2225E3CF00904A45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		07F19DD82314980200F15D55 /* KSRecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSRecordButton.swift; sourceTree = "<group>"; };
+		07F19E072318677300F15D55 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		07F19E092318688B00F15D55 /* TheMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMessage.swift; sourceTree = "<group>"; };
 		07F4A2D422BA9A22001C2A1A /* FriendsChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsChatViewController.swift; sourceTree = "<group>"; };
 		07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendMessageCollectionViewController.swift; sourceTree = "<group>"; };
 		07F4A2D922C27CC7001C2A1A /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -209,6 +219,7 @@
 				0750E27622695B090038201E /* DetailViewController.swift */,
 				077E81C0226A56FA0069D6A9 /* CircleCollectionViewCell.swift */,
 				07BA0FBA22F0CDB400576B54 /* FollowRequestViewController.swift */,
+				078223F82339717A00EAEBB7 /* SearchLocationModalViewController.swift */,
 			);
 			path = YourCircle;
 			sourceTree = "<group>";
@@ -225,6 +236,14 @@
 			);
 			name = HelperFunctions;
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		078223F52339509A00EAEBB7 /* YourPlaces */ = {
+			isa = PBXGroup;
+			children = (
+				078223F6233950C800EAEBB7 /* YourPlacesViewController.swift */,
+			);
+			path = YourPlaces;
 			sourceTree = "<group>";
 		};
 		0787657C22628289001DE728 /* TableView */ = {
@@ -246,7 +265,8 @@
 				07F4A2D622BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift */,
 				07D4683C2308A36600C70A0D /* ChatViewController.swift */,
 				07D4683E2308A6A300C70A0D /* ChatUser.swift */,
-				07D468402308A6DB00C70A0D /* ChatMessage.swift */,
+				07D468402308A6DB00C70A0D /* ChatsMessages.swift */,
+				078223F12332C5D200EAEBB7 /* ChatMessage.swift */,
 			);
 			path = MessageVC;
 			sourceTree = "<group>";
@@ -255,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				0787658722665D78001DE728 /* LocationServicesViewController.swift */,
-				0713C9E822F8E731005D49C9 /* LocationTrackingView.swift */,
 				07B5434F2281F62100ED8989 /* CrimeFilterViewController.swift */,
 				071460CE22FE2B2600274BCA /* GuardianView.swift */,
 				075C172623049A26005EF700 /* TrackingView.swift */,
@@ -297,6 +316,8 @@
 		07E30B202225BE7500904A45 /* KeepSafe */ = {
 			isa = PBXGroup;
 			children = (
+				078223F52339509A00EAEBB7 /* YourPlaces */,
+				07F19E062318674300F15D55 /* TestFold */,
 				07DAE5D322EB658C00BBFA7D /* PushNotifications */,
 				07DAE5D222EA1D8900BBFA7D /* KeepSafe.entitlements */,
 				0704F61422DD3BAC00293718 /* TabBarViews */,
@@ -330,11 +351,21 @@
 			path = KeepSafeTests;
 			sourceTree = "<group>";
 		};
+		07F19E062318674300F15D55 /* TestFold */ = {
+			isa = PBXGroup;
+			children = (
+				07F19E072318677300F15D55 /* AppSettings.swift */,
+				07F19E092318688B00F15D55 /* TheMessage.swift */,
+			);
+			path = TestFold;
+			sourceTree = "<group>";
+		};
 		07F4A2D822C27C92001C2A1A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				07F4A2D922C27CC7001C2A1A /* MessageCell.swift */,
 				07F4A2DB22CD1417001C2A1A /* FirebaseConstants.swift */,
+				078223FA233AB16F00EAEBB7 /* LocationData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -634,6 +665,7 @@
 				0750E27722695B090038201E /* DetailViewController.swift in Sources */,
 				07C2CCF6228DBEA000758CE7 /* FriendsProfileViewController.swift in Sources */,
 				0750E268226670340038201E /* SpinnerViewController.swift in Sources */,
+				078223F7233950C800EAEBB7 /* YourPlacesViewController.swift in Sources */,
 				07F4A2DA22C27CC7001C2A1A /* MessageCell.swift in Sources */,
 				07876577226260AB001DE728 /* ProfileTableViewCell.swift in Sources */,
 				0704F53E22CE7D8800293718 /* ProfileSettingViewController.swift in Sources */,
@@ -642,8 +674,11 @@
 				0704F61822DD3C1A00293718 /* CheckInViewController.swift in Sources */,
 				0704F61622DD3BF800293718 /* FollowMeViewController.swift in Sources */,
 				07F4A2D722BBEEDD001C2A1A /* FriendMessageCollectionViewController.swift in Sources */,
+				078223FB233AB17000EAEBB7 /* LocationData.swift in Sources */,
+				07F19E0A2318688B00F15D55 /* TheMessage.swift in Sources */,
 				07F4A2DC22CD1417001C2A1A /* FirebaseConstants.swift in Sources */,
 				07E30B4D2225D8BE00904A45 /* LogInViewController.swift in Sources */,
+				078223F92339717A00EAEBB7 /* SearchLocationModalViewController.swift in Sources */,
 				0750E26F226775340038201E /* YourCircleViewController.swift in Sources */,
 				0750E26D2266AA660038201E /* Users.swift in Sources */,
 				0704F61C22E1053900293718 /* FirebaseClass.swift in Sources */,
@@ -651,16 +686,17 @@
 				07CC04B72260F7A90072D1BC /* HomePageViewController.swift in Sources */,
 				07CC04B9226153230072D1BC /* MenuTableViewCell.swift in Sources */,
 				0704F61A22E0E5A700293718 /* FriendCollectionViewCell.swift in Sources */,
+				078223F22332C5D200EAEBB7 /* ChatMessage.swift in Sources */,
 				07D468432308BABF00C70A0D /* Extensions.swift in Sources */,
 				07E30B2A2225BE7500904A45 /* KeepSafe.xcdatamodeld in Sources */,
-				0713C9E922F8E731005D49C9 /* LocationTrackingView.swift in Sources */,
+				07F19E082318677300F15D55 /* AppSettings.swift in Sources */,
 				075C172723049A26005EF700 /* TrackingView.swift in Sources */,
 				07B543502281F62100ED8989 /* CrimeFilterViewController.swift in Sources */,
 				0787658822665D78001DE728 /* LocationServicesViewController.swift in Sources */,
 				071460CF22FE2B2600274BCA /* GuardianView.swift in Sources */,
 				07CC04BB226172A30072D1BC /* MenuItems.swift in Sources */,
 				07D4683D2308A36600C70A0D /* ChatViewController.swift in Sources */,
-				07D468412308A6DB00C70A0D /* ChatMessage.swift in Sources */,
+				07D468412308A6DB00C70A0D /* ChatsMessages.swift in Sources */,
 				07CC04B5225FF9950072D1BC /* WelcomeViewController.swift in Sources */,
 				0755E91922765E20002752E1 /* ImageExtension.swift in Sources */,
 				0787657F2262A628001DE728 /* Message.swift in Sources */,

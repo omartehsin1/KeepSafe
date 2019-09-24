@@ -19,6 +19,7 @@ struct FirebaseConstants {
     static let selectedDatabase: DatabaseReference = Database.database().reference().child("selected")
     static let trackingDatabase: DatabaseReference = Database.database().reference().child("tracking")
     static let trackMeDatabase: DatabaseReference = Database.database().reference().child("trackMe")
+    static let savedLocationsDatabase: DatabaseReference = Database.database().reference().child("savedLocations")
     //static let myUID : String = Auth.auth().currentUser?.uid
     
     

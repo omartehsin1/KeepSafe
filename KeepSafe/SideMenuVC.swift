@@ -142,10 +142,11 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
             NotificationCenter.default.post(name: NSNotification.Name("ShowMessages"), object: nil)
         case 2:
             NotificationCenter.default.post(name: NSNotification.Name("ShowYourCircle"), object: nil)
-//        case 3:
-//            NotificationCenter.default.post(name: NSNotification.Name("ShowPlaces"), object: nil)
-//        case 4:
-//            NotificationCenter.default.post(name: NSNotification.Name("ShowYourCircle"), object: nil)
+        case 3:
+            NotificationCenter.default.post(name: NSNotification.Name("ShowYourCircle"), object: nil)
+        case 4:
+            NotificationCenter.default.post(name: NSNotification.Name("ShowPlaces"), object: nil)
+
         default:
             break
         }

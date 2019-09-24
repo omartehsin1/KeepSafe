@@ -14,8 +14,9 @@ import UserNotifications
 
 class ChatViewController: MessagesViewController {
     
-    var theMessages: [ChatMessage] = []
-    var member: Member!
+    var theMessages: [ChatsMessages] = []
+    //var member: Member!
+    var currentUser = Auth.auth().currentUser!
     let refreshControl = UIRefreshControl()
     let users = [Users]()
     let messageDataBase = FirebaseConstants.messagesDatabase
@@ -24,19 +25,22 @@ class ChatViewController: MessagesViewController {
     var friendsUID = String()
     var senderid = String()
     var displayName = String()
-    //var toID = String()
     let timestamp = ServerValue.timestamp()
+    var name = String()
+    
+    
+    //private var newMessages: [TheMessage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let name = Auth.auth().currentUser?.email else {return}
-        member = Member(name: name, color: .blue)
+        
+        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messageInputBar.delegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         navigationItem.title = recepient
-        //messagesCollectionView.messageCellDelegate = self
+        messagesCollectionView.messageCellDelegate = self
         let timestamp = ServerValue.timestamp()
         //messagesCollectionView.reloadData()
         retreieveChat()
@@ -45,15 +49,28 @@ class ChatViewController: MessagesViewController {
     func retreieveChat() {
         
         
-        messageDataBase.queryOrdered(byChild: "toID").queryEqual(toValue: friendsUID).observe(.childAdded) { (snapshot) in
+//        messageDataBase.queryOrdered(byChild: "toID").queryEqual(toValue: friendsUID).observe(.childAdded) { (snapshot) in
+//            if let dictionary = snapshot.value as? [String: AnyObject] {
+//                let theSender = dictionary["sender"] as? String ?? ""
+//                let message = dictionary["messageBody"] as? String ?? ""
+//                guard let timeStamp = dictionary["timestamp"] as? Double else {return}
+//                let newMess =  ChatMessage(member: self.member, text: message, messageId: "dunno")
+//                self.theMessages.append(newMess)
+//                DispatchQueue.main.async {
+//                    self.messagesCollectionView.reloadData()
+//                }
+//
+//            }
+//        }
+        messageDataBase.queryOrderedByKey().observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
-                print(dictionary)
-                //                messages.messageTopLabel.text = dictionary["sender"] as? String ?? ""
-                //                messages.messageLabel.text = dictionary["messageBody"] as? String ?? ""
                 let theSender = dictionary["sender"] as? String ?? ""
                 let message = dictionary["messageBody"] as? String ?? ""
-                
-                let newMess =  ChatMessage(member: self.member, text: message, messageId: "dunno")
+                self.senderid = dictionary["fromID"] as? String ?? ""
+                guard let timeStamp = dictionary["timestamp"] as? Double else {return}
+                self.name = theSender
+                //self.member = Member(name: theSender, color: .blue)
+                let newMess =  ChatsMessages(name: theSender, text: message, messageId: "dunno")
                 self.theMessages.append(newMess)
                 DispatchQueue.main.async {
                     self.messagesCollectionView.reloadData()
@@ -65,8 +82,8 @@ class ChatViewController: MessagesViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let toID = dictionary["toID"] as? String ?? ""
                 let message = dictionary["SOSMessage"] as? String ?? ""
-                let sosMessage = ChatMessage(member: self.member, text: message, messageId: "dunno")
-                self.theMessages.append(sosMessage)
+                //let sosMessage = ChatMessage(member: self.member, text: message, messageId: "dunno")
+                //self.theMessages.append(sosMessage)
                 
                 DispatchQueue.main.async {
                     self.messagesCollectionView.reloadData()
@@ -77,11 +94,14 @@ class ChatViewController: MessagesViewController {
     }
 }
 extension ChatViewController: MessagesDataSource {
+//    func isFromCurrentSender(message: MessageType) -> Bool {
+//        return message.sender == currentSender()
+//    }
     func currentSender() -> SenderType {
         
-        return Sender(id: member.name, displayName: member.name)
+        return Sender(id: name, displayName: name)
         
-        //return Sender(id: member.name, displayName: member.name)
+        
     }
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         
@@ -105,26 +125,45 @@ extension ChatViewController: MessagesDataSource {
 
 extension ChatViewController: MessagesLayoutDelegate, MessagesDisplayDelegate{
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        avatarView.isHidden = true
+        let message = theMessages[indexPath.section]
+        //let color = message.member.color
+        avatarView.backgroundColor = UIColor.blue
+        //avatarView.isHidden = true
     }
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+//        let myUID = Auth.auth().currentUser?.uid ?? ""
+//        if senderid == myUID {
+//            return .white
+//        } else {
+//            return .darkText
+//        }
+
+        
         return isFromCurrentSender(message: message) ? .white : .darkText
     }
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+//        let myUID = Auth.auth().currentUser?.uid ?? ""
+//
+//        if senderid == myUID {
+//            return UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+//        } else {
+//            return UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+//        }
+        
         return isFromCurrentSender(message: message)
             ? UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
             : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
-    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
-        return .bubbleTail(corner, .curved)
-    }
+//    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+//        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
+//        return .bubbleTail(corner, .curved)
+//    }
 }
 
 extension ChatViewController: MessageInputBarDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-        let newMessage = ChatMessage(
-            member: member,
+        let newMessage = ChatsMessages(
+            name: name,
             text: text,
             messageId: UUID().uuidString)
         
@@ -139,7 +178,8 @@ extension ChatViewController: MessageInputBarDelegate {
     func sendPressed(message: String) {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         let messageDB = messageDataBase.childByAutoId()
-        let messageDictionary : NSDictionary = ["sender": member.name, "messageBody": message, "recepient" : recepient, "fromID": myUID, "toID": friendsUID, "timestamp": timestamp]
+        name = Auth.auth().currentUser?.email as! String
+        let messageDictionary : NSDictionary = ["sender": name, "messageBody": message, "recepient" : recepient, "fromID": myUID, "toID": friendsUID, "timestamp": timestamp]
         messageDB.setValue(messageDictionary) {
             (error, ref) in
             if error != nil {
@@ -168,31 +208,31 @@ extension ChatViewController: MessageInputBarDelegate {
 }
 
 
-//extension ChatViewController: MessageCellDelegate {
-//
-//    func didTapAvatar(in cell: MessageCollectionViewCell) {
-//        print("Avatar tapped")
-//    }
-//
-//    func didTapMessage(in cell: MessageCollectionViewCell) {
-//        print("Message tapped")
-//
-//    }
-//
-//    func didTapCellTopLabel(in cell: MessageCollectionViewCell) {
-//        print("Top cell label tapped")
-//    }
-//
-//    func didTapMessageTopLabel(in cell: MessageCollectionViewCell) {
-//        print("Top message label tapped")
-//    }
-//
-//    func didTapMessageBottomLabel(in cell: MessageCollectionViewCell) {
-//        print("Bottom label tapped")
-//    }
-//
-//    func didTapAccessoryView(in cell: MessageCollectionViewCell) {
-//        print("Accessory view tapped")
-//    }
-//}
+extension ChatViewController: MessageCellDelegate {
+
+    func didTapAvatar(in cell: MessageCollectionViewCell) {
+        print("Avatar tapped")
+    }
+
+    func didTapMessage(in cell: MessageCollectionViewCell) {
+        print("Message tapped")
+
+    }
+
+    func didTapCellTopLabel(in cell: MessageCollectionViewCell) {
+        print("Top cell label tapped")
+    }
+
+    func didTapMessageTopLabel(in cell: MessageCollectionViewCell) {
+        print("Top message label tapped")
+    }
+
+    func didTapMessageBottomLabel(in cell: MessageCollectionViewCell) {
+        print("Bottom label tapped")
+    }
+
+    func didTapAccessoryView(in cell: MessageCollectionViewCell) {
+        print("Accessory view tapped")
+    }
+}
 //

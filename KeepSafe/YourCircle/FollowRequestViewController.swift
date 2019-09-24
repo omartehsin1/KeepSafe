@@ -42,7 +42,7 @@ class FollowRequestViewController: UIViewController {
     func searchByUid(uid: String) {
         userDatabase.child(uid).observe(.value) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
-                print(dictionary)
+                
                 let user = Users()
                 
                 user.nameOfUser = dictionary["nameOfUser"] as? String ?? ""

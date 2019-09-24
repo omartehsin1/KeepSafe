@@ -21,16 +21,13 @@ class MessageCell: BaseCell {
         }
     }
     
-    
-    var message: Message? {
-        
+    var chatMessage: ChatMessage? {
         didSet {
-            
             guard let myUID = Auth.auth().currentUser?.uid else { return }
             let ref = Database.database().reference().child("users")
-            if (message?.fromID != myUID) {
-                nameLabel.text = message?.sender
-                if let fromID = message?.fromID {
+            if (chatMessage?.fromID != myUID) {
+                nameLabel.text = chatMessage?.sender
+                if let fromID = chatMessage?.fromID {
                     ref.child(fromID).observeSingleEvent(of: .value) { (snapshot) in
                         if let dictionary = snapshot.value as? [String: AnyObject] {
                             
@@ -41,8 +38,8 @@ class MessageCell: BaseCell {
                     }
                 }
             } else {
-                nameLabel.text = message?.recepient
-                if let toID = message?.toID {
+                nameLabel.text = chatMessage?.recepient
+                if let toID = chatMessage?.toID {
                     ref.child(toID).observeSingleEvent(of: .value) { (snapshot) in
                         if let dictionary = snapshot.value as? [String: AnyObject] {
                             
@@ -53,40 +50,77 @@ class MessageCell: BaseCell {
                     }
                 }
             }
-            
-            
-            messageLabel.text = message?.messageBody
-            
-            //SOSMessageLabel.text = message?.SOSMessage
-
-            
-//            if let seconds = message?.timestamp?.doubleValue {
-//                let timestampDate = NSDate(timeIntervalSince1970: seconds)
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "h:mm a"
-//                timeLabel.text = dateFormatter.string(from: timestampDate as Date)
-//            }
-            
-            
-            
-            if let date = message?.timestamp {
+            messageLabel.text = chatMessage?.messageBody
+            if let date = chatMessage?.timeStamp {
                 let x = date / 1000
                 let theDate = NSDate(timeIntervalSince1970: x)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "h:mm a"
                 let elapsedTimeInSeconds = NSDate().timeIntervalSince(theDate as Date)
-
+                
                 let secondsInDays: TimeInterval = 60 * 60 * 24
-
+                
                 if elapsedTimeInSeconds > secondsInDays {
                     dateFormatter.dateFormat = "EEE"
                 }
-                //
+                
                 timeLabel.text = dateFormatter.string(from: theDate as Date)
-                //
+                
             }
         }
     }
+    
+    
+//    var message: Message? {
+//        
+//        didSet {
+//            
+//            guard let myUID = Auth.auth().currentUser?.uid else { return }
+//            let ref = Database.database().reference().child("users")
+//            if (message?.fromID != myUID) {
+//                nameLabel.text = message?.sender
+//                if let fromID = message?.fromID {
+//                    ref.child(fromID).observeSingleEvent(of: .value) { (snapshot) in
+//                        if let dictionary = snapshot.value as? [String: AnyObject] {
+//                            
+//                            if let profileImageURL = dictionary["profileImageURL"] as? String {
+//                                self.profileImageView.loadImageUsingCache(urlString: profileImageURL)
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                nameLabel.text = message?.recepient
+//                if let toID = message?.toID {
+//                    ref.child(toID).observeSingleEvent(of: .value) { (snapshot) in
+//                        if let dictionary = snapshot.value as? [String: AnyObject] {
+//                            
+//                            if let profileImageURL = dictionary["profileImageURL"] as? String {
+//                                self.profileImageView.loadImageUsingCache(urlString: profileImageURL)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            
+//            
+//            messageLabel.text = message?.messageBody
+//            
+//            //SOSMessageLabel.text = message?.SOSMessage
+//
+//            
+////            if let seconds = message?.timestamp?.doubleValue {
+////                let timestampDate = NSDate(timeIntervalSince1970: seconds)
+////                let dateFormatter = DateFormatter()
+////                dateFormatter.dateFormat = "h:mm a"
+////                timeLabel.text = dateFormatter.string(from: timestampDate as Date)
+////            }
+//            
+//            
+//            
+//
+//        }
+//    }
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()

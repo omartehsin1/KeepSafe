@@ -25,16 +25,20 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var recordButton: KSRecordButton!
     var isRecording = false
     
+    @IBOutlet weak var stopButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //createGalleryButton()
         createDoneButton()
+        //print(isRecording)
         //createRecordButton()
         cameraManager.addPreviewLayerToView(cameraView)
+        recordingInSession()
         
  
     }
+
     func createDoneButton() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneItemFunc))
         self.navigationItem.rightBarButtonItem = doneButton
@@ -53,65 +57,11 @@ class CameraViewController: UIViewController {
         
     }
     
-//    func createRecordButton() {
-//        var recordButton = UIButton(frame: CGRect(x: 239, y: 650, width: 107, height: 100))
-//
-//        recordButton.layer.cornerRadius = 50
-//        recordButton.layer.masksToBounds = true
-//
-//        recordButton.backgroundColor = .orange
-//        recordButton.setTitle("Record", for: .normal)
-//        recordButton.addTarget(self, action: #selector(recordVideo), for: .touchUpInside)
-//
-//    }
-
-//    @objc func recordVideo() {
-//        print("Record button has been touched!")
-//        switch cameraManager.cameraOutputMode {
-//        case .videoOnly, .videoWithMic:
-//
-//            recordButton.tintColor = .red
-//            cameraManager.startRecordingVideo()
-//        default:
-//            cameraManager.stopVideoRecording { (videoURL, error) in
-////                if error != nil {
-////                    self.cameraManager.showErrorBlock("Error occured", "Cannot save video")
-////                }
-//                guard let videoURL = videoURL else {
-//                    return
-//                }
-//                do {
-//                    try FileManager.default.copyItem(at: videoURL, to: self.myVideoURL)
-//                }
-//                catch {
-//                    print(error)
-//
-//                }
-//            }
-//        }
-//    }
     @objc func doneItemFunc() {
-        //completion save to cloud
         dismiss(animated: true, completion: nil)
     }
 
-    
-    
-    func takeVideo() {
-        // 1 Check if project runs on a device with camera available
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            
-            // 2 Present UIImagePickerController to take video
-            pickerController.sourceType = .camera
-            pickerController.mediaTypes = [kUTTypeMovie as String]
-            pickerController.delegate = self
-            
-            present(pickerController, animated: true, completion: nil)
-        }
-        else {
-            print("Camera is not available")
-        }
-    }
+
 
     @objc func videoSaved(_ video: String, didFinishSavingWithError error: NSError!, context: UnsafeMutableRawPointer){
         if let theError = error {
@@ -121,38 +71,67 @@ class CameraViewController: UIViewController {
             })
         }
     }
-    
-    @IBAction func recordButtonPressed(_ sender: Any) {
-        
-        
+    func recordingInSession() {
         isRecording = !isRecording
-        
+
         if isRecording {
             if(cameraManager.cameraOutputMode == .stillImage) {
                 print("Camera output is stillImage, switching to videWithMic")
+                print(isRecording)
                 cameraManager.cameraOutputMode = CameraOutputMode.videoWithMic
+                print(cameraManager.cameraOutputMode)
             }
             cameraManager.startRecordingVideo()
-            print(cameraManager.cameraOutputMode)
         }
-        
         else {
-            
-            cameraManager.stopVideoRecording { (videoURL, recordError) in
-                print("it is not recording")
-                print(self.isRecording)
-                guard let videoURL = videoURL else {
-                    print("videoURL not working")
-                    return
-                }
-                print("videourl: \(videoURL)")
-                if (self.cameraManager.cameraOutputMode == .videoWithMic) {
-                    self.cameraManager.cameraOutputMode = CameraOutputMode.stillImage
-                }
-            }
-
+            stopButton.addTarget(self, action: #selector(stopPressed), for: .touchUpInside)
         }
         
+        
+    }
+    
+    @objc func stopPressed() {
+        print("stop pressed")
+        cameraManager.stopVideoRecording { (videoURL, recordError) in
+            print("it is not recording")
+            print("videourl: \(videoURL)")
+            print("recordError: \(recordError)")
+            if (self.cameraManager.cameraOutputMode == .videoWithMic) {
+                self.cameraManager.cameraOutputMode = CameraOutputMode.stillImage
+            }
+        }
+    }
+    
+
+    
+    @IBAction func recordButtonPressed(_ sender: Any) {
+//        isRecording = !isRecording
+//        if isRecording {
+//            if(cameraManager.cameraOutputMode == .stillImage) {
+//                cameraManager.cameraOutputMode = CameraOutputMode.videoWithMic
+//                print(cameraManager.cameraOutputMode)
+//            }
+//            cameraManager.startRecordingVideo()
+//        }
+//
+//        else {
+//
+//            cameraManager.stopVideoRecording { (videoURL, recordError) in
+//                print("it is not recording")
+//                print(self.isRecording)
+//                guard let videoURL = videoURL else {
+//                    print("videoURL not working")
+//                    return
+//                }
+//                print("videourl: \(videoURL)")
+//                if (self.cameraManager.cameraOutputMode == .videoWithMic) {
+//                    self.cameraManager.cameraOutputMode = CameraOutputMode.stillImage
+//                    print(self.cameraManager.cameraOutputMode)
+//                }
+//            }
+//
+//        }
+
     }
     
 

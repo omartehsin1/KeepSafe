@@ -15,7 +15,10 @@ import SwiftyJSON
 
 class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
+    @IBOutlet weak var theSearchBar: UISearchBar!
     var locationManager = CLLocationManager()
+    
+    @IBOutlet weak var theMapView: UIView!
     var currentLocation: CLLocation?
     var mapView: GMSMapView!
     var userCurrentLocation : GMSMarker?
@@ -28,9 +31,13 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     var theLocations : CLLocation?
     let myCircleTrackingView = TrackingView()
     let guardianTrackingView = GuardianView()
+     //let searchBar = UISearchBar()
+    let searchController = UISearchController(searchResultsController: nil)
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //api key: AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -44,23 +51,35 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
         GMSServices.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
     GMSPlacesClient.provideAPIKey("AIzaSyDwRXi5Q3L1rTflSzCWd4QsRzM0RwcGjDM")
         
-//        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
-//
-//        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        mapView.isMyLocationEnabled = true
-//        
-//        view = mapView
+        let camera = GMSCameraPosition.camera(withLatitude: 43.6789923, longitude: -79.3120105, zoom: 17)
+
+        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        mapView.isMyLocationEnabled = true
+        mapView.frame = CGRect(x: 0, y: 120, width: 414, height: 547)
+        view.addSubview(mapView)
+        theSearchBar.delegate = self
+        theSearchBar.placeholder = "Search Location"
+        
+       //view = mapView
+        
 
         locationManager.startUpdatingLocation()
         myCircleTrackingView.isHidden = true
         guardianTrackingView.isHidden = true
 
         notificationCenter()
+        
+        //createSearchBar()
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
         //createCameraButton()
+
 
         //Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.startLiveLocation), userInfo: nil, repeats: true)
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         createFriendMarker()
         myCircleTrackingViewBar()
         guardianTrackingViewBar()
@@ -138,7 +157,7 @@ class LocationServicesViewController: UIViewController, GMSMapViewDelegate {
     
 
 }
-//contactus@torontohydro.com power reliability vulnerability
+
 extension LocationServicesViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         theLocations = locations.last
@@ -174,6 +193,7 @@ extension LocationServicesViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(alertWolf), name: NSNotification.Name(rawValue: "AlertWolf"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(confirmStopFollowingMe), name: NSNotification.Name(rawValue: "ConfirmStopFollowingMe"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(confirmStopTracking), name: NSNotification.Name(rawValue: "ConfirmStopTracking"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name(rawValue: "ShowPlaces"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showReportCrime), name: NSNotification.Name("ShowReportCrime"), object: nil)
         //NotificationCenter.default.addObserver(self, selector: #selector(showPlaces), name: NSNotification.Name("ShowPlaces"), object: nil)
 
@@ -194,12 +214,12 @@ extension LocationServicesViewController {
     }
 //    @objc func showReportCrime() {
 //        performSegue(withIdentifier: "ShowReportCrime", sender: nil)
-//        
+//
 //    }
-//    @objc func showPlaces() {
-//        performSegue(withIdentifier: "ShowPlaces", sender: nil)
-//        
-//    }
+    @objc func showPlaces() {
+        performSegue(withIdentifier: "ShowPlaces", sender: nil)
+        
+    }
     
     @objc func showTrackingView() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
@@ -370,5 +390,37 @@ extension LocationServicesViewController {
             }
         }
     }
+}
+
+extension LocationServicesViewController: UISearchBarDelegate, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if searchController.searchBar.text! == "" {
+            print("Hello!")
+        }
+//        else {}
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "searchLocationModal") as! SearchLocationModalViewController
+        controller.passLocationCoordinatesBackDelegat = self
+        //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        //self.navigationController?.present(controller, animated: true, completion: nil)
+        self.present(controller, animated: true, completion: nil)
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("Now you're typing in me!")
+    }
+ 
+    
+}
+
+extension LocationServicesViewController: PassLocationCoordinatesBack {
+    func didTapCell(coordinates: [CLLocationCoordinate2D]) {
+        for locCoordinates in coordinates {
+            _ = self.markerCreater(location: locCoordinates, title: "Here", image: "defaultUser")
+        }
+    }
+    
+    
 }
 

@@ -16,14 +16,15 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
     
     
     private let cellID = "cellID"
-    var messagesArray: [Message] = [Message]()
+    //var messagesArray: [Message] = [Message]()
+    var chatMessageArray: [ChatMessage] = [ChatMessage]()
     var users = [Users]()
     let textField = UITextView()
     let button = UIButton(type: .system)
     var recepient = String()
     let timestamp = ServerValue.timestamp()
     var toID = String()
-    let messageDB = FirebaseConstants.messagesDatabase
+    //let messageDB = FirebaseConstants.messagesDatabase
     let SOSDatabase = FirebaseConstants.SOSDatabase
     
     override func viewDidLoad() {
@@ -39,75 +40,81 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
         createTextView()
         createButton()
         button.addTarget(self, action: #selector(sendPressed), for: .touchUpInside)
+        
     }
     
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return messagesArray.count
+        return chatMessageArray.count
+        //return messagesArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChatCell
          let myUID = Auth.auth().currentUser?.uid
         let ref = Database.database().reference().child("users")
-        //let message = messagesArray[indexPath.row]
-        cell.messageTextView.text = messagesArray[indexPath.row].messageBody
         
-        if (messagesArray[indexPath.row].fromID != myUID!) {
-            navigationItem.title = messagesArray[indexPath.row].sender
+        cell.messageTextView.text = chatMessageArray[indexPath.row].messageBody
+
+        
+        if(chatMessageArray[indexPath.row].fromID != myUID!) {
+            navigationItem.title = chatMessageArray[indexPath.row].sender
         } else {
-            navigationItem.title = messagesArray[indexPath.row].recepient
+            navigationItem.title = chatMessageArray[indexPath.row].recepient
         }
         
-        if let messageText = messagesArray[indexPath.item].messageBody {
-            //, profileImageName = messagesArray[indexPath.item].profileimage(or we)
-            //cell.profileImageView.image = UIImage(named: "defaultUser")
-            let size = CGSize(width: 250, height: 1000)
-            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-            let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)], context: nil)
-            
-            if messagesArray[indexPath.row].sender == Auth.auth().currentUser?.email {
-                cell.messageTextView.frame = CGRect(x:view.frame.width - estimatedFrame.width - 16 - 16, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
-                cell.textBubbleView.frame = CGRect(x: view.frame.width - estimatedFrame.width - 16 - 8 - 16, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
-                cell.textBubbleView.backgroundColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
-                cell.messageTextView.textColor = UIColor.white
-                cell.profileImageView.isHidden = true
-            }
-                
-            else {
-                cell.messageTextView.frame = CGRect(x:48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
-                cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
-                cell.textBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
-                cell.messageTextView.textColor = UIColor.black
-                ref.child(messagesArray[indexPath.row].fromID!).observeSingleEvent(of: .value) { (snapshot) in
-                    if let dictionary = snapshot.value as? [String: AnyObject] {
-                        if let profileImageURL = dictionary["profileImageURL"] as? String {
-                            cell.profileImageView.isHidden = false
-                            cell.profileImageView.loadImageUsingCache(urlString: profileImageURL)
-                        }
+        if let messageText = chatMessageArray[indexPath.item].messageBody {
+        let size = CGSize(width: 250, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)], context: nil)
+        
+        if chatMessageArray[indexPath.row].sender == Auth.auth().currentUser?.email {
+            cell.messageTextView.frame = CGRect(x:view.frame.width - estimatedFrame.width - 16 - 16, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+            cell.textBubbleView.frame = CGRect(x: view.frame.width - estimatedFrame.width - 16 - 8 - 16, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+            cell.textBubbleView.backgroundColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
+            cell.messageTextView.textColor = UIColor.white
+            cell.profileImageView.isHidden = true
+        } else {
+            cell.messageTextView.frame = CGRect(x:48 + 8, y: 0, width: estimatedFrame.width + 16, height: estimatedFrame.height + 20)
+            cell.textBubbleView.frame = CGRect(x: 48, y: 0, width: estimatedFrame.width + 16 + 8, height: estimatedFrame.height + 20)
+            cell.textBubbleView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            cell.messageTextView.textColor = UIColor.black
+            ref.child(chatMessageArray[indexPath.row].fromID!).observeSingleEvent(of: .value) { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    if let profileImageURL = dictionary["profileImageURL"] as? String {
+                        cell.profileImageView.isHidden = false
+                        cell.profileImageView.loadImageUsingCache(urlString: profileImageURL)
                     }
                 }
             }
+            }
         }
         
-        //cell.message = message
+        
         return cell
     }
+
     func retrieveChat() {
-        //var messagesDictionary = [String: Message]()
-        messageDB.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
+        guard let myUID = Auth.auth().currentUser?.uid else {return}
+        
+        let reference = Database.database().reference().child("user-messages").child(myUID).child(toID)
+        reference.observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
-                let message = Message()
-                message.fromID = dictionary["fromID"] as? String
-                message.messageBody = dictionary["messageBody"] as? String ?? ""
-                message.recepient = dictionary["recepient"] as? String ?? ""
-                message.sender = dictionary["sender"] as? String ?? ""
-                message.timestamp = dictionary["timestamp"] as? Double
-                message.toID = dictionary["toID"] as? String ?? ""
+                let chatMessage = ChatMessage()
+                chatMessage.id = reference.key as? String
+                chatMessage.fromID = dictionary["fromID"] as? String
+                chatMessage.messageBody = dictionary["messageBody"] as? String
+                chatMessage.recepient = dictionary["recepient"] as? String
+                chatMessage.sender = dictionary["sender"] as? String
+                chatMessage.timeStamp = dictionary["timestamp"] as? Double
+               chatMessage.toID = dictionary["toID"] as? String
                 
-                self.messagesArray.append(message)
+                
+
+                self.chatMessageArray.append(chatMessage)
+    
                 
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
@@ -115,31 +122,41 @@ class FriendMessageCollectionViewController: UICollectionViewController, UIColle
                 
             }
         }
-        SOSDatabase.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let message = Message()
-                message.messageBody = dictionary["SOSMessage"] as? String ?? ""
-                message.toID = dictionary["toID"] as? String ?? ""
-                
-                self.messagesArray.append(message)
-                
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
+        
+//        SOSDatabase.queryOrdered(byChild: "toID").queryEqual(toValue: toID).observe(.childAdded) { (snapshot) in
+//            if let dictionary = snapshot.value as? [String: AnyObject] {
+//                //let message = Message()
+//                //message.messageBody = dictionary["SOSMessage"] as? String ?? ""
+//                //message.toID = dictionary["toID"] as? String ?? ""
+//
+//                //self.messagesArray.append(message)
+//
+//                let chatMessage = ChatMessage(id: " ", fromID: " ", messageBody: dictionary["SOSMessage"] as? String ?? "", recepient: " ", sender: " " , timeStamp: 2, toID: dictionary["toID"] as? String ?? "")
+//
+//                self.chatMessageArray.append(chatMessage)
+//
+//                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+//                }
+//            }
+//        }
         
         
         
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let messageText = messagesArray[indexPath.item].messageBody {
+        
+        
+        
+        if let messageText = chatMessageArray[indexPath.item].messageBody {
             let size = CGSize(width: 250, height: 1000)
             let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
             let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)], context: nil)
             
             return CGSize(width: view.frame.width, height: estimatedFrame.height + 20)
+            
         }
+        
         
         return CGSize(width: view.frame.width, height: 100)
     }
@@ -229,7 +246,10 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     func createTextView() {
         
         textField.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
-        textField.backgroundColor = .lightGray
+        //textField.backgroundColor = .lightGray
+        textField.backgroundColor = UIColor.init(displayP3Red: 228, green: 232, blue: 220, alpha: 1.0)
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.black.cgColor
         view.addSubview(textField)
         
         
@@ -250,7 +270,7 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     }
     func createButton() {
         button.backgroundColor = UIColor.orange
-        button.setTitle("Click Me", for: .normal)
+        button.setTitle("Send", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -280,24 +300,32 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     @objc func sendPressed() {
         guard let myUID = Auth.auth().currentUser?.uid else {return}
         //        let messageDB = Database.database().reference().child("users").child(myUID).child("Messages").childByAutoId()
-        let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
+        //let messageDB = FirebaseConstants.messagesDatabase.childByAutoId()
+        let reference = Database.database().reference().child("user-messages").child(myUID).child(toID).childByAutoId()
+        let toReference = Database.database().reference().child("user-messages").child(toID).child(myUID).childByAutoId()
         guard let messageBody = textField.text else {return}
+        guard let myEmail = Auth.auth().currentUser?.email else {return}
+        let refKey = reference.key!
         
-        let messageDictionary: NSDictionary = ["sender": Auth.auth().currentUser?.email as! String, "messageBody": textField.text, "recepient": recepient, "timestamp": timestamp, "fromID": myUID, "toID": toID ]
+        let chatMessage : NSDictionary = ["id": refKey, "fromID": myUID, "messageBody": messageBody, "recepient": recepient, "sender": myEmail, "timestamp": timestamp, "toID": toID]
         
-        messageDB.setValue(messageDictionary) {
-            (error, ref) in
+        reference.setValue(chatMessage)
+        toReference.setValue(chatMessage)
+        
+        let latestMessageRef = Database.database().reference().child("latest-messages").child(myUID).child(toID)
+        latestMessageRef.setValue(chatMessage) { (error, ref) in
             if error != nil {
                 print(error!)
             }
             else {
                 print("Message Saved Successfully!")
             }
-            let sender = PushNotificationSender()
             
+            let sender = PushNotificationSender()
+
             let usersRef = Firestore.firestore().collection("users_table").document(self.toID)
             guard let theEmail = Auth.auth().currentUser?.email else {return}
-            
+
             usersRef.getDocument(completion: { (docSnapshot, error) in
                 guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
                 guard let myData = docSnapshot.data() else {return}
@@ -311,7 +339,14 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
                 self.textField.text = ""
                 
             }
+            
+            
         }
+        
+        let latestMessageToRef = Database.database().reference().child("latest-messages").child(toID).child(myUID)
+        latestMessageToRef.setValue(chatMessage)
+        
+        
         
     }
     
@@ -321,13 +356,4 @@ extension FriendMessageCollectionViewController: UITextFieldDelegate, UITextView
     }
 }
 
-/*
- var senderid = String()
- var displayName = String()
- if let id = Auth.auth().currentUser?.uid, let name = Auth.auth().currentUser?.email {
- senderid = id
- displayName = name
- }
- 
- return Sender(id: senderid, displayName: displayName)
- */
+
